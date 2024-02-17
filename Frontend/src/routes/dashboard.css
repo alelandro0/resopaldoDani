@@ -1,0 +1,265 @@
+@import url(https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css);
+.perfil{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 45px;
+    margin-right: 200px;
+    
+}
+.publiText{
+    width: 100vh;
+    margin: 25px;
+}
+.textarea{
+    width: 520px;
+    padding: 6px;
+    font-size: 20px;
+    resize: none; /* Evita que el usuario pueda redimensionar el área de texto */
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); 
+}
+.textarea:hover{
+  box-shadow: 10px 10px 5px rgba(6, 48, 235, 0.1); 
+  
+}
+
+.profile-image{
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+    clip-path: circle(50%);
+    position: absolute;
+    border: 5px solid #bbb ;
+    top: 0;
+    left: -28px;
+    border-radius: 50%;
+   
+}
+.profile-header {
+    position: relative;
+    width: 200px;
+    height: 200px;
+   
+    
+}
+.nuestroinput{
+    position: relative;
+    display: inline-block;
+    margin: 20px;
+    max-width: 190px;
+    width: 100%;
+    color: #bbb;
+    font-size: 16px;
+    box-shadow: none !important;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    text-align: center;
+}
+.nuestroinput *,
+.nuestroinput:before,
+.nuestroinput:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+}
+.nuestroinput:before,
+.nuestroinput:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-radius: 50%;
+  content: '';
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: -1;
+  border: 5px solid #bbb;
+  border-color: transparent #bbb;
+}
+.nuestroinput .profile-image {
+    max-width: 100%;
+    backface-visibility: hidden;
+    vertical-align: top;
+    border-radius: 50%;
+    padding: 10px;
+  }
+  .nuestroinput figcaption {
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 50%;
+  }
+.nuestroinput:hover figcaption,
+.nuestroinput.hover figcaption {
+  opacity: 1;
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+.nuestroinput:hover:before,
+.nuestroinput.hover:before,
+.nuestroinput:hover:after,
+.nuestroinput.hover:after {
+  border-width: 10px;
+}
+.nuestroinput:hover:before,
+.nuestroinput.hover:before {
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.nuestroinput:hover:after,
+.nuestroinput.hover:after {
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+.profile-header {
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-image {
+  max-width: 100%;
+}
+.publicacion {
+  background: url('https://firebasestorage.googleapis.com/v0/b/react-firebase-upload-480ee.appspot.com/o/logo%2Fgaleria-de-imagenes.png_1708190338903?alt=media&token=c5efea73-ee90-493c-9e10-be8711fc69c8');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 30px;
+  cursor: pointer;
+  margin-right: 18px;
+}
+
+.button {
+    
+  /* position: relative; */
+  background: url('https://firebasestorage.googleapis.com/v0/b/react-firebase-upload-480ee.appspot.com/o/logo%2Fpicture_photo_image_icon_131252.png_1707681722853?alt=media&token=8ac8c804-c417-4d5d-b9bc-04c78e4f29e5'); /* Fondo semitransparente */
+  color: black;
+  border: none;
+  padding: 15px;
+  height: 100px;
+  margin-left: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  
+  /* cursor: pointer; */
+  /* z-index: 1; Asegura que el botón esté sobre la imagen */
+  /* opacity: 0; Inicialmente invisible */
+  /* transition: opacity 0.3s; Transición suave */
+}
+.button:hover{
+  cursor: pointer;
+}
+.position-Btn {
+  margin-top: 200px;
+  width: 200px;
+  height: 500px;
+  text-align: center;
+}
+.btnPublication{
+  margin: 0;
+  background: url('https://firebasestorage.googleapis.com/v0/b/react-firebase-upload-480ee.appspot.com/o/logo%2Fdigital-marketing_5809330.png_1708189077564?alt=media&token=8239108c-8e08-4f52-a15b-940e72087ea4');
+  background-position: center;
+  background-size: contain;
+  width: 50px;
+  height: 50px;
+  border: none;
+  cursor: pointer;
+}
+.btnPublication:hover{
+ 
+ border-radius: 30px;
+}
+.collageImage {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.card {
+  width: 400px; /* Ancho de la tarjeta */
+  margin: 10px; /* Espacio entre las tarjetas */
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 10px;
+}
+
+.card-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+.decription {
+  font-size: 26px;
+  color: #333;
+  padding: 10px;
+  
+}
+.componet{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    list-style: none;
+    padding: 15px;
+}
+#profileImageInput{
+    width: 100%;
+}
+.delete{
+  display: flex;
+  justify-content: space-between;
+}
+.recycle {
+  background: url('https://firebasestorage.googleapis.com/v0/b/react-firebase-upload-480ee.appspot.com/o/logo%2Fgarbage_trash_bin_delete_icon_219499.png_1708126310723?alt=media&token=e18a3927-8831-43cc-a55c-778e046fc7ea');
+  /* background-position: unset; */
+  background-size: contain;
+  /* background-repeat: no-repeat; */
+  width: 35px;
+  height: 35px;
+  border: none;
+}
+
+.recycle:hover{
+  background: url('https://th.bing.com/th/id/OIP.z_qnjH_BuWiFocmZmiqv1AAAAA?rs=1&pid=ImgDetMain');
+  background-size: contain;
+  background-position: center center;
+}
+.delete-message {
+  background:white;
+  color: black; /* Color del texto */
+  padding: 3px; /* Espaciado interior */
+  border-radius: 5px; /* Bordes redondeados */
+  font-size: 16px; /* Tamaño de la fuente */
+  position: absolute; /* Posición absoluta para superponer el mensaje */
+  top: 67%; /* Alinea el mensaje en la mitad superior del contenedor padre */
+  left: 50%; /* Alinea el mensaje en el centro horizontal del contenedor padre */
+  transform: translate(-50%, -50%); /* Centra el mensaje horizontal y verticalmente */
+  z-index: -1; /* Asegura que el mensaje esté en la parte superior */
+  padding-left: 20px; /* Alinea el texto en el centro */
+  width: 400px; /* Ancho del mensaje */
+  border-radius: 20px;
+}
+.citas{
+  background: url("https://firebasestorage.googleapis.com/v0/b/react-firebase-upload-480ee.appspot.com/o/logo%2Fcita-medica.png_1707712134408?alt=media&token=5c2f059f-0050-4e21-8706-cf0964c8ef3f");
+  padding: 25px;
+  border: none;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}

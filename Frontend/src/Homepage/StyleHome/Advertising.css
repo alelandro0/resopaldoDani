@@ -1,0 +1,36 @@
+.container-father-Advertising {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100%;
+    margin: 0 auto;
+    height: 420px;
+    background-color: rgba(234, 233, 233, 0.87);
+}
+
+.container-text-Advertising {
+    width: 30%;
+    box-sizing: border-box;
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-text img {
+    max-width: 100%;
+}
+
+.h1-Advertising {
+    font-size: 1.5em;
+}
+
+.p-Advertising {
+    font-size: 1em;
+}
+
+.icono-advertising {
+    width: 95px;
+    height: 95px;
+    margin: auto;
+}

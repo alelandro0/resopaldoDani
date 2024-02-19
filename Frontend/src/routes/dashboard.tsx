@@ -9,6 +9,13 @@ type Publicacion = {
   _id:string;
 };
 
+type allUserPost = {
+  image: string;
+  description: string;
+  _id:string;
+  name:string;
+};
+
 export default function Dashboard() {
   const auth = useAuth();
   
@@ -16,13 +23,20 @@ export default function Dashboard() {
   const [downloadURL, setDownloadURL] = useState("");
   const [description, setDescription] = useState("");
   const [publicaciones, setPublicaciones] = useState<Publicacion[]>([]);
+  const [publicacionesUsuarios, setPublicacionesUsuarios] = useState<allUserPost[]>([]);
   const [error, setError] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null); // Referencia para el input de tipo file
   const descriptionTextareaRef = useRef<HTMLTextAreaElement>(null);
   
+  const [isVisible, setIsVisible] = useState(false);
 
+  useEffect(() => {
+    // Ocultar el ul al inicio de la aplicación
+    setIsVisible(false);
 
-   
+    // Lógica para obtener las publicaciones de todos los usuarios
+    getPublishAllUsers();
+  }, []);
 
   useEffect(() => {
     getImageProfile()// Llama a la función para obtener la imagen de perfil cuando el componente se monta
@@ -31,9 +45,23 @@ export default function Dashboard() {
   useEffect(() => {
     obtenerTodasLasPublicaciones()// Llama a la función para obtener la imagen de perfil cuando el componente se monta
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, []);
 
-  
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    // Agrega aquí la lógica para obtener todas las publicaciones
+    // Puedes llamar a la función que obtiene las publicaciones aquí
+    // Por ejemplo: await getPublishAllUsers();
+    setIsVisible(true); // Muestra la lista de publicaciones después de obtenerlas
+  };
+
+  const handleFormSubmitFalse = async (event) => {
+    event.preventDefault();
+    // Agrega aquí la lógica para obtener todas las publicaciones
+    // Puedes llamar a la función que obtiene las publicaciones aquí
+    // Por ejemplo: await getPublishAllUsers();
+    setIsVisible(false); // Muestra la lista de publicaciones después de obtenerlas
+  };
 
   async function handleProfileImageChange(files: FileList | null) {
     try {
@@ -174,10 +202,8 @@ export default function Dashboard() {
     try {
       const accessToken = auth.getAccessToken();
       console.log('token de obtener la publicada ', accessToken);
-     console.log('elemetos de user',auth.getUser());
-    
-     
-     
+      console.log('elemetos de user',auth.getUser());
+
       const id= auth.getUser()?.id
       console.log('ID of user',id);
       const response = await fetch(`http://localhost:5000/api/publicationget/${id}`, {
@@ -210,9 +236,40 @@ export default function Dashboard() {
       }
     }
   };
+
+  const getPublishAllUsers = async () => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/publicationgetAll`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      console.log('GET publicaciones', response);
+  
+      if (!response.ok) {
+        throw new Error('Error al obtener todas las publicaciones all');
+      }
+      const data = await response.json();
+  
+      // Ordenar las publicaciones por fecha de forma descendente
+      const publicacionesOrdenadas = data.publications.slice().reverse();
+
+      console.log( 'estas son las puplicaiones en el orden que se debe revisar all',publicacionesOrdenadas);
+      
+      setPublicacionesUsuarios(publicacionesOrdenadas);
+      console.log('este es data de la publicacion traida all ', publicacionesOrdenadas);
+    } catch (error) {
+      if (typeof error === 'string') {
+        setError(error);
+      } else {
+        console.log("error al treer la publicacion all");
+      }
+    }
+  };
+
   async function handleDeletePublication(publicationId:string) {
     try {
-       const idPublicacion= auth.getUser.publicacion
       console.log('ID de la publicación a eliminar:', publicationId);
       
 
@@ -264,30 +321,47 @@ export default function Dashboard() {
           ) : null}
         </div>
 
-        <form className="publiText" encType="multipart/form-data" onSubmit={postPublication}>
-          <input type="file"
-            ref={fileInputRef}
-            name="file" 
-            style={{ display: "none" }}
-            id='Publicacion'/>
-            <label className='publicacion' htmlFor="Publicacion"></label>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <form className="publiText" encType="multipart/form-data" onSubmit={postPublication}>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <input type="file"
+                ref={fileInputRef}
+                name="file"
+                style={{ display: "none" }}
+                id='Publicacion' />
+              <label className='publicacion' htmlFor="Publicacion"></label>
+              <textarea
+                className="textarea"
+                name="description"
+                placeholder="Escribe nueva publicacion"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                ref={descriptionTextareaRef} />
+              <button
+                className="btnPublication"
+                type="submit"></button>
+            </div>
+          </form>
 
-          <textarea
-            className="textarea"
-            name="description"
-            placeholder="Escribe nueva publicacion"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            ref={descriptionTextareaRef} />
-          <h2 style={{ color: 'black', marginTop: '60px' }}>Publicaciones </h2>
-          {error && <p>Error: {error}</p>}
-          <button
-            className="btnPublication"
-            type="submit"></button>
-        </form>
+          <form className="publiText" encType="multipart/form-data" onSubmit={handleFormSubmitFalse} style={{ alignSelf: "flex-end", flexDirection: "row-reverse" }}>
+            <div>
+              <h3 style={{ color: 'black' }}>Mis publicaciones </h3>
+              <button className="btnViewAll" type="submit"></button>
+            </div>
+          </form>
+
+          <form className="publiText" encType="multipart/form-data" onSubmit={handleFormSubmit} style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <div style={{ alignItems: 'flex-end', margin: -130 }}>
+              <h3 style={{ color: 'black', margin: 0 }}>Ver todo</h3>
+              <button className="btnViewAll" type="submit"></button>
+            </div>
+          </form>
+
+        </div>
+
       </div>
-      
-      <ul className='collageImage'>
+
+      <ul className='collageImage' >
      
         {publicaciones.map((publicacion, index) => (
           <li className='card' key={index}>
@@ -303,6 +377,31 @@ export default function Dashboard() {
           </li>
         ))}
       </ul>
+
+      {isVisible && (
+        <ul className='collageImageAll'>
+          {(publicacionesUsuarios as any[]).map((publicacion, index) => (
+            <li className='card' key={index}>
+              <div className='delete'>
+                {(publicacion as any[]).map((item1, subIndex) => (<h2 key={subIndex}> {item1.name ?? ""}</h2>))}
+                <button
+                  className='recycle'
+                  onClick={() => handleDeletePublication(publicacion._id)}>
+                </button>
+              </div>
+              {/* Recorrer cada publicación dentro del subarray */}
+              {(publicacion as any[]).map((item, subIndex) => (
+                <div key={subIndex}>
+                  <p className='decription'> {item.description}</p>
+                  <img className='card-image' src={item.image} alt="" />
+                  <button className='citas'></button><h4>AGENDA</h4>
+                </div>
+              ))}
+            </li>
+          ))}
+        </ul>
+      )}
+
 
     </PortalLayout>
   );  

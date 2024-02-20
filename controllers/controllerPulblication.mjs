@@ -57,7 +57,32 @@ export const getPublication = async (req, res) => {
     }
 };
 
+export const getPublicationAll = async (req, res) => {
+    try {
+        const users = await User.find();
+        console.log("BD todos los usuarios all", users);
 
+        if (!users || users.length === 0) {
+            return res.status(404).json({ message: "No se encontraron usuarios all" });
+        }
+
+        const publications = users.map(user => {
+            const nombre = user.name;
+            return user.publication.filter(pub => pub.estado === true)
+                                     .map(pub => ({
+                                         image: pub.image,
+                                         description: pub.description,
+                                         name : nombre
+                                     }));
+        });
+
+        console.log("BD get publicacion all", publications);
+        return res.status(200).json({ publications });
+    } catch (error) {
+        console.error("Error al obtener las publicaciones:", error);
+        return res.status(500).json({ message: "Error interno del servidor" });
+    }
+};
 
 export const deletePublication = async (req, res) => {
     try {

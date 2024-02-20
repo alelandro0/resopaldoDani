@@ -8,6 +8,7 @@ import { router as images } from "./routes/images.mjs"
 import { router as getImage  } from "./routes/imageGet.mjs";
 import {router as publicationPost} from "./routes/routesPublicationPost.mjs"
 import {router as publicationGet  } from "./routes/routerPublicGet.mjs";
+import {router as publicationGetAll  } from "./routes/routerPublicGetAll.mjs";
 import { authenticate } from "./middleware/authenticate.mjs";
 import dotenv from "dotenv"
 import { Server as SocketServer } from "socket.io";
@@ -56,7 +57,8 @@ app.use("/api/delete",authenticate,DeletePubli )
 app.use("/api/upload",authenticate , images);
 app.use("/api/getImage", getImage);
 app.use("/api/publicationpost", authenticate, publicationPost)
-app.use("/api/publicationget", publicationGet)
+app.use("/api/publicationget", publicationGet);
+app.use("/api/publicationgetAll", publicationGetAll);
 
 server.listen(expressPort, () => {
     console.log(`El servidor de Express se está ejecutando en el puerto: ${expressPort}`);

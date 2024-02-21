@@ -68,11 +68,11 @@ export default function Login(){
     <section className="father">
         <div className="wrapper">
           <form action="" onSubmit={handleSubmit}>
-            <h1>Login</h1>
+            <h1>Iniciar Sesión</h1>
             {!!errorResponse && <div className="errorMessage">{errorResponse}</div>}
             <div className="input-box">
               <input type="text"
-               placeholder="Email" 
+               placeholder="Correo Electronico" 
                value={username}
                required 
                onChange={(e)=>setUsername(e.target.value)}></input>
@@ -81,7 +81,7 @@ export default function Login(){
             <div className="input-box">
               <input 
               type="password" 
-              placeholder="Password" 
+              placeholder="Contraseña" 
               value={password}
               required 
               onChange={(e)=>setPassword(e.target.value)}></input>
@@ -89,16 +89,16 @@ export default function Login(){
             </div>
             <div className="remember-forgot">
               <label>
-                <input type="checkbox" />Remember Me
+                <input type="checkbox" />Recordar Usuario
               </label>
-              <a href="#">¿Forgot Password?</a>
+              <a href="#">¿Has olvidado tu contraseña?</a>
             </div>
             <button type="submit" className="btn">
-              Login
+              Iniciar Sesión
             </button>
             <div className="register-link">
               <p>
-                Don't have an account? <a href="/signup">Register</a>
+              ¿No tienes una cuenta? <a href="/signup">Registrarse</a>
               </p>
             </div>
           </form>

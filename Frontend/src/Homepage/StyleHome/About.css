@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     height: 550px;
-    background-color: rgba(75,90,101,255);
+    background-color: #515151;
   }
   
   .Container-image-About {
@@ -35,7 +35,7 @@
     color: #fff;
   }
   .h1-About span{
-    color: #8d989c;
+    color: #b5b5b5;
   }
   .h1-About span:hover{
     color: #fff;
@@ -49,4 +49,64 @@
     margin-top: 20px; 
     color: #fff;
   }
+
+  @media only screen and (max-width: 480px) {
+    .Container-father-About {
+      flex-direction: column; 
+      height: auto; 
+    }
+  
+    .Container-image-About img {
+      max-width: 80%; 
+      border: 10px solid #000;
+      margin-bottom: 20px; 
+      padding-top: 20px;
+    }
+  
+    .Container-text-About {
+      padding: 0; 
+    }
+    .h1-About {
+      font-size: 30px;
+    }
+  }
+
+  @media only screen and (max-width: 768px){
+    .Container-father-About{
+      height: 100vh;
+      flex-direction: column;
+    }
+    .Container-image-About img{
+      padding-top: 25px;
+    }
+    .Container-image-About{
+      display: contents;
+    }
+    .Container-text-About{
+      padding-top: 30px;
+    }
+    .h1-About{
+      font-size: 40px;
+    }
+  }
+
+  @media only screen and (max-width: 1200px){
+    .Container-father-About{
+      height: 100vh;
+      flex-direction: column;
+    }
+    .Container-image-About img{
+      padding-top: 25px;
+    }
+    .Container-image-About{
+      display: contents;
+    }
+    .Container-text-About{
+      padding-top: 30px;
+    }
+    .h1-About{
+      font-size: 40px;
+    }
+  }
+
   

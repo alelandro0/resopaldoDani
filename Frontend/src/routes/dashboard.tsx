@@ -347,9 +347,9 @@ export default function Dashboard() {
             />
           ) : null}
         </div>
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        <div>
           <form className="publiText" encType="multipart/form-data" onSubmit={postPublication}>
-            <div >
+            <div className='post'>
               <input type="file"
                 ref={fileInputRef}
                 name="file"
@@ -365,17 +365,17 @@ export default function Dashboard() {
                 ref={descriptionTextareaRef} />
               {error && <p>Error: {error}</p>}
               <button
-                className="btn btn-dark my-2"
+                className="btn-btn-dark-my-2"
                 type="submit">Publicar</button>
             </div>
           </form>
           <form className="publiText" encType="multipart/form-data" onSubmit={handleFormSubmitFalse} style={{ alignSelf: "flex-end", flexDirection: "row-reverse" }}>
             <div>
-              <h3 style={{ color: 'black' }}>Mis publicaciones </h3>
+              <h3>Mis publicaciones </h3>
               <button className="btnViewAll" type="submit"></button>
             </div>
           </form>
-
+            
           <form className="publiText" encType="multipart/form-data" onSubmit={handleFormSubmit} style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <div style={{ alignItems: 'flex-end', margin: -130 }}>
               <h3 style={{ color: 'black', margin: 0 }}>Ver todo</h3>

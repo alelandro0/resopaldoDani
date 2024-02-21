@@ -1,6 +1,6 @@
 import Mongoose from "mongoose";
 import getUserInfo  from "../lib/getUserInfo.mjs";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { generateAccessToken, generateRefreshToken } from "../auth/generateTokens.mjs";
 import Token from "../models/token.mjs";
 

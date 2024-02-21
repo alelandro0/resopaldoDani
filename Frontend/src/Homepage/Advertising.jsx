@@ -9,7 +9,7 @@ export const Advertising = () => {
     <section className='container-father-Advertising'>
         <div className="container-text-Advertising">
             <img className='icono-advertising' src= {computer} alt="" />
-            <h1>EXPERIENCIA</h1>
+            <h1 className='h1-Advertising'>EXPERIENCIA</h1>
             <p className='p-Advertising' >Contamos con experiencia en nuestro campo. Tenemos un historial comprobado de éxito en los servicios que brindamos, contamos con los conocimientos necesarios para cumplir con las expectativas de nuestros clientes.
             </p>
         </div>

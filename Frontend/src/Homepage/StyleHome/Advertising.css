@@ -34,3 +34,30 @@
     height: 95px;
     margin: auto;
 }
+
+@media only screen and (max-width: 480px) {
+    .container-father-Advertising{
+      height: auto;
+      flex-direction: column;
+    }
+    .container-text-Advertising{
+      width: 50%;
+      padding-top: 22px;
+    }
+    .p-Advertising{
+      display: contents;
+    }
+
+  }
+
+  @media only screen and (max-width: 768px){
+    .container-father-Advertising{
+      flex-direction: column;
+      height: 100%;
+      justify-content:center;
+    }
+    .container-text-Advertising{
+        width: 50%;
+        padding-top: 22px;
+      }
+  }

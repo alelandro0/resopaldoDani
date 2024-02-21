@@ -27,22 +27,22 @@ export  function PortalLayout({children}: {children:React.ReactNode}){
 
     return (
         <>
-        <header>
+        <header className="header-dashboard">
           <nav className="box">
             <ul className="componet" style={{padding:20}}>
-              <li>
-                <Link style={{color:'black',fontSize:'25px', textDecoration:'none'}} to="/dashboard">Perfil</Link>
+              <li className="li-dashboard">
+                <Link style={{color:'White',fontSize:'18px', textDecoration:'none'}}  to="/dashboard">Bienvenido {auth.getUser()?.name ?? ""}</Link>
               </li>
-              <li>
-                <Link style={{color:'black',fontSize:'25px', textDecoration:'none'}}  to="/dashboard">Bienvenido {auth.getUser()?.name ?? ""}</Link>
+              <li className="li-dashboard">
+                <Link style={{color:'White',fontSize:'18px', textDecoration:'none'}} to="/dashboard">Perfil</Link>
               </li>
-              <li>
-                <a style={{color:'black',fontSize:'25px',textDecoration:'none'}} href="#" onClick={handleSignOut}>
+              <li className="li-dashboard">
+              <Link style={{color:'White',fontSize:'18px', textDecoration:'none'}}  to="/chat"  >Chat</Link>
+              </li>
+              <li >
+                <a style={{color:'White',fontSize:'18px',textDecoration:'none'}} href="#" onClick={handleSignOut}>
                   Salir
                 </a>
-              </li>
-              <li>
-              <Link style={{color:'black',fontSize:'25px', textDecoration:'none'}}  to="/chat"  >Chat</Link>
               </li>
             </ul>
           </nav>

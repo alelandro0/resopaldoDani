@@ -61,29 +61,29 @@ export default function Signup() {
       <section className="father">
         <div className="wrapper">
           <form onSubmit={handleSubmit}>
-            <h1>Signup</h1>
+            <h1>Registro</h1>
             {!!errorResponse && <div className="errorMessage">{errorResponse}</div>}
             <div className="input-box">
               <label>Nombre</label>
               <input type="text" value={name} onChange={(e) => setName(e.target.value)}></input>
             </div>
             <div className="input-box">
-              <label>Email</label>
+              <label>Correo</label>
               <input type="email" value={username} onChange={(e) => setUsername(e.target.value)}></input>
             </div>
             <div className="input-box">
-              <label>Password</label>
+              <label>Contraseña</label>
               <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
             </div>
             <div className="input-box">
-              <label>Type of user</label>
+              <label className="tipe-user">Tipo de usuario: </label>
               <select id="combo-box" value={roll} onChange={(e) => setRoll(e.target.value)}>
-              <option value="">-- Selecciona --</option>
+              <option value=""> -- Selecciona -- </option>
               <option value={client}>Cliente</option>
               <option value={Profesional}>Profesional</option>
             </select>
             </div>
-            <button type="submit" className="btn">Create User</button>
+            <button type="submit" className="btn">Registrarse</button>
           </form>
         </div>
       </section>

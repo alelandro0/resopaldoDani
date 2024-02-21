@@ -3,9 +3,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 45px;
-    margin-right: 200px;
-    
+    margin-top: 120px;
+}
+
+.post{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 .publiText{
     width: 100vh;
@@ -15,7 +19,7 @@
     width: 520px;
     padding: 6px;
     font-size: 20px;
-    resize: none; /* Evita que el usuario pueda redimensionar el área de texto */
+    resize: none; 
     background-color: #ffffff;
     border: 1px solid #cccccc;
     border-radius: 5px;
@@ -24,6 +28,13 @@
 .textarea:hover{
   box-shadow: 10px 10px 5px rgba(6, 48, 235, 0.1); 
   
+}
+
+.btn-btn-dark-my-2{
+  color: #fff;
+  background-color: #515151;
+  padding: 4px;
+  border-radius: 4px;
 }
 
 .profile-image{
@@ -145,8 +156,6 @@
 }
 
 .button {
-    
-  /* position: relative; */
   background: url('https://firebasestorage.googleapis.com/v0/b/react-firebase-upload-480ee.appspot.com/o/logo%2Fpicture_photo_image_icon_131252.png_1707681722853?alt=media&token=8ac8c804-c417-4d5d-b9bc-04c78e4f29e5'); /* Fondo semitransparente */
   color: black;
   border: none;
@@ -158,10 +167,7 @@
   background-position: center;
   color: white;
   font-size: 50px;
-  /* cursor: pointer; */
-  /* z-index: 1; Asegura que el botón esté sobre la imagen */
-  /* opacity: 0; Inicialmente invisible */
-  /* transition: opacity 0.3s; Transición suave */
+  
 }
 .button:hover{
   cursor: pointer;
@@ -221,13 +227,11 @@
 }
 
 .card {
-  width: 400px; /* Ancho de la tarjeta */
+  width: 400px; 
   height: 200px;
-  margin: 10px; /* Espacio entre las tarjetas */
+  margin: 10px; 
   border-radius: 10px;
   overflow: hidden;
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  padding: 10px;
 }
 
 .card-image {

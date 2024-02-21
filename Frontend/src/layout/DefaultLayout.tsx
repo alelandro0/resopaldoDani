@@ -19,13 +19,13 @@ export default function DefaultLayout({children}:DefaultLayoutProps){
                         <Link to="/">Inicio</Link>
                     </li>
                     <li className="li--layout">
-                        <Link to="/ServicesPage">Servicios</Link>
-                    </li>
+                        <Link to="/login">Iniciar Sesion</Link>
+                    </li>   
                     <li className="li--layout">
                         <Link to="/Signup">Registrarse</Link>
                     </li>
                     <li className="li--layout">
-                        <Link to="/login">Iniciar Sesion</Link>
+                        <Link to="/ServicesPage">Servicios</Link>
                     </li>
                 </ul>
             </nav>

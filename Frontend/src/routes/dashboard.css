@@ -33,9 +33,11 @@
     clip-path: circle(50%);
     position: absolute;
     border: 5px solid #bbb ;
-    top: 0;
+    top: -120px;
     left: -28px;
     border-radius: 50%;
+    position: absolute;
+    z-index: 1;
    
 }
 .profile-header {
@@ -154,7 +156,8 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  
+  color: white;
+  font-size: 50px;
   /* cursor: pointer; */
   /* z-index: 1; Asegura que el botón esté sobre la imagen */
   /* opacity: 0; Inicialmente invisible */
@@ -164,10 +167,12 @@
   cursor: pointer;
 }
 .position-Btn {
-  margin-top: 200px;
+  margin-top: -10px;
   width: 200px;
   height: 500px;
   text-align: center;
+  position: relative;
+  z-index: 2;
 }
 .btnPublication{
   margin: 0;
@@ -179,6 +184,20 @@
   border: none;
   cursor: pointer;
 }
+
+.btnViewAll{
+  margin: 0;
+  background: url('https://firebasestorage.googleapis.com/v0/b/react-firebase-upload-480ee.appspot.com/o/logo%2Fdigital-marketing_5809330.png_1708189077564?alt=media&token=8239108c-8e08-4f52-a15b-940e72087ea4');
+  background-position: center;
+  background-size: contain;
+  width: 50px;
+  height: 50px;
+  border: none;
+  cursor: pointer;
+}
+
+
+
 .btnPublication:hover{
  
  border-radius: 30px;
@@ -191,8 +210,19 @@
   flex-direction: column;
   align-items: center;
 }
+
+.collageImageAll {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .card {
   width: 400px; /* Ancho de la tarjeta */
+  height: 200px;
   margin: 10px; /* Espacio entre las tarjetas */
   border-radius: 10px;
   overflow: hidden;

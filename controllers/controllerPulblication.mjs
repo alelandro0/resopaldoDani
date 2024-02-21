@@ -1,6 +1,7 @@
 import User from '../models/user.mjs';
 import { uploadFileP } from './uploadPublication.mjs';
 
+
 export const postPublication = async (req, res) => {
     const image = req.files.file; // Obtener el primer archivo
     const description = req.body.description; // Obtener la primera descripción
@@ -14,6 +15,7 @@ export const postPublication = async (req, res) => {
 
         const { downloadURL } = await uploadFileP(image[0]);
         console.log('Inicio de la URL:', downloadURL);
+        
 
         userToUpdate.publication.push({
             image: downloadURL,
@@ -91,3 +93,29 @@ export const deletePublication = async (req, res) => {
     }
 };
 
+export const getPublicationAll = async (req, res) => {
+    try {
+        const users = await User.find();
+        console.log("BD todos los usuarios all", users);
+
+        if (!users || users.length === 0) {
+            return res.status(404).json({ message: "No se encontraron usuarios all" });
+        }
+
+        const publications = users.map(user => {
+            const nombre = user.name;
+            return user.publication.filter(pub => pub.estado === true)
+                                     .map(pub => ({
+                                         image: pub.image,
+                                         description: pub.description,
+                                         name : nombre
+                                     }));
+        });
+
+        console.log("BD get publicacion all", publications);
+        return res.status(200).json({ publications });
+    } catch (error) {
+        console.error("Error al obtener las publicaciones:", error);
+        return res.status(500).json({ message: "Error interno del servidor" });
+    }
+};

@@ -15,7 +15,7 @@ import crypto from "crypto";
 import main from "./validations/conectionServer.mjs";
 import http from "http";
 import { router as DeletePubli  } from "./routes/DeletePubli.mjs";
-
+import {router as publicationGetAll  } from "./routes/routerPublicGetAll.mjs";
 
 dotenv.config();
 const expressPort = process.env.PORT || 5000;
@@ -57,6 +57,7 @@ app.use("/api/upload",authenticate , images);
 app.use("/api/getImage", getImage);
 app.use("/api/publicationpost", authenticate, publicationPost)
 app.use("/api/publicationget", publicationGet)
+app.use("/api/publicationgetAll", publicationGetAll);
 
 server.listen(expressPort, () => {
     console.log(`El servidor de Express se está ejecutando en el puerto: ${expressPort}`);

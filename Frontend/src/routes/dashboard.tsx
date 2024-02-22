@@ -347,7 +347,7 @@ export default function Dashboard() {
             />
           ) : null}
         </div>
-        <div>
+        <div className='container-father-publiText'>
           <form className="publiText" encType="multipart/form-data" onSubmit={postPublication}>
             <div className='post'>
               <input type="file"
@@ -369,19 +369,20 @@ export default function Dashboard() {
                 type="submit">Publicar</button>
             </div>
           </form>
-          <form className="publiText" encType="multipart/form-data" onSubmit={handleFormSubmitFalse} style={{ alignSelf: "flex-end", flexDirection: "row-reverse" }}>
-            <div>
-              <h3>Mis publicaciones </h3>
-              <button className="btnViewAll" type="submit"></button>
-            </div>
-          </form>
-            
-          <form className="publiText" encType="multipart/form-data" onSubmit={handleFormSubmit} style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <div style={{ alignItems: 'flex-end', margin: -130 }}>
-              <h3 style={{ color: 'black', margin: 0 }}>Ver todo</h3>
-              <button className="btnViewAll" type="submit"></button>
-            </div>
-          </form>
+          <div>
+            <form className="publiText" encType="multipart/form-data" onSubmit={handleFormSubmitFalse} style={{ alignSelf: "flex-end", flexDirection: "row-reverse" }}>
+              <div>
+                <h3 style={{fontSize: '20px'}}>Mis publicaciones </h3>
+                <button className="btnViewAll" type="submit"></button>
+              </div>
+            </form>
+            <form className="VerTodo" encType="multipart/form-data" onSubmit={handleFormSubmit} style={{ display: 'flex'}}>
+              <div style={{ alignItems: '' }}>
+                <h3 style={{ color: 'black', margin: 0, fontSize: '20px' }}>Ver todo</h3>
+                <button className="btnViewAll" type="submit"></button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
       {isVisible ? (
@@ -396,31 +397,34 @@ export default function Dashboard() {
               </div>
               <p className='decription'>{publicacion.description}</p>
               <img className='card-image' src={publicacion.image} alt="" />
-              <button className='citas'></button><h4>AGENDA</h4>
+              {/* <button className='citas'></button><h4>AGENDA</h4> */}
             </li>
           ))}
         </ul>
       ) : (
-        <ul className='collageImage'>
-          {(publicacionesUsuarios as any[]).map((publicacion, index) => (
-            <li className='card' key={index}>
-              <div className='delete'>
-                {(publicacion as any[]).map((item1, subIndex) => (<h2 className='nameUser' key={subIndex}> {item1.name ?? ""}</h2>))}
-                <button onClick={() => {
-                  modalHandler(true, publicacion.image, publicacion._id)
-                }} className='btn btn-dark'>Ver</button>
-              </div>
-              {/* Recorrer cada publicación dentro del subarray */}
-              {(publicacion as any[]).map((item, subIndex) => (
-                <div key={subIndex}>
-                  <p className='decription'> {item.description}</p>
-                  <img className='card-image' src={item.image} alt="" />
-                  <button className='citas'></button><h4>AGENDA</h4>
-                </div>
+        <section className='Container-cards-dashboard'>
+          <div className='container-collage'>
+              <ul className='collageImage'>
+              {(publicacionesUsuarios as any[]).map((publicacion, index) => (
+                <li className='card' key={index}>
+                  <div className='delete'>
+                    {(publicacion as any[]).map((item1, subIndex) => (<h2 className='nameUser' key={subIndex}> {item1.name ?? ""}</h2>))}
+                    <button onClick={() => {
+                      modalHandler(true, publicacion.image, publicacion._id)
+                    }} className='btn btn-dark'>Ver</button>
+                  </div>
+                  {(publicacion as any[]).map((item, subIndex) => (
+                    <div key={subIndex}>
+                      <p className='decription'> {item.description}</p>
+                      <img className='card-image' src={item.image} alt="" />
+                      {/* <button className='citas'></button><h4>AGENDA</h4> */}
+                    </div>
+                  ))}
+                </li>
               ))}
-            </li>
-          ))}
-        </ul>
+            </ul>
+          </div>
+        </section>
       )}
       <Modal className='card' style={{ content: { width: '50%', margin: '0 auto', marginTop: '100px' } }} isOpen={modalIsOpen} onRequestClose={() => modalHandler(false, null, null)}>
         <div >

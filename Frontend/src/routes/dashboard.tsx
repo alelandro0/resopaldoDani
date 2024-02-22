@@ -365,7 +365,7 @@ export default function Dashboard() {
                 ref={descriptionTextareaRef} />
               {error && <p>Error: {error}</p>}
               <button
-                className="btn-btn-dark-my-2"
+                className="btn-btn-dark-my-2 mx-2 p-2"
                 type="submit">Publicar</button>
             </div>
           </form>
@@ -384,48 +384,47 @@ export default function Dashboard() {
             </form>
           </div>
         </div>
-      </div>
+      </div>  
       {isVisible ? (
-        <ul className='collageImage'>
-          {publicaciones.map((publicacion, index) => (
-            <li className='card' key={index}>
+  <ul className='collageImage'>
+    {publicaciones.map((publicacion, index) => (
+      <li className='card' key={index}>
+        <div className='delete'>
+          <h2>{auth.getUser()?.name ?? ""}</h2>
+          <button onClick={() => {
+            modalHandler(true, publicacion.image, publicacion._id)
+          }} className='btn btn-dark'>Ver</button>
+        </div>
+        <p className='decription'>{publicacion.description}</p>
+        <img className='card-image' src={publicacion.image} alt="" />
+        {/* <button className='citas'></button><h4>AGENDA</h4> */}
+      </li>
+    ))}
+  </ul>
+) : (
+  <section className='Container' id='galeri'>
+    <div className='text-center pt-5'>
+      <ul className='row'>
+        {publicacionesUsuarios.map((usuarioPublicaciones, index) => (
+          usuarioPublicaciones.map((publicacion, subIndex) => (
+            <li className='col-lg-4 list-unstyled mb-4 ' key={`${index}-${subIndex}`}>
               <div className='delete'>
-                <h2>{auth.getUser()?.name ?? ""}</h2>
+                <h2 className='nameUser'>{publicacion.name ?? ""}</h2>
                 <button onClick={() => {
                   modalHandler(true, publicacion.image, publicacion._id)
                 }} className='btn btn-dark'>Ver</button>
               </div>
               <p className='decription'>{publicacion.description}</p>
-              <img className='card-image' src={publicacion.image} alt="" />
+              <img className='card-image p-3 ' src={publicacion.image} alt="" />
               {/* <button className='citas'></button><h4>AGENDA</h4> */}
             </li>
-          ))}
-        </ul>
-      ) : (
-        <section className='Container-cards-dashboard'>
-          <div className='container-collage'>
-              <ul className='collageImage'>
-              {(publicacionesUsuarios as any[]).map((publicacion, index) => (
-                <li className='card' key={index}>
-                  <div className='delete'>
-                    {(publicacion as any[]).map((item1, subIndex) => (<h2 className='nameUser' key={subIndex}> {item1.name ?? ""}</h2>))}
-                    <button onClick={() => {
-                      modalHandler(true, publicacion.image, publicacion._id)
-                    }} className='btn btn-dark'>Ver</button>
-                  </div>
-                  {(publicacion as any[]).map((item, subIndex) => (
-                    <div key={subIndex}>
-                      <p className='decription'> {item.description}</p>
-                      <img className='card-image' src={item.image} alt="" />
-                      {/* <button className='citas'></button><h4>AGENDA</h4> */}
-                    </div>
-                  ))}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-      )}
+          ))
+        ))}
+      </ul>
+    </div>
+  </section>
+)}
+
       <Modal className='card' style={{ content: { width: '50%', margin: '0 auto', marginTop: '100px' } }} isOpen={modalIsOpen} onRequestClose={() => modalHandler(false, null, null)}>
         <div >
           <div className='card-body' style={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>

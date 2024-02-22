@@ -182,7 +182,7 @@
 .position-Btn {
   margin-top: -10px;
   width: 200px;
-  height: 500px;
+  height: 100px;
   text-align: center;
   position: relative;
   z-index: 2;
@@ -221,12 +221,12 @@
 /* /* .Container-cards-dashboard {
   /* Agrega estilos para el contenedor principal si es necesario } */
 
-.collageImage {
+/* .collageImage {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, auto);
-  gap: 8px; /* Reduje el espacio entre las cards a 8px */
-}
+  gap: 8px;
+} */
 
 .card {
   list-style: none;
@@ -362,4 +362,8 @@
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
+}
+.Container{
+  width: 80%;
+  margin-left: 140px;
 }

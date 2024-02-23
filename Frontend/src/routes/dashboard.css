@@ -217,59 +217,92 @@
 }
 
 
-----------------------------*/
-/* /* .Container-cards-dashboard {
-  /* Agrega estilos para el contenedor principal si es necesario } */
+/*----------------------------*/
 
-/* .collageImage {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, auto);
-  gap: 8px;
-} */
+  .Container-cards-dashboard {
+    /* Agrega estilos para el contenedor principal si es necesario } */
+  }
 
-.card {
-  list-style: none;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: calc(80% - 16px); 
-  height: 400px;
-  margin: 8px auto; 
-}
+  .collageImage {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, auto);
+    gap: 8px;
+  }
 
-.delete {
-  padding: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #f0f0f0;
-}
+  .card {
+    position: relative; /* Agrega position relative al contenedor principal */
+    list-style: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: calc(80% - 16px);
+    height: 400px;
+    margin: 8px auto;
+  }
 
-.nameUser {
-  margin: 0;
-}
+  .btn-container {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+    padding: 4px;
+  }
 
-.btn {
-  background-color: #333;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  cursor: pointer;
-}
+  .citas-perfile {
+    background-color: #333; 
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    color: #fff; 
+  }
+  
 
-.decription {
-  padding: 16px;
-}
 
-.card-image {
-  width: 100%;
-  height: auto;
-  max-height: 200px; /* Reduje el tamaño de la imagen */
-  object-fit: cover;
-}
+  .delete .Perfile-img{
+      height: 40px;
+      width: 40px;
+      object-fit: cover;
+      clip-path: circle(50%);
+      position: absolute;
+      border: 5px solid #bbb;
+      left: 0px;
+      border-radius: 50%;
+      position: absolute;
+      z-index: 1;
+  }
+
+  .delete {
+    padding-left: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 16px;
+  }
+  .delete h2{
+    padding-left: 30px;
+  }
+
+  .nameUser {
+    margin: 0;
+  }
+
+
+  .decription {
+    padding: 16px;
+  }
+
+  .card-image {
+    width: 100%;
+    height: auto;
+    max-height: 200px; /* Reduje el tamaño de la imagen */
+    object-fit: cover;
+  }
 
 
 
@@ -355,15 +388,8 @@
   width: 400px; /* Ancho del mensaje */
   border-radius: 20px;
 }
-.citas{
-  background: url("https://firebasestorage.googleapis.com/v0/b/react-firebase-upload-480ee.appspot.com/o/logo%2Fcita-medica.png_1707712134408?alt=media&token=5c2f059f-0050-4e21-8706-cf0964c8ef3f");
-  padding: 25px;
-  border: none;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
+
 .Container{
-  width: 80%;
-  margin-left: 140px;
+  width: 90%;
+  margin-left: 100px;
 }

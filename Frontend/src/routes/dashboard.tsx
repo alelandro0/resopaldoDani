@@ -325,6 +325,8 @@ export default function Dashboard() {
       }
     }
   };
+
+  
   return (
     <PortalLayout>
       <div className="perfil">
@@ -390,14 +392,19 @@ export default function Dashboard() {
     {publicaciones.map((publicacion, index) => (
       <li className='card' key={index}>
         <div className='delete'>
+          <div className='Perfile-img'>
+            <img src="" alt="" />
+          </div>
           <h2>{auth.getUser()?.name ?? ""}</h2>
           <button onClick={() => {
             modalHandler(true, publicacion.image, publicacion._id)
           }} className='btn btn-dark'>Ver</button>
         </div>
         <p className='decription'>{publicacion.description}</p>
-        <img className='card-image' src={publicacion.image} alt="" />
-        {/* <button className='citas'></button><h4>AGENDA</h4> */}
+        <img className='card-image' src={publicacion.image} alt="" /><br/><br/>
+        <div className="btn-container">
+          <button className="citas-perfile">Agendar</button>
+        </div>
       </li>
     ))}
   </ul>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { PortalLayout } from "../layout/PortalLayout";
 import { useAuth } from "../Autentication/AutProvider";
+//import  Chat from "./ChatButton"
 import "./dashboard.css";
 import { useRef } from 'react';
 import Modal from 'react-modal'
@@ -20,7 +21,7 @@ type allUserPost = {
 
 export default function Dashboard() {
   const auth = useAuth();
-
+  const roll =auth.getUser()?.roll
   const [, setEditingProfileImage] = useState(false);
   const [downloadURL, setDownloadURL] = useState("");
   const [description, setDescription] = useState("");
@@ -350,7 +351,7 @@ export default function Dashboard() {
         </div>
         <div className='container-father-publiText'>
           <form className="publiText" encType="multipart/form-data" onSubmit={postPublication}>
-            {auth.getUser()?.roll === 'Profesional'?(
+            {roll=== 'Profesional'?(
             <div className='post'>
               <input type="file"
                 ref={fileInputRef}
@@ -376,14 +377,14 @@ export default function Dashboard() {
           </form>
           <div>
             <form className="publiText" encType="multipart/form-data" onSubmit={handleFormSubmitFalse} style={{ alignSelf: "flex-end", flexDirection: "row-reverse" }}>
-              {auth.getUser()?.roll!=='Cliente'?(
+              {roll!=='Cliente'?(
               <div>
                 <h3 style={{fontSize: '20px'}}>Mis publicaciones </h3>
                 <button className="btnViewAll" type="submit"></button>
               </div>):(null)}
             </form>
             <form className="VerTodo" encType="multipart/form-data" onSubmit={handleFormSubmit} style={{ display: 'flex'}}>
-            {auth.getUser()?.roll!=='Cliente'?(
+            {roll!=='Cliente'?(
               <div style={{ alignItems: '' }}>
                 <h3 style={{ color: 'black', margin: 0, fontSize: '20px' }}>Ver todo</h3>
                 <button className="btnViewAll" type="submit"></button>
@@ -436,7 +437,7 @@ export default function Dashboard() {
     </div>
   </section>
 )}
-
+          
       <Modal className='card' style={{ content: { width: '50%', margin: '0 auto', marginTop: '100px' } }} isOpen={modalIsOpen} onRequestClose={() => modalHandler(false, '', '')}>
         <div >
           <div className='card-body' style={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>
@@ -446,6 +447,7 @@ export default function Dashboard() {
           <img style={{ padding: 10, width: '100%' }} src={currenImage || ''} alt="" />
         </div>
       </Modal>
+
     </PortalLayout>
   );
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-prototype-builtins */
 import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
@@ -14,6 +15,7 @@ type allUserPost = {
 
 const AgendarCita = () => {
     const auth = useAuth();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [selectedUserId, setSelectedUserId] = useState('');
     const [formData, setFormData] = useState({
         title: '',

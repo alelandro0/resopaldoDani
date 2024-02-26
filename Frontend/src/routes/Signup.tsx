@@ -4,6 +4,7 @@ import { useAuth } from "../Autentication/AutProvider";
 import DefaultLayout from "../layout/DefaultLayout";
 import { API_URL } from "../Autentication/constanst";
 import type { AuthResponseError } from "../types/types";
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 export default function Signup() {
   const [name, setName] = useState("");
@@ -76,8 +77,8 @@ export default function Signup() {
               <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}></input>
             </div>
             <div className="input-box">
-              <label className="tipe-user">Tipo de usuario: </label>
-              <select id="combo-box" value={roll} onChange={(e) => setRoll(e.target.value)}>
+              <label className="tipe-user" style={{color:'white',marginBottom:5}}>Tipo de usuario: </label>
+              <select className="form-select form-select-sm" aria-label=".form-select-lg " id="combo-box" value={roll} onChange={(e) => setRoll(e.target.value)}>
               <option value=""> -- Selecciona -- </option>
               <option value={client}>Cliente</option>
               <option value={Profesional}>Profesional</option>

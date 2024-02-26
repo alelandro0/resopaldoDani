@@ -3,13 +3,15 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './routes/Login'
-import Signup from './routes/signup'
+import Signup from './routes/Signup'
 import Home from './Homepage/Home'
 import ServicesPage from './Services Page/ServicesPage'
 import Dashboard from './routes/dashboard'
 import ProtectedRoute from './routes/protectedRoute'
 import { AuthProvider } from './Autentication/AutProvider'
-import {ChatClient} from './routes/chat.io'
+import {ChatClient} from './routes/Chat.io'
+import Agendar from './routes/Agendar'
+import ServicioAgenda from './routes/servicioAgenda'
 
 
 const router = createBrowserRouter([
@@ -40,8 +42,15 @@ const router = createBrowserRouter([
       {
         path: "/chat",
         element:<ChatClient/>
+      },
+      {
+        path: "/agendar",
+        element:<Agendar/>
+      },
+      {
+        path: "/agenda",
+        element: <ServicioAgenda/>
       }
-
     ]
   },
 ]

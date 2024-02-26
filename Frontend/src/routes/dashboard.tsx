@@ -29,11 +29,11 @@ export default function Dashboard() {
   const fileInputRef = useRef<HTMLInputElement>(null); // Referencia para el input de tipo file
   const descriptionTextareaRef = useRef<HTMLTextAreaElement>(null);
   const [modalIsOpen, setModalIsOpen] = useState(false)
-  const [currenImage, setCurrenImage] = useState(null)
-  const [, setCurrentPublicationId] = useState(null)
+  const [currenImage, setCurrenImage] = useState('')
+  const [, setCurrentPublicationId] = useState('')
   const [publicacionesUsuarios, setPublicacionesUsuarios] = useState<allUserPost[]>([]);
   const [isVisible, setIsVisible] = useState(false);
-
+  
   useEffect(() => {
     // Ocultar el ul al inicio de la aplicación
     setIsVisible(false);
@@ -54,7 +54,7 @@ export default function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const handleFormSubmit = async (event) => {
+  const handleFormSubmit = async (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     // Agrega aquí la lógica para obtener todas las publicaciones
     // Puedes llamar a la función que obtiene las publicaciones aquí
@@ -62,7 +62,7 @@ export default function Dashboard() {
     setIsVisible(false); // Muestra la lista de publicaciones después de obtenerlas
   };
 
-  const handleFormSubmitFalse = async (event) => {
+  const handleFormSubmitFalse = async (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     // Agrega aquí la lógica para obtener todas las publicaciones
     // Puedes llamar a la función que obtiene las publicaciones aquí
@@ -249,8 +249,7 @@ export default function Dashboard() {
       }
     }
   };
-
-  const modalHandler = (isOpen, image, publicationId) => {
+  const modalHandler = (isOpen: boolean, image: string, publicationId: string) => {
     setModalIsOpen(isOpen)
     setCurrenImage(image)
     setCurrentPublicationId(publicationId);
@@ -338,19 +337,20 @@ export default function Dashboard() {
               style={{ display: "none" }}
               onChange={(e) => handleProfileImageChange(e.target.files)}
             />
-            <label className="button" style={{ color: "black" }} htmlFor="profileImageInput">+
+            <label className={auth.getUser()?.roll==="Profesional"?"button":"button-cliente"} style={{ color: "black" }} htmlFor="profileImageInput">+
             </label>
           </div>
-          {downloadURL ? (
+          {downloadURL? (
             <img
               src={downloadURL}
               alt="Perfil"
-              className="profile-image"
+              className={auth.getUser()?.roll ==='Profesiona'? "profile-image":"profile-cliente"}
             />
           ) : null}
         </div>
         <div className='container-father-publiText'>
           <form className="publiText" encType="multipart/form-data" onSubmit={postPublication}>
+            {auth.getUser()?.roll === 'Profesional'?(
             <div className='post'>
               <input type="file"
                 ref={fileInputRef}
@@ -370,19 +370,24 @@ export default function Dashboard() {
                 className="btn-btn-dark-my-2 mx-2 p-2"
                 type="submit">Publicar</button>
             </div>
+            ):(
+              <h1>Servicios Publicados</h1>
+            )}
           </form>
           <div>
             <form className="publiText" encType="multipart/form-data" onSubmit={handleFormSubmitFalse} style={{ alignSelf: "flex-end", flexDirection: "row-reverse" }}>
+              {auth.getUser()?.roll!=='Cliente'?(
               <div>
                 <h3 style={{fontSize: '20px'}}>Mis publicaciones </h3>
                 <button className="btnViewAll" type="submit"></button>
-              </div>
+              </div>):(null)}
             </form>
             <form className="VerTodo" encType="multipart/form-data" onSubmit={handleFormSubmit} style={{ display: 'flex'}}>
+            {auth.getUser()?.roll!=='Cliente'?(
               <div style={{ alignItems: '' }}>
                 <h3 style={{ color: 'black', margin: 0, fontSize: '20px' }}>Ver todo</h3>
                 <button className="btnViewAll" type="submit"></button>
-              </div>
+              </div>):(null)}
             </form>
           </div>
         </div>
@@ -412,8 +417,8 @@ export default function Dashboard() {
   <section className='Container' id='galeri'>
     <div className='text-center pt-5'>
       <ul className='row'>
-        {publicacionesUsuarios.map((usuarioPublicaciones, index) => (
-          usuarioPublicaciones.map((publicacion, subIndex) => (
+      {Array.isArray(publicacionesUsuarios) && publicacionesUsuarios.map((usuarioPublicaciones, index) => (
+        Array.isArray(usuarioPublicaciones) && usuarioPublicaciones.map((publicacion, subIndex) => (
             <li className='col-lg-4 list-unstyled mb-4 ' key={`${index}-${subIndex}`}>
               <div className='delete'>
                 <h2 className='nameUser'>{publicacion.name ?? ""}</h2>
@@ -432,11 +437,11 @@ export default function Dashboard() {
   </section>
 )}
 
-      <Modal className='card' style={{ content: { width: '50%', margin: '0 auto', marginTop: '100px' } }} isOpen={modalIsOpen} onRequestClose={() => modalHandler(false, null, null)}>
+      <Modal className='card' style={{ content: { width: '50%', margin: '0 auto', marginTop: '100px' } }} isOpen={modalIsOpen} onRequestClose={() => modalHandler(false, '', '')}>
         <div >
           <div className='card-body' style={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>
             <button onClick={() => deleteHandler()} className='btn btn-danger'>ELIMINAR</button>
-            <button className='btn btn-danger' onClick={() => modalHandler(false, null, null)}>X</button>
+            <button className='btn btn-danger' onClick={() => modalHandler(false, '', '')}>X</button>
           </div>
           <img style={{ padding: 10, width: '100%' }} src={currenImage || ''} alt="" />
         </div>

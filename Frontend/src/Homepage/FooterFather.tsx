@@ -1,10 +1,13 @@
 // App.js
 
-import React from 'react';
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { HeaderHome } from './HeaderHome';
+// @ts-ignore
 import About from './About';
+// @ts-ignore
 import Advertising from './Advertising';
+// @ts-ignore
 import Footer from './Footer';
 
 function FooterFather() {

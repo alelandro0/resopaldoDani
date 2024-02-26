@@ -12,7 +12,7 @@ const AuthContext = createContext({
     esAutentico: false,
     getAccessToken: () => {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    saveUser: (userData: AuthResponse) => {},
+    saveUser: (_userData: AuthResponse) => {},
     getRefreshToken:()=>{},
     getUser: ()=>({} as User | undefined),
     signOut: ()=>{},

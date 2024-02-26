@@ -3,7 +3,7 @@ import { useAuth } from '../Autentication/AutProvider';
 import './chatClient.css';
 import io from 'socket.io-client';
 import {PortalLayout} from '../layout/PortalLayout';
-import { ListChat } from './listChat';
+import { ListChat } from './ListChat';
 
 const socket = io('http://localhost:5000');
 
@@ -15,7 +15,7 @@ interface Message {
 export const ChatClient: React.FC = () => {
   const auth = useAuth();
   const [message, setMessage] = useState<string>('');
-  const [username, setUsername] = useState<string>(auth.getUser()?.name || '');
+  const [username,] = useState<string>(auth.getUser()?.name || '');
   const [listMessages, setListMessages] = useState<Message[]>([
     {
       body: "Bienvenido a nuestro equipo de trabajo",

@@ -34,11 +34,19 @@ export  function PortalLayout({children}: {children:React.ReactNode}){
                 <Link style={{color:'White',fontSize:'18px', textDecoration:'none'}}  to="/dashboard">Bienvenido {auth.getUser()?.name ?? ""}</Link>
               </li>
               <li className="li-dashboard">
-                <Link style={{color:'White',fontSize:'18px', textDecoration:'none'}} to="/dashboard">Perfil</Link>
+                <Link style={{color:'White',fontSize:'18px', textDecoration:'none'}} to="/dashboard">Perfil {auth.getUser()?.roll ?? ""}</Link>
               </li>
               <li className="li-dashboard">
               <Link style={{color:'White',fontSize:'18px', textDecoration:'none'}}  to="/chat"  >Chat</Link>
               </li>
+              {auth.getUser()?.roll ==='Cliente'? (
+              <li >
+                <Link style={{color:'White',fontSize:'18px', textDecoration:'none'}} to="/agendar">Agendar Cita</Link>
+              </li>):null}
+              {auth.getUser()?.roll ==='Profesional'? (
+              <li >
+                <Link style={{color:'White',fontSize:'18px', textDecoration:'none'}} to="/agenda">Mi Agenda</Link>
+              </li>):null}
               <li >
                 <a style={{color:'White',fontSize:'18px',textDecoration:'none'}} href="#" onClick={handleSignOut}>
                   Salir

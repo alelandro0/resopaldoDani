@@ -18,6 +18,7 @@ export interface User{
     id: string;
     name: string;
     username: string;
+    roll: string;
     publication:{
         _id:string,
         image: string,

@@ -1,0 +1,9 @@
+.eliminar{
+    margin-top: -1000px;
+    border-radius: 45px;
+    height:100px;
+    cursor: pointer;
+}
+.eliminar:hover{
+    height: 110px;
+}

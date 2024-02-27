@@ -6,13 +6,20 @@ import 'react-datepicker/dist/react-datepicker.css'; // Estilos por defecto
 import { PortalLayout } from "../layout/PortalLayout";
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { useAuth } from "../Autentication/AutProvider";
-import  "./agendar.css";
+import "./agendar.css";
+import Swal from 'sweetalert2';
 
 type allUserPost = {
     _id: string;
     name: string;
 };
-
+type Cita = {
+    _id: string;
+    name: string;
+    date: string;
+    hora: string;
+    description: string;
+};
 const AgendarCita = () => {
     const auth = useAuth();
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -21,13 +28,13 @@ const AgendarCita = () => {
         title: '',
         nombre: '',
         date: new Date(), // Inicializa con la fecha actual
-        hora:'',
+        hora: '',
         description: '',
         userId: '',
         estado: 'pendiente'
     });
     const [usuarios, setUsuarios] = useState<allUserPost[]>([]);
-
+    const [citas, setCitas] = useState<Cita[]>([]);
     const horasDisponibles = [
         '09:00 am', '10:00 am', '11:00 am', '12:00 pm', '13:00 pm', '14:00 pm', '15:00 pm', '16:00 pm', '17:00 pm'
     ];
@@ -72,6 +79,13 @@ const AgendarCita = () => {
 
             const data = await response.json();
             console.log('Cita creada:', data);
+            console.log(data);
+            Swal.fire({
+                icon: 'success',
+                title: '¡Cita registrada con Exito!',
+                showConfirmButton: false,
+                timer: 1500
+            });
         } catch (error) {
             console.error('Error:', (error as Error).message);
         }
@@ -94,7 +108,7 @@ const AgendarCita = () => {
             }
 
             const data: allUserPost[] = await response.json();
-            console.log(data);
+
             setUsuarios(data);
         } catch (error) {
             if (error && typeof error === 'object' && error.hasOwnProperty('message')) {
@@ -102,36 +116,65 @@ const AgendarCita = () => {
             } else {
                 console.error('Error obteniendo usuarios:', error);
             }
-
-
         }
     };
+
+    const getCitasAgendadas = async () => {
+        try {
+            const response = await fetch('http://localhost:5000/api/citas', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${auth.getAccessToken()}`,
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al obtener las citas agendadas');
+            }
+
+            const data = await response.json();
+            return data; // Devuelve las citas agendadas
+        } catch (error) {
+            console.error('Error obteniendo citas agendadas:', error);
+            return []; // Devuelve un arreglo vacío en caso de error
+        }
+    };
+
 
     useEffect(() => {
         getUsers();
     }, []);
+    useEffect(() => {
+        const fetchData = async () => {
+            const citas = await getCitasAgendadas();
+            setCitas(citas);
+        };
+
+        fetchData();
+    }, []);
     const cancelarCita = async () => {
         try {
-            
-          const response = await fetch(`http://localhost:5000/api/cancelar-cita/${selectedUserId}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${auth.getAccessToken()}`,
-            },
-            body: JSON.stringify({ title: formData.title }), // Asegúrate de enviar el título correcto
-          });
-    
-          if (!response.ok) {
-            throw new Error('Error al cancelar la cita');
-          }
-    
-          const data = await response.json();
-          console.log('Cita cancelada:', data);
+
+            const response = await fetch(`http://localhost:5000/api/cancelar-cita/${selectedUserId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${auth.getAccessToken()}`,
+                },
+                body: JSON.stringify({ title: formData.title }), // Asegúrate de enviar el título correcto
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al cancelar la cita');
+            }
+
+            const data = await response.json();
+            console.log('Cita cancelada:', data);
         } catch (error) {
-          console.error('Error al cancelar la cita:', error);
+            console.error('Error al cancelar la cita:', error);
         }
-      };
+    };
 
     return (
         <PortalLayout>
@@ -153,7 +196,7 @@ const AgendarCita = () => {
                                         >
                                             <option value='' disabled>Seleccione un nombre</option>
                                             {usuarios.map((usuario) => (
-                                            
+
                                                 <option key={usuario._id} value={usuario.name}>{usuario.name}</option>
                                             ))}
                                         </select>
@@ -201,7 +244,46 @@ const AgendarCita = () => {
                         </div>
                     </div>
                 </div>
-                <button className='eliminar btn btn-danger' onClick={cancelarCita}>Cancelar</button>
+                {citas.length > 0 && (
+                    <div className='container mt-5'>
+                        <div className='row justify-content-center'>
+                            <div className='col-md-8'>
+                                <div className='card'>
+                                    <div className='card-body'>
+                                        <h2 className='card-title text-center mb-4'>Citas Agendadas</h2>
+                                        <div className='table-responsive'>
+                                            <table className='table table-striped'>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Nombre</th>
+                                                        <th>Fecha</th>
+                                                        <th>Hora</th>
+                                                        <th>Descripción</th>
+                                                        <th>Acciones</th> {/* Agregamos una nueva columna para los botones */}
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {citas.map((cita) => (
+                                                        <tr key={cita._id}>
+                                                            <td>{cita.name}</td>
+                                                            <td>{cita.date}</td>
+                                                            <td>{cita.hora}</td>
+                                                            <td>{cita.description}</td>
+                                                            <td>
+                                                                <button className="btn btn-danger" onClick={() => cancelarCita()}>Cancelar</button>
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
             </div>
         </PortalLayout>
     );

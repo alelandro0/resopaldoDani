@@ -6,19 +6,17 @@
     margin-top: 120px;
 }
 
-.VerTodo{
-  display: flex;
-  justify-content: flex-start;
-  padding: 15px;
-}
+
 .post{
   display: flex;
   justify-content: space-around;
   align-items: center;
 }
 .publiText{
-    width: 100vh;
-    padding: 15px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+   
 }
 .textarea{
     width: 520px;
@@ -225,9 +223,11 @@
 
   .collageImage {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(3, auto);
     gap: 8px;
+    width: 700px;
+    margin-left: 455px;
   }
 
   .card {
@@ -404,12 +404,11 @@
   width: 200px;
   object-fit: cover;
   clip-path: circle(50%);
-  position: absolute;
   border: 5px solid #bbb ;
-  top: -40px;
-  left: -28px;
+  top: -150px;
+  left: -8px;
   border-radius: 50%;
-  position: absolute;
+  position: relative;
  
  
 }
@@ -427,4 +426,8 @@
     color: white;
     font-size: 50px;
     margin-top: 100px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+   
+
 }

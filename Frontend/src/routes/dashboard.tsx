@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { PortalLayout } from "../layout/PortalLayout";
 import { useAuth } from "../Autentication/AutProvider";
-//import  Chat from "./ChatButton"
+import  Chat from "./ChatButton"
 import "./dashboard.css";
 import { useRef } from 'react';
-import Modal from 'react-modal'
+// import Modal from 'react-modal'
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
 type Publicacion = {
@@ -29,7 +29,7 @@ export default function Dashboard() {
   const [error, setError] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null); // Referencia para el input de tipo file
   const descriptionTextareaRef = useRef<HTMLTextAreaElement>(null);
-  const [modalIsOpen, setModalIsOpen] = useState(false)
+  // const [modalIsOpen, setModalIsOpen] = useState(false)
   const [currenImage, setCurrenImage] = useState('')
   const [, setCurrentPublicationId] = useState('')
   const [publicacionesUsuarios, setPublicacionesUsuarios] = useState<allUserPost[]>([]);
@@ -50,7 +50,7 @@ export default function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // El arreglo de dependencias vacío garantiza que el efecto se ejecute solo una vez
   useEffect(() => {
-    Modal.setAppElement('body')
+    // Modal.setAppElement('body')
     obtenerTodasLasPublicaciones()// Llama a la función para obtener la imagen de perfil cuando el componente se monta
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -251,7 +251,7 @@ export default function Dashboard() {
     }
   };
   const modalHandler = (isOpen: boolean, image: string, publicationId: string) => {
-    setModalIsOpen(isOpen)
+    // setModalIsOpen(isOpen)
     setCurrenImage(image)
     setCurrentPublicationId(publicationId);
   }
@@ -433,12 +433,13 @@ export default function Dashboard() {
             </li>
           ))
         ))}
-      </ul>
+      </ul>   
+         <Chat/>
     </div>
   </section>
 )}
           
-      <Modal className='card' style={{ content: { width: '50%', margin: '0 auto', marginTop: '100px' } }} isOpen={modalIsOpen} onRequestClose={() => modalHandler(false, '', '')}>
+      {/* <Modal className='card' style={{ content: { width: '50%', margin: '0 auto', marginTop: '100px' } }} isOpen={modalIsOpen} onRequestClose={() => modalHandler(false, '', '')}>
         <div >
           <div className='card-body' style={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>
             <button onClick={() => deleteHandler()} className='btn btn-danger'>ELIMINAR</button>
@@ -446,9 +447,10 @@ export default function Dashboard() {
           </div>
           <img style={{ padding: 10, width: '100%' }} src={currenImage || ''} alt="" />
         </div>
-      </Modal>
-
+      </Modal> */}
+      
     </PortalLayout>
+
   );
 }
 

@@ -9,12 +9,12 @@ export const GENERATION_CONFIG = {
 export const START_CHAT = [
     {
         role: "user",
-        parts: `Nombre de la Empresa: Café VIP
+        parts: `Nombre de la Empresa: Multiservicios
   
         
         Misión: En Multiserviciosnos comprometemos a simplificar la vida 
-        de nuestros clientes ofreciendo una amplia gama de servicios 
-        a domicilio, garantizando conveniencia y calidad en cada tarea 
+        de nuestros clientes ofreciendo una amplia gama de servicios, 
+        garantizando conveniencia y calidad en cada tarea 
         realizada.
 
 

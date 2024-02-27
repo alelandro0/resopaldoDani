@@ -1,65 +1,67 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from 'react';
 import axios from 'axios';
 import './ChatButton.css'; 
 
+interface Message {
+  role: string;
+  parts: string;
+}
 
-function Chat() {
-  const [history, setHistory] = useState([]);
-  const [message, setMessage] = useState('');
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isBotResponding, setIsBotResponding] = useState(false);
-  const [isTyping, setIsTyping] = useState(false); // Estado para controlar si la IA está "escribiendo"
-  const chatBodyRef = useRef(null); // Referencia al elemento del cuerpo del chat
+function Chat(): JSX.Element {
+  const [history, setHistory] = useState<Message[]>([]);
+  const [message, setMessage] = useState<string>('');
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [, setIsBotResponding] = useState<boolean>(false);
+  const [isTyping, setIsTyping] = useState<boolean>(false);
+  const chatBodyRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Desplazar el chat hacia abajo cuando se actualice la historia
     if (chatBodyRef.current) {
       chatBodyRef.current.scrollTop = chatBodyRef.current.scrollHeight;
     }
   }, [history]);
 
-  const sendMessage = async () => {
+  const sendMessage = async (): Promise<void> => {
     const requestBody = {
       history: history,
       question: message,
     };
 
-    // Añadir el mensaje del usuario a la historia
     setHistory([...history, { role: 'user', parts: message }]);
-    setMessage(''); // Limpiar el input
+    setMessage('');
 
     try {
-      setIsTyping(true); // La IA está "escribiendo"
+      setIsTyping(true);
       const response = await axios.post('http://localhost:5000/api/chat', requestBody);
-      const updatedHistory = response.data.history;
+      console.log('este es el chatBot', response);
+      
+      const updatedHistory: Message[] = response.data.history;
       setHistory(updatedHistory);
     } catch (error) {
       console.error('Error sending message:', error);
     } finally {
-      setIsBotResponding(false); // La IA ha dejado de responder
-      setIsTyping(false); // Los puntos de "escribiendo" se detienen
+      setIsBotResponding(false);
+      setIsTyping(false);
     }
   };
 
-  const openModal = () => {
+  const openModal = (): void => {
     setIsModalOpen(true);
-    console.log("entro");
-    
   };
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setIsModalOpen(false);
-    console.log("no entro");
-    
   };
 
   return (  
     <>
       <div>
-        <button onClick={openModal}>
-        <img id="img-chat" src='/public/img/logo.png' alt='chatBot' />
+        <button >
+          <img onClick={openModal} id="img-chat" src='/public/img/logo.png' alt='chatBot' />
         </button>
       </div>
+      {console.log("modal activado", isModalOpen)
+      }
       {isModalOpen && (
         <div className='modal-container'>
           <div className='modal'>
@@ -71,12 +73,11 @@ function Chat() {
                 </div>
               </div>
               <div className='chat-body-container' ref={chatBodyRef}>
-                {history.map((item, index) => (
+                {history.map((item: Message, index: number) => (
                   <div key={index} className={`chat-message ${item.role === 'user' ? 'user-message' : 'bot-message'}`}>
                     {item.parts}
                   </div>
                 ))}
-                {/* Puntos que parpadean solo cuando la IA está "escribiendo" */}
                 {isTyping && (
                   <span className="typing-dots">...</span>
                 )}
@@ -86,10 +87,10 @@ function Chat() {
                   type='text'
                   placeholder='Escribe tu mensaje...'
                   value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  onKeyDown={(e) => {
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)}
+                  onKeyDown={(e: KeyboardEvent<HTMLInputElement>) => {
                     if (e.key === 'Enter') {
-                      sendMessage(); // Enviar mensaje al presionar Enter
+                      sendMessage();
                     }
                   }}
                 />

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { PortalLayout } from "../layout/PortalLayout";
 import { useAuth } from "../Autentication/AutProvider";
-// import  ChatButton from "./ChatButton"
+import  ChatButton from "./ChatButton"
 import "./dashboard.css";
 import { useRef } from 'react';
 import Modal from 'react-modal'
@@ -463,7 +463,7 @@ export default function Dashboard() {
           <img style={{ padding: 10, width: '100%' }} src={currenImage || ''} alt="" />
         </div>
       </Modal>
-      {/* <ChatButton/> */}
+     <ChatButton/>
     </PortalLayout>
 
   );

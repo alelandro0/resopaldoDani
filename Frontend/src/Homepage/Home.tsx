@@ -8,6 +8,7 @@ import FrontPage from './FrontPage';
 import About from './About';
 // @ts-ignore
 import Advertising from './Advertising';
+import ChatButton from '../routes/ChatButton'
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
       <About/>
       <Advertising/>
       <Footer/>
+      <ChatButton/>
     </DefaultLayout>
   );
 };

@@ -64,7 +64,7 @@ function Chat(): JSX.Element {
       }
       {isModalOpen && (
         <div className='modal-container'>
-          <div className='modal'>
+          <div className='modal1'>
             <div className='chat-container'>
               <div className='modal-header'>
                 <h1>Soporte MULTISERVICIOS</h1>

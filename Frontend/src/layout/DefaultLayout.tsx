@@ -24,9 +24,9 @@ export default function DefaultLayout({children}:DefaultLayoutProps){
                     <li className="li--layout">
                         <Link to="/Signup">Registrarse</Link>
                     </li>
-                    <li className="li--layout">
+                    {/* <li className="li--layout">
                         <Link to="/ServicesPage">Servicios</Link>
-                    </li>
+                    </li> */}
                 </ul>
             </nav>
         </header>

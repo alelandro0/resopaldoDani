@@ -12,6 +12,8 @@ import { AuthProvider } from './Autentication/AutProvider'
 import {ChatClient} from './routes/Chat.io'
 import Agendar from './routes/Agendar'
 import ServicioAgenda from './routes/servicioAgenda'
+import {EditarPerfil}  from './routes/EditarPerfil'
+import {Editar} from './routes/Editar'
 
 
 const router = createBrowserRouter([
@@ -50,6 +52,14 @@ const router = createBrowserRouter([
       {
         path: "/agenda",
         element: <ServicioAgenda/>
+      },
+      {
+        path: "/EditarPerfil",
+        element: <EditarPerfil/>
+      },
+      {
+        path: "Editar",
+        element: <Editar/>
       }
     ]
   },

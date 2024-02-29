@@ -1,6 +1,23 @@
 .header-dashboard{
     background: #515151;
+    height: 100px;
 }
 .li-dashboard .a{
     color: #fff;
+}
+
+.componet{
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+    list-style: none;
+    padding: 15px;
+    align-items: center;
+    padding-top: 35px;
+}
+
+.user{
+    width: 20px;
+    height: 20px;
+    filter: invert(100%);
 }

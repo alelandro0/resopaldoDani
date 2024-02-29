@@ -87,20 +87,3 @@ export const getUsers = async (req, res) => {
       res.status(500).json({ error: 'Error al obtener usuarios' });
     }
   };
-  export const getCitasAgendadas= async (req, res) => {
-    
-    try {
-      // Obtener el ID del usuario autenticado desde el token
-      const userId = req.user.id; // O cualquier propiedad en tu objeto de usuario que contenga el ID
-
-      // Buscar todas las citas que pertenecen al usuario actual
-      const citas = await Cita.find({ userId });
-
-      // Devolver las citas encontradas como respuesta
-      res.json(citas);
-  } catch (error) {
-      // Manejar errores
-      console.error('Error obteniendo citas agendadas:', error);
-      res.status(500).json({ error: 'Error al obtener las citas agendadas' });
-  }
-  }

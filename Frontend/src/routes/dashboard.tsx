@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { PortalLayout } from "../layout/PortalLayout";
 import { useAuth } from "../Autentication/AutProvider";
-// import  ChatButton from "./ChatButton"
+import  Chat from "./ChatButton"
 import "./dashboard.css";
 import { useRef } from 'react';
-import Modal from 'react-modal'
+// import Modal from 'react-modal'
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import Swal from 'sweetalert2';
 
 type Publicacion = {
   image: string;
@@ -30,8 +29,7 @@ export default function Dashboard() {
   const [error, setError] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null); // Referencia para el input de tipo file
   const descriptionTextareaRef = useRef<HTMLTextAreaElement>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [modalIsOpen, setModalIsOpen] = useState(false)
+  // const [modalIsOpen, setModalIsOpen] = useState(false)
   const [currenImage, setCurrenImage] = useState('')
   const [, setCurrentPublicationId] = useState('')
   const [publicacionesUsuarios, setPublicacionesUsuarios] = useState<allUserPost[]>([]);
@@ -106,7 +104,7 @@ export default function Dashboard() {
 
       const data = await responsePost.json();
       console.log("Respuesta del servidor POST:", data.downloadURL);
-    
+
       // Después de cargar la nueva imagen, actualizar la imagen de perfil
       setDownloadURL(data.downloadURL);
       getImageProfile()
@@ -168,11 +166,6 @@ export default function Dashboard() {
 
       if (!files || files.length === 0) {
         console.error('No se han seleccionado archivos.');
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: 'No se han seleccionado archivos.'
-        });
         return;
       }
 
@@ -195,22 +188,13 @@ export default function Dashboard() {
       console.log('POST publicacion:', response);
 
       if (!response.ok) {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: `Error al cargar la imagen de publicación`
-        });
+        console.error("Error al cargar la imagen de publicación:", response.statusText);
         return;
       }
 
       const data = await response.json();
       console.log("Respuesta del servidor al subir publicacion POST:", data);
-      Swal.fire({
-        icon: 'success',
-        title: '¡Pubicacion cargada con exito!',
-        showConfirmButton: false,
-        timer: 1500
-      });
+
       // Actualizar la lista de publicaciones después de la publicación exitosa
       obtenerTodasLasPublicaciones();
       getPublishAllUsers();
@@ -267,7 +251,7 @@ export default function Dashboard() {
     }
   };
   const modalHandler = (isOpen: boolean, image: string, publicationId: string) => {
-    setModalIsOpen(isOpen)
+    // setModalIsOpen(isOpen)
     setCurrenImage(image)
     setCurrentPublicationId(publicationId);
   }
@@ -391,20 +375,21 @@ export default function Dashboard() {
               <h1>Servicios Publicados</h1>
             )}
           </form>
-          <div style={{display:'flex',marginLeft:79,marginTop:20}}>
+          <div>
             <form className="publiText" encType="multipart/form-data" onSubmit={handleFormSubmitFalse} style={{ alignSelf: "flex-end", flexDirection: "row-reverse" }}>
               {roll!=='Cliente'?(
               <div>
-                <button className="btn btn-dark" type="submit">Mis publicaciones</button>
+                <h3 style={{fontSize: '20px'}}>Mis publicaciones </h3>
+                <button className="btnViewAll" type="submit"></button>
               </div>):(null)}
             </form>
             <form className="VerTodo" encType="multipart/form-data" onSubmit={handleFormSubmit} style={{ display: 'flex'}}>
             {roll!=='Cliente'?(
               <div style={{ alignItems: '' }}>
-                <button className="btn btn-dark" type="submit">Ver todo</button>
+                <h3 style={{ color: 'black', margin: 0, fontSize: '20px' }}>Ver todo</h3>
+                <button className="btnViewAll" type="submit"></button>
               </div>):(null)}
             </form>
-            
           </div>
         </div>
       </div>  
@@ -449,12 +434,12 @@ export default function Dashboard() {
           ))
         ))}
       </ul>   
-         
+         <Chat/>
     </div>
   </section>
 )}
           
-      <Modal className='card' style={{ content: { width: '50%', margin: '0 auto', marginTop: '100px' } }} isOpen={modalIsOpen} onRequestClose={() => modalHandler(false, '', '')}>
+      {/* <Modal className='card' style={{ content: { width: '50%', margin: '0 auto', marginTop: '100px' } }} isOpen={modalIsOpen} onRequestClose={() => modalHandler(false, '', '')}>
         <div >
           <div className='card-body' style={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>
             <button onClick={() => deleteHandler()} className='btn btn-danger'>ELIMINAR</button>
@@ -462,8 +447,8 @@ export default function Dashboard() {
           </div>
           <img style={{ padding: 10, width: '100%' }} src={currenImage || ''} alt="" />
         </div>
-      </Modal>
-      {/* <ChatButton/> */}
+      </Modal> */}
+      
     </PortalLayout>
 
   );

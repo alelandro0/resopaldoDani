@@ -20,7 +20,6 @@ import {router as citas} from './routes/Appoinment.mjs'
 import { router as getUser } from "./routes/getUser.mjs";
 import {router as cancelCita} from './routes/cancelarCitas.mjs'
 import { router as chat  } from "./routes/chatai.mjs";
-import { router as cistasL  } from "./routes/listarCitasC.mjs";
 
 dotenv.config();
 const expressPort = process.env.PORT || 5000;
@@ -67,7 +66,6 @@ app.use("/api/citas",citas);
 app.use('/api/getUser',getUser);
 app.use('/api/cancelar-cita',cancelCita)
 app.use("/api/chat", chat)
-app.use("/api/listaCitas",cistasL)
 
 server.listen(expressPort, () => {
     console.log(`El servidor de Express se está ejecutando en el puerto: ${expressPort}`);

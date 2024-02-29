@@ -1,0 +1,46 @@
+
+
+/* Estilo para la sección padre */
+.Container-father-ThreeSteps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+}
+
+/* Estilo para la sección */
+.ThreeStepsSection {
+  text-align: center;
+  padding: 20px;
+  width: 100%;
+  max-width: 600px; /* Puedes ajustar el ancho máximo según tus necesidades */
+}
+
+/* Estilo para los círculos */
+.CircleContainer {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.Circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  border: 2px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilo para el texto dentro de los círculos */
+.Circle h2 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.Circle p {
+  margin: 5px 0;
+  font-size: 1em;
+}

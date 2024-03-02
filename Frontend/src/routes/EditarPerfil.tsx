@@ -2,38 +2,34 @@
 import { PortalLayout } from '../layout/PortalLayout'; 
 import { useAuth } from "../Autentication/AutProvider";
 import './EditarPerfil.css';
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState, ChangeEvent } from 'react';
 
 export const EditarPerfil = () => {
   // Estado local para gestionar los valores de los campos
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [contrasena, setContrasena] = useState('');
-  const [imagenPerfil, setImagenPerfil] = useState('');
+  const [imagenPerfil, ] = useState('');
   const [, setEditingProfileImage] = useState(false);
   const [downloadURL, setDownloadURL] = useState("");
   const auth = useAuth();
 
   // Función para manejar el evento de cambio en el campo de nombre
-  const handleNombreChange = (event) => {
-    setEmail(event.target.value);
+  const handleNombreChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setName(event.target.value);
   };
 
   // Funcion para manejar el evento de cambio en el campo de email.
-  const handleEmailChange = (event) => {
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
   // Función para manejar el evento de cambio en el campo de contraseña
-  const handleContrasenaChange = (event) => {
+  const handleContrasenaChange = (event: ChangeEvent<HTMLInputElement>) => {
     setContrasena(event.target.value);
   };
 
   // Función para manejar el evento de cambio en la imagen de perfil
-  const handleImagenPerfilChange = (event) => {
-    // Aquí puedes manejar la carga de la imagen y establecerla en el estado
-    const imagenSeleccionada = event.target.files[0];
-    setImagenPerfil(imagenSeleccionada);
-  };
 
   // Función para manejar el evento de clic en el botón de guardar cambios
   const handleGuardarCambios = () => {
@@ -125,7 +121,7 @@ export const EditarPerfil = () => {
 
   return (
     <>
-      <PortalLayout />
+      <PortalLayout >
       <section className='Container-father-PerfilUsuario'>
         <div className="Container-text-PerfilUsuario">
           <div className="Perfil-Editar">
@@ -137,8 +133,7 @@ export const EditarPerfil = () => {
                   style={{ display: "none" }}
                   onChange={(e) => handleProfileImageChange(e.target.files)}
                 />
-                <label className={auth.getUser()?.roll === "Profesional" ? "button" : "button-cliente"} style={{ color: "black" }} htmlFor="profileImageInput">+
-                </label>
+               
               </div>
               {downloadURL ? (
                 <img
@@ -160,16 +155,11 @@ export const EditarPerfil = () => {
 
         <label htmlFor="contrasena">Contraseña:</label>
         <input type="password" id="contrasena" value={contrasena} onChange={handleContrasenaChange} placeholder="Ingrese su nueva contraseña" />
-
-        <label htmlFor="imagenPerfil">Imagen de Perfil:</label>
-        <input type="file" id="imagenPerfil" accept="image/*" onChange={handleImagenPerfilChange} />
-
-        {imagenPerfil && <img src={URL.createObjectURL(imagenPerfil)} alt="Imagen de Perfil" />}
-
         <button className='BtnEditar' onClick={handleGuardarCambios}>Guardar Cambios</button>
       </div>
         </div>
       </section>
+      </PortalLayout>
     </>
   );
   

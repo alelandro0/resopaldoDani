@@ -17,7 +17,7 @@ import http from "http";
 import { router as DeletePubli  } from "./routes/DeletePubli.mjs";
 import {router as publicationGetAll  } from "./routes/routerPublicGetAll.mjs";
 import {router as citas} from './routes/Appoinment.mjs'
-import { router as getUser } from "./routes/getUser.mjs";
+
 import {router as cancelCita} from './routes/cancelarCitas.mjs'
 import { router as chat  } from "./routes/chatai.mjs";
 
@@ -63,7 +63,6 @@ app.use("/api/publicationpost", authenticate, publicationPost)
 app.use("/api/publicationget", publicationGet)
 app.use("/api/publicationgetAll", publicationGetAll);
 app.use("/api/citas",citas);
-app.use('/api/getUser',getUser);
 app.use('/api/cancelar-cita',cancelCita)
 app.use("/api/chat", chat)
 

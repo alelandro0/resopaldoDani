@@ -1,10 +1,10 @@
 import express from "express";
-import { createAppointment } from '../controllers/AppoinmentController.mjs';
+import { agendarCita } from '../controllers/AppoinmentController.mjs';
 
 const router = express.Router();
 
 // Ruta para crear citas
-router.post('/', createAppointment);
+router.post('/', agendarCita);
 
 // Ruta para actualizar citas
 

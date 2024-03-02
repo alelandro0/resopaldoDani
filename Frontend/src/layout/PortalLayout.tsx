@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { API_URL } from "../Autentication/constanst";
 import './nav.css'
 import user from '../../public/img/user.svg'
+
 export  function PortalLayout({children}: {children:React.ReactNode}){
  const auth = useAuth();
 
@@ -32,7 +33,7 @@ export  function PortalLayout({children}: {children:React.ReactNode}){
           <nav className="box">
             <ul className="componet">
               <li className="li-dashboard">
-                <Link style={{color:'White',fontSize:'18px', textDecoration:'none'}} to="/dashboard"> <img className="user" src={user} alt="" />Bienvenido:  {auth.getUser()?.name ?? ""}</Link>
+                <Link style={{color:'White',fontSize:'18px', textDecoration:'none'}} to="/dashboard"> <img className="user" src={user} alt="" /> Bienvenido:  {auth.getUser()?.name ?? ""}</Link>
               </li>
               {auth.getUser()?.roll == 'Cliente'?(
               <li className="li-dashboard">

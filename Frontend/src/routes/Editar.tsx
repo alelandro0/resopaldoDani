@@ -4,32 +4,28 @@
 import { PortalLayout } from '../layout/PortalLayout'; 
 import { useAuth } from "../Autentication/AutProvider";
 import './EditarPerfil.css';
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState ,ChangeEvent} from 'react';
+
 
 export const Editar = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [contrasena, setContrasena] = useState('');
-  const [imagenPerfil, setImagenPerfil] = useState('');
+  const [imagenPerfil, ] = useState('');
   const [, setEditingProfileImage] = useState(false);
   const [downloadURL, setDownloadURL] = useState("");
   const auth = useAuth();
 
-  const handleNombreChange = (event) => {
+  const handleNombreChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
 
-  const handleEmailChange = (event) => {
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
 
-  const handleContrasenaChange = (event) => {
+  const handleContrasenaChange = (event: ChangeEvent<HTMLInputElement>) => {
     setContrasena(event.target.value);
-  };
-
-  const handleImagenPerfilChange = (event) => {
-    const imagenSeleccionada = event.target.files[0];
-    setImagenPerfil(imagenSeleccionada);
   };
 
   const handleGuardarCambios = () => {
@@ -69,7 +65,7 @@ export const Editar = () => {
     }
   }
 
-  async function handleProfileImageChange(files) {
+  async function handleProfileImageChange(files: FileList | null) {
     try {
       if (!files || files.length === 0) {
         console.error("No se seleccionó ningún archivo");
@@ -106,7 +102,7 @@ export const Editar = () => {
 
   return (
     <>
-      <PortalLayout />
+      <PortalLayout >
       <section className='Container-father-PerfilUsuario'>
         <div className="Container-text-PerfilUsuario">
           <div className={`Perfil-Editar ${auth.getUser()?.roll === 'Profesional' ? 'Shared-Styles' : 'Cliente-Styles'}`}>
@@ -137,13 +133,11 @@ export const Editar = () => {
             <input type="text" id="email" value={email} onChange={handleEmailChange} placeholder="Ingrese su nuevo Correo Electrónico" />
             <label htmlFor="contrasena">Contraseña:</label>
             <input type="password" id="contrasena" value={contrasena} onChange={handleContrasenaChange} placeholder="Ingrese su nueva contraseña" />
-            <label htmlFor="imagenPerfil">Imagen de Perfil:</label>
-            <input type="file" id="imagenPerfil" accept="image/*" onChange={handleImagenPerfilChange} />
-            {imagenPerfil && <img src={URL.createObjectURL(imagenPerfil)} alt="Imagen de Perfil" />}
             <button className='BtnEditar' onClick={handleGuardarCambios}>Guardar Cambios</button>
           </div>
         </div>
       </section>
+      </PortalLayout>
     </>
   );
 }

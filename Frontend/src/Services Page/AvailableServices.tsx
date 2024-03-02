@@ -1,4 +1,4 @@
-import React from 'react';
+
 import './StylesServices/AvailableServices.css';
 
 const AvailableServices = () => {

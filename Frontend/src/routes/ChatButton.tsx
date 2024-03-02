@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from 'react';
+import { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from 'react';
 import axios from 'axios';
 import './ChatButton.css'; 
 

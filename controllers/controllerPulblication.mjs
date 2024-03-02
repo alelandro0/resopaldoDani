@@ -47,6 +47,7 @@ export const getPublication = async (req, res) => {
         const publications = user.publication
         .filter(pub => pub.estado === true) 
         .map(pub => ({
+            id:pub._id,
             image: pub.image,
             description: pub.description
         }));
@@ -106,6 +107,7 @@ export const getPublicationAll = async (req, res) => {
             const nombre = user.name;
             return user.publication.filter(pub => pub.estado === true)
                                      .map(pub => ({
+                                         id: pub._id,
                                          image: pub.image,
                                          description: pub.description,
                                          name : nombre

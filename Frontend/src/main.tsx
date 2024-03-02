@@ -10,8 +10,6 @@ import Dashboard from './routes/dashboard'
 import ProtectedRoute from './routes/protectedRoute'
 import { AuthProvider } from './Autentication/AutProvider'
 import {ChatClient} from './routes/Chat.io'
-import Agendar from './routes/Agendar'
-import ServicioAgenda from './routes/servicioAgenda'
 import {EditarPerfil}  from './routes/EditarPerfil'
 import {Editar} from './routes/Editar'
 
@@ -45,14 +43,8 @@ const router = createBrowserRouter([
         path: "/chat",
         element:<ChatClient/>
       },
-      {
-        path: "/agendar",
-        element:<Agendar/>
-      },
-      {
-        path: "/agenda",
-        element: <ServicioAgenda/>
-      },
+      
+      
       {
         path: "/EditarPerfil",
         element: <EditarPerfil/>

@@ -144,15 +144,16 @@ export const getCitasProfesional = async (req, res) => {
 
     for (const cita of citas) {
       const usuario = await User.findById(cita.userId);
-      const agendar = await Cita.findOne();
   
       if (usuario) {
-        cita.usuario = {
-          name: usuario.name,
-          imageProfile: usuario.imageProfile
-        };
+        citasConUsuario.push({
+          date: cita.date,
+          hora: cita.hora,
+          userId: cita.userId,
+          userName: usuario.name,
+          userImageProfile: usuario.imageProfile
+        });
       }
-      citasConUsuario.push(agendar.date,agendar.hora,agendar.userId,usuario.name,usuario.imageProfile);
     }
     console.log(citasConUsuario, 'citas de usuario');
     return res.status(200).json(citasConUsuario);

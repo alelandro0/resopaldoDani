@@ -1,54 +1,76 @@
-
 import { PortalLayout } from '../layout/PortalLayout'; 
 import { useAuth } from "../Autentication/AutProvider";
 import './EditarPerfil.css';
-import  { useEffect, useState, ChangeEvent } from 'react';
+import { useEffect, useState, ChangeEvent } from 'react';
+import React from 'react';
+import { API_URL } from '../Autentication/constanst';
 import Chat from './ChatButton';
 
 export const EditarPerfil = () => {
-  // Estado local para gestionar los valores de los campos
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [contrasena, setContrasena] = useState('');
-  const [imagenPerfil, ] = useState('');
-  const [, setEditingProfileImage] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const [downloadURL, setDownloadURL] = useState("");
   const auth = useAuth();
 
-  // Función para manejar el evento de cambio en el campo de nombre
   const handleNombreChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
 
-  // Funcion para manejar el evento de cambio en el campo de email.
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
   };
-  // Función para manejar el evento de cambio en el campo de contraseña
+
   const handleContrasenaChange = (event: ChangeEvent<HTMLInputElement>) => {
     setContrasena(event.target.value);
   };
 
-  // Función para manejar el evento de cambio en la imagen de perfil
+  const handleGuardarCambios = async () => {
+    try {
+      const response = await fetch(`${API_URL}/perfil/${auth.getUser()?.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${auth.getAccessToken()}`,
+        },
+        body: JSON.stringify({ name, username: email, password: contrasena }),
+      });
 
-  // Función para manejar el evento de clic en el botón de guardar cambios
-  const handleGuardarCambios = () => {
-    // Aquí puedes implementar la lógica para guardar los cambios en la base de datos o realizar otras acciones necesarias
-    console.log('Guardando cambios:', { email, contrasena, imagenPerfil });
+      if (response.ok) {
+        console.log('Perfil actualizado exitosamente');
+        setModalMessage("Perfil actualizado exitosamente");
+        setShowModal(true);
+      } else {
+        const responseData = await response.json();
+        if (response.status === 500) {
+          setModalMessage("Usuario o correo ya existente, intente otros datos");
+          setShowModal(true);
+        }
+         else if (response.status === 400) {
+          if (responseData.mensaje.includes("contraseña")) {
+            setModalMessage("La contraseña debe tener al menos 6 caracteres");
+          } else {
+            setModalMessage("Intente ingresar otros datos");
+          }
+        }
+        setShowModal(true);
+      }
+    } catch (error) {
+      console.error('Error al actualizar el perfil:', error);
+      setModalMessage("Error al actualizar el perfil: " + error.message);
+      setShowModal(true);
+    }
   };
 
   useEffect(() => {
-    getImageProfile()// Llama a la función para obtener la imagen de perfil cuando el componente se monta
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // El arreglo de dependencias vacío garantiza que el efecto se ejecute 
+    getImageProfile();
+  }, []);
 
   async function getImageProfile() {
     try {
-      console.log('este es el token => ', auth.getAccessToken());
-      const id = auth.getUser()?.id
-
-      console.log('ID of user Profile', id);
+      const id = auth.getUser()?.id;
       const response = await fetch(`http://localhost:5000/api/getImage/${id}`, {
         method: 'GET',
         headers: {
@@ -56,85 +78,42 @@ export const EditarPerfil = () => {
           Authorization: `Bearer ${auth.getAccessToken()}`,
         },
       });
-      console.log('GET perfil', response);
 
       if (!response.ok) {
         throw new Error('Error al obtener la imagen de perfil: ' + response.statusText);
       }
 
       const data = await response.json();
-      console.log('Editar perfil', data);
 
-      if (!data.imageProfile) { // Cambio aquí de data.downloadURL a data.imageProfile
+      if (!data.imageProfile) {
         throw new Error('Error: La respuesta del servidor no contiene la URL de la imagen de perfil');
       }
 
-      setDownloadURL(data.imageProfile); // Cambio aquí de data.downloadURL a data.imageProfile
-      console.log('URL de la imagen de perfil obtenida:', data.imageProfile); // Cambio aquí de data.downloadURL a data.imageProfile
+      setDownloadURL(data.imageProfile);
     } catch (error) {
-      const defaultImageUrl = 'https://static.vecteezy.com/system/resources/previews/003/337/584/large_2x/default-avatar-photo-placeholder-profile-icon-vector.jpg'; // Reemplaza con la URL de tu imagen por defecto
-      setDownloadURL(defaultImageUrl)
+      const defaultImageUrl = 'https://static.vecteezy.com/system/resources/previews/003/337/584/large_2x/default-avatar-photo-placeholder-profile-icon-vector.jpg';
+      setDownloadURL(defaultImageUrl);
       console.error('Error al obtener la imagen de perfil:', error);
     }
-    //
   }
-  async function handleProfileImageChange(files: FileList | null) {
-    try {
-      if (!files || files.length === 0) {
-        console.error("No se seleccionó ningún archivo");
-        return;
-      }
 
-      const file = files[0];
-      const formData = new FormData();
-      formData.append("file", file);
-      console.log('post TOKEN ', auth.getAccessToken());
-
-
-      // Subir la nueva imagen
-      const responsePost = await fetch("http://localhost:5000/api/upload", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${auth.getAccessToken()}`,
-        },
-        body: formData,
-      });
-      console.log('POST perfil ', responsePost);
-
-      if (!responsePost.ok) {
-        console.error(
-          "Error al cambiar la imagen de perfil:",
-          responsePost.statusText
-        );
-        return;
-      }
-
-      const data = await responsePost.json();
-      console.log("Respuesta del servidor POST:", data.downloadURL);
-
-      // Después de cargar la nueva imagen, actualizar la imagen de perfil
-      setDownloadURL(data.downloadURL);
-      getImageProfile()
-    } catch (error) {
-      console.error("Error al cambiar la imagen de perfil:", error);
-    }
-  }
+  const closeModal = () => {
+    setShowModal(false);
+    setModalMessage("");
+  };
 
   return (
-    <>
-      <PortalLayout >
+    <PortalLayout >
       <section className='Container-father-PerfilUsuario'>
         <div className="Container-text-PerfilUsuario">
           <div className="Perfil-Editar">
-            <div className="profile-header" onClick={() => setEditingProfileImage(true)}>
+            <div className="profile-header">
               <div className="position-Btn">
                 <input
                   type="file"
                   id="profileImageInput"
                   style={{ display: "none" }}
-                  onChange={(e) => handleProfileImageChange(e.target.files)}
                 />
-               
               </div>
               {downloadURL ? (
                 <img
@@ -146,25 +125,31 @@ export const EditarPerfil = () => {
             </div>
           </div>
           <div className="Card-PerfilUsuario">
-        <h2 className='h2-Editar'>Editar Perfil</h2>
+            <h2 className='h2-Editar'>Editar Perfil</h2>
 
-        <label htmlFor="name">Nombre:</label>
-        <input type="text" id='nombre' value={name} onChange={handleNombreChange} placeholder="Ingrese su nuevo Nombre" />
+            <label htmlFor="name">Nombre:</label>
+            <input type="text" id='nombre' value={name} onChange={handleNombreChange} placeholder="Ingrese su nuevo Nombre" />
 
-        <label htmlFor="email">Correo Electronico:</label>
-        <input type="text" id="email" value={email} onChange={handleEmailChange} placeholder="Ingrese su nuevo Correo Electrónico" />
+            <label htmlFor="email">Correo Electrónico:</label>
+            <input type="text" id="email" value={email} onChange={handleEmailChange} placeholder="Ingrese su nuevo Correo Electrónico" />
 
-        <label htmlFor="contrasena">Contraseña:</label>
-        <input type="password" id="contrasena" value={contrasena} onChange={handleContrasenaChange} placeholder="Ingrese su nueva contraseña" />
-        <button className='BtnEditar' onClick={handleGuardarCambios}>Guardar Cambios</button>
-      </div>
+            <label htmlFor="contrasena">Contraseña:</label>
+            <input type="password" id="contrasena" value={contrasena} onChange={handleContrasenaChange} placeholder="Ingrese su nueva contraseña" />
+            <button className='BtnEditar' onClick={handleGuardarCambios}>Guardar Cambios</button>
+          </div>
         </div>
       </section>
-      <Chat />
-      </PortalLayout>
-    </>
+      {showModal && (
+        <div className="modal2">
+          <div className="modal2-content">
+            <p>{modalMessage}</p>
+            <button className='accept-btn' onClick={closeModal}>Cerrar</button>
+          </div>
+        </div>
+      )}
+      <Chat/>
+    </PortalLayout>
   );
-  
 }
 
 export default EditarPerfil;

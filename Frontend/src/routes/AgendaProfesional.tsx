@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { PortalLayout } from '../layout/PortalLayout';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
@@ -10,8 +11,8 @@ type CitaData ={
     date: string;
     hora: string;
     _id: string;
-    name: string;
-    imageProfile: string;
+    userName: string;
+    userImageProfile: string;
 }
 
 const AgendaProfesional: React.FC = () => {
@@ -36,19 +37,10 @@ const AgendaProfesional: React.FC = () => {
             }
             const data = await response.json();
             console.log('Datos obtenidos:', data);
-            const cita: CitaData = {
-                date: data[0],
-                hora: data[1],
-                _id: data[2],
-                name: data[3],
-                imageProfile: data[4]
-            };
-    
-            // Establecer el objeto de cita en el estado
-            setDatos([cita]);
-           
+            // Aquí asumiendo que data es un array de objetos con el formato correcto de CitaData
+            setDatos(data);
         } catch (error) {
-            console.error("Error al cargar la imagen publicada:", error);  
+            console.error("Error al cargar las citas:", error);  
         }
     };
     const formatHora = (hora: string) => {
@@ -78,29 +70,25 @@ const AgendaProfesional: React.FC = () => {
     return (
         <PortalLayout>
         <div className="container mt-5">
-            <h1 className="text-center" style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '3.5rem', fontWeight: 'bold', color: '#3c3c3c' }}
-            >Cronograma de Trabajo</h1>
+            <h1 className="text-center" style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '3.5rem', fontWeight: 'bold', color: '#3c3c3c' }}>Cronograma de Trabajo</h1>
         
-                <div className="row justify-content-center">
-                    {datos.map((cita, index) => (
-                        <div key={index} className="col-md-6 mt-4">
-                            <div className="card">
-                                 <h2 className='modal-header' style={{background:'#3c3c3c'}}>Cita Programada</h2>
-                                <div className="card-body">
-                                <img src={cita.imageProfile} className="card-img-top rounded-circle m-2"
-                                     alt="Imagen de perfil" 
-                                     style={{ width: '150px', height: '150px' }}/>
-                                     <div style={{width:"100%",padding:'25px',background:'#3c3c3c',borderRadius:12,color:'white'}}>
+            <div className="row justify-content-center">
+                {datos.map((cita, index) => (
+                    <div key={index} className="col-md-6 mt-4">
+                        <div className="card">
+                            <div className="card-body">
+                                <img src={cita.userImageProfile} className="card-img-top rounded-circle m-2" alt="Imagen de perfil" style={{ width: '150px', height: '150px' }}/>
+                                <h2 className='modal-header' style={{background:'#3c3c3c'}}>Cita Programada</h2>
+                                <div style={{width:"100%",padding:'25px',background:'#3c3c3c',borderRadius:12,color:'white'}}>
                                     <h1 className="card-title">Fecha: {formatFecha(cita.date)}</h1>
                                     <h1 className="card-title">Hora: {formatHora(cita.hora)}</h1>
-                                    <h1 className="card-title">Nombre del Cliente: {cita.name}</h1>
-                                    </div>
+                                    <h1 className="card-title">Nombre del Cliente: {cita.userName}</h1>
                                 </div>
                             </div>
                         </div>
-                    ))}
-                </div>
-            
+                    </div>
+                ))}
+            </div>
         </div>
         <Chat />
     </PortalLayout>

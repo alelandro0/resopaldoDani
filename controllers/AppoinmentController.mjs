@@ -1,19 +1,27 @@
 import Cita from '../models/AppointmentModel.mjs';
+import user from '../models/user.mjs';
 import User from '../models/user.mjs';
+import sendEmailDate from "../validations/correoCitasProgramadas.mjs";
 
 export const agendarCita = async (req, res) => {
   try {
     const { description, date, hora, id, nombre } = req.body;
-    const profesionales = await User.find({ estado: true });
+    
+    // Obtenemos el usuario que realizó la cita
+    const usuario = await User.findById(id);
+    if (!usuario) {
+      return res.status(404).json({ message: 'Usuario no encontrado' });
+    }
+
     // Verifica si ya existe una cita para la misma fecha y hora
     const existingAppointment = await Cita.findOne({ date, hora });
     if (existingAppointment) {
       return res.status(400).json({ message: 'Ya hay una cita agendada para esta fecha y hora' });
     }
-
+    
     // Crea la cita utilizando el modelo de cita
     const cita = await Cita.create({
-      ProfesionalId: profesionales._id,
+      ProfesionalId: usuario._id, // Asignamos el ID del usuario que realizó la cita
       nombre,
       date,
       hora,
@@ -21,12 +29,19 @@ export const agendarCita = async (req, res) => {
       userId: id,
       estado: 'pendiente' // Asigna 'pendiente' si no se proporciona ningún estado
     });
-console.log('valores de la cita ',cita);
+
+    // Enviamos el correo electrónico de confirmación al usuario que realizó la cita
+    const impri = sendEmailDate(usuario.username, cita.nombre, cita.description, cita.date, cita.hora);
+    console.log('Correo enviado a:', usuario.username);
+    console.log(impri);
+
+    console.log('valores de la cita ', cita);
     res.status(201).json(cita);
   } catch (err) {
     res.status(400).json({ message: err.message }); // Cambio de código de estado a 400 en caso de error
   }
 }
+
 
 export const cancelCita = async (req, res) => {
   try {

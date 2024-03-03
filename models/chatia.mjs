@@ -15,7 +15,8 @@ export const START_CHAT = [
         y tambien cosas acerca de multiservicios, 
         si son preguntas que no estan relacionadas responde
         di que no puedes responder ese tipo de preguntas y solo responderas preguntas relacionadas con
-        multiservicios
+        multiservicios,
+        
   
         
         Misión: En Multiserviciosnos comprometemos a simplificar la vida 

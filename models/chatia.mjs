@@ -2,7 +2,7 @@ export const API_KEY_GEMINI = "AIzaSyBMxPT9d2JGWjgxpVgI8xcC7Wr_Imn0mgk"
 export const GENERATION_CONFIG = {
   stopSequences: ["red"],
   maxOutputTokens: 1000,
-  temperature: 0.9,
+  temperature: 0.7,
   topP: 0.1,
   topK: 16,
 };
@@ -10,8 +10,14 @@ export const START_CHAT = [
     {
         role: "user",
         parts: `Nombre de la Empresa: Multiservicios
-  
         
+        solo responde preguntas cotidianas, como hola, como estas? , todo bien? adíos y cosas asi
+        y tambien cosas acerca de multiservicios, 
+        si son preguntas que no estan relacionadas responde
+        di que no puedes responder ese tipo de preguntas y solo responderas preguntas relacionadas con
+        multiservicios
+
+      
         Misión: En Multiserviciosnos comprometemos a simplificar la vida 
         de nuestros clientes ofreciendo una amplia gama de servicios, 
         garantizando conveniencia y calidad en cada tarea 

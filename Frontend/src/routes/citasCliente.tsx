@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PortalLayout } from '../layout/PortalLayout';
 import { API_URL } from '../Autentication/constanst';
 import { useAuth } from '../Autentication/AutProvider';
@@ -30,7 +30,7 @@ const CitasCliente = () => {
               console.error("Error al listar:", error);  
             }
         };
-//
+
         fetchCitasCliente();
     }, []);
     const formatHora = (hora: string) => {

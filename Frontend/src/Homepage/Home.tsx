@@ -8,7 +8,8 @@ import FrontPage from './FrontPage';
 import About from './About';
 // @ts-ignore
 import Advertising from './Advertising';
-
+import Chat from '../routes/ChatButton'
+  
 const Home = () => {
   return (
     <DefaultLayout>
@@ -16,6 +17,7 @@ const Home = () => {
       <About/>
       <Advertising/>
       <Footer/>
+      <Chat/>
     </DefaultLayout>
   );
 };

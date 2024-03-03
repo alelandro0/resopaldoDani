@@ -42,7 +42,7 @@ export  function PortalLayout({children}: {children:React.ReactNode}){
               ):null}
               {auth.getUser()?.roll == 'Profesional'?(
               <li className="li-dashboard">
-                <Link style={{color:'White',fontSize:'18px', textDecoration:'none'}} to="/Editar">Perfil {auth.getUser()?.roll ?? ""}</Link>
+                <Link style={{color:'White',fontSize:'18px', textDecoration:'none'}} to="/EditarPerfil">Perfil {auth.getUser()?.roll ?? ""}</Link>
               </li>
               ):null}
 

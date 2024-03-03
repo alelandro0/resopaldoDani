@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from 'react';
 import axios from 'axios';
 import './ChatButton.css'; 
+import React from 'react';
 
 interface Message {
   role: string;
@@ -64,7 +65,7 @@ function Chat(): JSX.Element {
       }
       {isModalOpen && (
         <div className='modal-container'>
-          <div className='modal'>
+          <div className='modal1'>
             <div className='chat-container'>
               <div className='modal-header'>
                 <h1>Soporte MULTISERVICIOS</h1>
@@ -84,6 +85,7 @@ function Chat(): JSX.Element {
               </div>
               <div className='input-container'>
                 <input
+                className='input1'
                   type='text'
                   placeholder='Escribe tu mensaje...'
                   value={message}

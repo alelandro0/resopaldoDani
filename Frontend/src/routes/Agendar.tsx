@@ -22,6 +22,9 @@ type Cita = {
 };
 const AgendarCita = () => {
     const auth = useAuth();
+    const nameClient = auth.getUser()?.name;
+    const emailClient = auth.getUser()?.username;
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [selectedUserId, setSelectedUserId] = useState('');
     const [formData, setFormData] = useState({
@@ -31,7 +34,9 @@ const AgendarCita = () => {
         hora: '',
         description: '',
         userId: '',
-        estado: 'pendiente'
+        estado: 'pendiente',
+        nameClient: nameClient,
+        emailClient: emailClient
     });
     const [usuarios, setUsuarios] = useState<allUserPost[]>([]);
     const [citas, setCitas] = useState<Cita[]>([]);

@@ -1,10 +1,10 @@
 import Cita from '../models/AppointmentModel.mjs';
-import User from '../models/user.mjs'; 
-
+import User from '../models/user.mjs';
+import sendEmailDate from "../validations/correosCitasProgramadas.mjs";
 
 export const createAppointment = async (req, res) => {
     try {
-        const { title, date, description, hora } = req.body;
+        const { title, date, description, hora, nameClient, emailClient } = req.body;
 
         // Verifica si el usuario existe
         const user = await User.findOne({name:title});
@@ -23,6 +23,8 @@ export const createAppointment = async (req, res) => {
             userId:user.id ,
             estado:'pendiente' // Asigna 'pendiente' si no se proporciona ningún estado
         });
+
+        sendEmailDate(emailClient, nameClient, title, date, hora);
 
         res.status(201).json(cita);
     } catch (err) {

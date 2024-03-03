@@ -1,19 +1,27 @@
 
 // Editar.js
 
-import { PortalLayout } from '../layout/PortalLayout'; 
+import { PortalLayout } from '../layout/PortalLayout';
 import { useAuth } from "../Autentication/AutProvider";
 import './EditarPerfil.css';
-import  { useEffect, useState ,ChangeEvent} from 'react';
+import React, { useEffect, useState, ChangeEvent } from 'react';
+import { API_URL } from '../Autentication/constanst';
+import Chat from './ChatButton';
 
+type user = {
+  name: string,
+  username: string,
+  password: string
+}
 
 export const Editar = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [contrasena, setContrasena] = useState('');
-  const [imagenPerfil, ] = useState('');
+  const [imagenPerfil,] = useState('');
   const [, setEditingProfileImage] = useState(false);
   const [downloadURL, setDownloadURL] = useState("");
+  const [update, getUpdate] = useState<user[]>([])
   const auth = useAuth();
 
   const handleNombreChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -34,12 +42,13 @@ export const Editar = () => {
 
   useEffect(() => {
     getImageProfile();
+    actualizar();
   }, []);
 
   async function getImageProfile() {
     try {
       const id = auth.getUser()?.id;
-      const response = await fetch(`http://localhost:5000/api/getImage/${id}`, {
+      const response = await fetch(`${API_URL}/getImage/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -76,7 +85,7 @@ export const Editar = () => {
       const formData = new FormData();
       formData.append("file", file);
 
-      const responsePost = await fetch("http://localhost:5000/api/upload", {
+      const responsePost = await fetch(`${API_URL}/upload`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${auth.getAccessToken()}`,
@@ -99,46 +108,56 @@ export const Editar = () => {
       console.error("Error al cambiar la imagen de perfil:", error);
     }
   }
+  async function actualizar() {
+    try {
+      const response = await fetch(`${API_URL}/update-date/${auth.getUser()?.id}`)
+      const data = await response.json()
+      console.log(data);
+      getUpdate(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <>
       <PortalLayout >
-      <section className='Container-father-PerfilUsuario'>
-        <div className="Container-text-PerfilUsuario">
-          <div className={`Perfil-Editar ${auth.getUser()?.roll === 'Profesional' ? 'Shared-Styles' : 'Cliente-Styles'}`}>
-            <div className="profile-header" onClick={() => setEditingProfileImage(true)}>
-              <div className="position-Btn">
-                <input
-                  type="file"
-                  id="profileImageInput"
-                  style={{ display: "none" }}
-                  onChange={(e) => handleProfileImageChange(e.target.files)}
-                />
-                <label className={auth.getUser()?.roll === "Profesional" ? "button" : "button-cliente"} style={{ color: "black" }} htmlFor="profileImageInput"></label>
+        <section className='Container-father-PerfilUsuario'>
+          <div className="Container-text-PerfilUsuario">
+            <div className={`Perfil-Editar ${auth.getUser()?.roll === 'Profesional' ? 'Shared-Styles' : 'Cliente-Styles'}`}>
+              <div className="profile-header" onClick={() => setEditingProfileImage(true)}>
+                <div className="position-Btn">
+                  <input
+                    type="file"
+                    id="profileImageInput"
+                    style={{ display: "none" }}
+                    onChange={(e) => handleProfileImageChange(e.target.files)}
+                  />
+                  <label className={auth.getUser()?.roll === "Profesional" ? "button" : "button-cliente"} style={{ color: "black" }} htmlFor="profileImageInput"></label>
+                </div>
+
+                {downloadURL ? (
+
+                  <img
+                    src={downloadURL}
+                    alt="Perfil"
+                    className='perfil-editar' />
+                ) : null}
               </div>
-              
-              {downloadURL ? (
-             
-                <img
-                  src={downloadURL}
-                  alt="Perfil"
-                  className={` ${auth.getUser()?.roll === 'Profesional' ? 'profile-image1' : 'profile-cliente'}`}
-                   style={{padding:200}}/>
-              ) : null}
+            </div>
+            <div className={`Card-PerfilUsuario ${auth.getUser()?.roll === 'Profesional' ? 'Shared-Styles' : 'Cliente-Styles'}`}>
+              <h2 className='h2-Editar'>Editar Perfil</h2>
+              <label htmlFor="name">Nombre:</label>
+              <input type="text" id='nombre' value={name} onChange={handleNombreChange} placeholder="Ingrese su nuevo Nombre" />
+              <label htmlFor="email">Correo Electronico:</label>
+              <input type="text" id="email" value={email} onChange={handleEmailChange} placeholder="Ingrese su nuevo Correo Electrónico" />
+              <label htmlFor="contrasena">Contraseña:</label>
+              <input type="password" id="contrasena" value={contrasena} onChange={handleContrasenaChange} placeholder="Ingrese su nueva contraseña" />
+              <button className='BtnEditar' onClick={handleGuardarCambios}>Guardar Cambios</button>
             </div>
           </div>
-          <div className={`Card-PerfilUsuario ${auth.getUser()?.roll === 'Profesional' ? 'Shared-Styles' : 'Cliente-Styles'}`}>
-            <h2 className='h2-Editar'>Editar Perfil</h2>
-            <label htmlFor="name">Nombre:</label>
-            <input type="text" id='nombre' value={name} onChange={handleNombreChange} placeholder="Ingrese su nuevo Nombre" />
-            <label htmlFor="email">Correo Electronico:</label>
-            <input type="text" id="email" value={email} onChange={handleEmailChange} placeholder="Ingrese su nuevo Correo Electrónico" />
-            <label htmlFor="contrasena">Contraseña:</label>
-            <input type="password" id="contrasena" value={contrasena} onChange={handleContrasenaChange} placeholder="Ingrese su nueva contraseña" />
-            <button className='BtnEditar' onClick={handleGuardarCambios}>Guardar Cambios</button>
-          </div>
-        </div>
-      </section>
+        </section>
+        <Chat />
       </PortalLayout>
     </>
   );

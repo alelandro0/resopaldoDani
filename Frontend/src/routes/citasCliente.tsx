@@ -2,6 +2,7 @@ import  { useState, useEffect } from 'react';
 import { PortalLayout } from '../layout/PortalLayout';
 import { API_URL } from '../Autentication/constanst';
 import { useAuth } from '../Autentication/AutProvider';
+import Chat from './ChatButton';
 type CitaData ={
   date: string;
   hora: string;
@@ -79,6 +80,7 @@ const CitasCliente = () => {
           
         </div>
       </div>
+      <Chat />
     </PortalLayout>
     );
 };

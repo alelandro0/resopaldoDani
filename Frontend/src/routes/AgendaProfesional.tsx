@@ -3,6 +3,7 @@ import { PortalLayout } from '../layout/PortalLayout';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import { useAuth } from "../Autentication/AutProvider";
 import { API_URL } from "../Autentication/constanst";
+import Chat from './ChatButton';
 
 
 type CitaData ={
@@ -78,7 +79,7 @@ const AgendaProfesional: React.FC = () => {
         <PortalLayout>
         <div className="container mt-5">
             <h1 className="text-center" style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '3.5rem', fontWeight: 'bold', color: '#3c3c3c' }}
-            >Consulta de Citas  Profesional</h1>
+            >Cronograma de Trabajo</h1>
         
                 <div className="row justify-content-center">
                     {datos.map((cita, index) => (
@@ -101,6 +102,7 @@ const AgendaProfesional: React.FC = () => {
                 </div>
             
         </div>
+        <Chat />
     </PortalLayout>
     );
 }

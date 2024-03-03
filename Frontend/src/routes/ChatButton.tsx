@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from 'react';
+import React, { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from 'react';
 import axios from 'axios';
 import './ChatButton.css'; 
 
@@ -56,15 +56,15 @@ function Chat(): JSX.Element {
   return (  
     <>
       <div>
-        <button >
-          <img onClick={openModal} id="img-chat" src='/public/img/logo.png' alt='chatBot' />
+        <button onClick={openModal} id="img-chat" className='botImage' >
+          
         </button>
       </div>
       {console.log("modal activado", isModalOpen)
       }
       {isModalOpen && (
         <div className='modal-container'>
-          <div className='modal'>
+          <div className='modal1'>
             <div className='chat-container'>
               <div className='modal-header'>
                 <h1>Soporte MULTISERVICIOS</h1>

@@ -3,6 +3,7 @@ import { PortalLayout } from '../layout/PortalLayout';
 import { useAuth } from "../Autentication/AutProvider";
 import './EditarPerfil.css';
 import  { useEffect, useState, ChangeEvent } from 'react';
+import Chat from './ChatButton';
 
 export const EditarPerfil = () => {
   // Estado local para gestionar los valores de los campos
@@ -139,7 +140,7 @@ export const EditarPerfil = () => {
                 <img
                   src={downloadURL}
                   alt="Perfil"
-                  className={auth.getUser()?.roll === 'Profesional' ? "profile-image" : "profile-cliente"}
+                  className='perfil-editar'
                 />
               ) : null}
             </div>
@@ -159,6 +160,7 @@ export const EditarPerfil = () => {
       </div>
         </div>
       </section>
+      <Chat />
       </PortalLayout>
     </>
   );

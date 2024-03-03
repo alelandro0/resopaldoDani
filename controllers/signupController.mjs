@@ -1,3 +1,4 @@
+
 import sendConfirmationEmail from "../validations/correos.mjs";
 import { jsonResponse } from "../lib/jsonResponse.mjs";
 import User from "../models/user.mjs";

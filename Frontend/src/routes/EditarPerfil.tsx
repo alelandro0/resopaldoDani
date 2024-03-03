@@ -5,6 +5,7 @@ import { useEffect, useState, ChangeEvent } from 'react';
 import React from 'react';
 import { API_URL } from '../Autentication/constanst';
 import Chat from './ChatButton';
+import Swal from 'sweetalert2';
 
 export const EditarPerfil = () => {
   const [name, setName] = useState('');
@@ -56,8 +57,20 @@ export const EditarPerfil = () => {
           }
         }
         setShowModal(true);
+        await Swal.fire({
+          icon: 'success',
+          title: '¡Actualizacion Exitosa!',
+          showConfirmButton: false,
+          timer: 1500
+        });
       }
     } catch (error) {
+      await Swal.fire({
+        icon: 'error',
+        title: '¡Error!',
+        text: 'Algo Ocurrio al Editar .',
+
+      });
       console.error('Error al actualizar el perfil:', error);
       setModalMessage("Error al actualizar el perfil: " + error.message);
       setShowModal(true);

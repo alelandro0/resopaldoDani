@@ -12,8 +12,8 @@ import { AuthProvider } from './Autentication/AutProvider'
 import {ChatClient} from './routes/Chat.io'
 import {EditarPerfil}  from './routes/EditarPerfil'
 import {Editar} from './routes/Editar'
-import AgendaProfesional from './routes/agendaProfesional'
-import CitasCliente from './routes/citasCliente'
+import AgendaProfesional from './routes/AgendaProfesional'
+import CitasCliente from './routes/CitasCliente'
 
 const router = createBrowserRouter([
   {

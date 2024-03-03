@@ -13,15 +13,15 @@ export const agendarCita = async (req, res) => {
 
     // Crea la cita utilizando el modelo de cita
     const cita = await Cita.create({
-      nombre,
-      description,
-      date,
       ProfesionalId: profesionales._id,
+      nombre,
+      date,
       hora,
+      description,
       userId: id,
       estado: 'pendiente' // Asigna 'pendiente' si no se proporciona ningún estado
     });
-
+console.log('valores de la cita ',cita);
     res.status(201).json(cita);
   } catch (err) {
     res.status(400).json({ message: err.message }); // Cambio de código de estado a 400 en caso de error
@@ -73,16 +73,75 @@ export const updateAppointment = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
-export const getCitasUser = async () => {
-  const { userId } = req.body;
-  const user = await User.findById({ userId: userId })
+export const getCitasUser = async (req, res) => {
+  try {
+    // Obtener el userId de la solicitud
+    const userId = req.params.userId;
+    // Buscar todas las citas asociadas a este userId
+    const citas = await Cita.find({ userId: userId });
+    // Verificar si se encontraron citas
+    if (!citas || citas.length === 0) {
+      return res.status(404).json({ message: 'No se encontraron citas para este usuario' });
+    }
+    
+    // Crear un arreglo para almacenar las citas y los datos del usuario
+    const citasConUsuario = [];
 
-  if (!user)
-    return res.status(400).json({ message: 'usurio no encontrados' })
-  {
+    // Iterar sobre cada cita
+    for (const cita of citas) {
+      // Encontrar el usuario asociado a la cita
+      const user = await User.findById(cita.userId);
 
+      // Verificar si se encontró el usuario
+      if (!user) {
+        console.error(`No se encontró el usuario para la cita con ID ${cita._id}`);
+        continue;
+      }
+
+      // Crear un objeto con los datos de la cita y el usuario
+      
+       
+     
+
+      // Agregar la cita con usuario al arreglo
+      citasConUsuario.push( cita);
+    }
+
+    // Devolver las citas encontradas con la información del usuario en la respuesta
+    return res.status(200).json(citasConUsuario);
+  } catch (error) {
+    // Manejar errores
+    res.status(400).json({ message: error.message });
   }
-}
-export const getCitasProfesional = async () => {
+};
 
-}
+export const getCitasProfesional = async (req, res) => {
+  try {
+    const { nombre } = req.params;
+
+    const citas = await Cita.find({ nombre: nombre });
+
+    if (!citas || citas.length === 0) {
+      return res.status(404).json({ message: 'No se encontraron citas para este profesional' });
+    }
+
+    const citasConUsuario = [];
+
+    for (const cita of citas) {
+      const usuario = await User.findById(cita.userId);
+      const agendar = await Cita.findOne();
+  
+      if (usuario) {
+        cita.usuario = {
+          name: usuario.name,
+          imageProfile: usuario.imageProfile
+        };
+      }
+      citasConUsuario.push(agendar.date,agendar.hora,agendar.userId,usuario.name,usuario.imageProfile);
+    }
+    console.log(citasConUsuario, 'citas de usuario');
+    return res.status(200).json(citasConUsuario);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};

@@ -114,14 +114,16 @@ export const Editar = () => {
                   style={{ display: "none" }}
                   onChange={(e) => handleProfileImageChange(e.target.files)}
                 />
-                <label className={auth.getUser()?.roll === "Profesional" ? "button" : "button-cliente"} style={{ color: "black" }} htmlFor="profileImageInput">+</label>
+                <label className={auth.getUser()?.roll === "Profesional" ? "button" : "button-cliente"} style={{ color: "black" }} htmlFor="profileImageInput"></label>
               </div>
+              
               {downloadURL ? (
+             
                 <img
                   src={downloadURL}
                   alt="Perfil"
-                  className={` ${auth.getUser()?.roll === 'Profesional' ? 'profile-image' : 'profile-cliente'}`}
-                />
+                  className={` ${auth.getUser()?.roll === 'Profesional' ? 'profile-image1' : 'profile-cliente'}`}
+                   style={{padding:200}}/>
               ) : null}
             </div>
           </div>

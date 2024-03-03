@@ -49,15 +49,15 @@ export  function PortalLayout({children}: {children:React.ReactNode}){
               {/* <li className="li-dashboard">
               <Link style={{color:'White',fontSize:'18px', textDecoration:'none'}}  to="/chat"  >Chat</Link>
               </li> */}
-{/* 
+
               {auth.getUser()?.roll ==='Cliente'? (
               <li >
-                <Link style={{color:'White',fontSize:'18px', textDecoration:'none'}} to="/agendar">Agendar Cita</Link>
+                <Link style={{color:'White',fontSize:'18px', textDecoration:'none'}} to="/consultar-citas">Mis Citas </Link>
               </li>):null}
               {auth.getUser()?.roll ==='Profesional'? (
               <li >
-                <Link style={{color:'White',fontSize:'18px', textDecoration:'none'}} to="/agenda">Mi Agenda</Link>
-              </li>):null} */}
+                <Link style={{color:'White',fontSize:'18px', textDecoration:'none'}} to="/Agenda">Mi Agenda</Link>
+              </li>):null}
               <li >
                 <a style={{color:'White',fontSize:'18px',textDecoration:'none'}} href="#" onClick={handleSignOut}>
                   Salir

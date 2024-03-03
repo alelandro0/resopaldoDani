@@ -373,7 +373,7 @@ export default function Dashboard() {
         description: descripcionCita,
         date: fechas,
         hora: horas,
-        idCard: idPublicacion,
+        userId: idPublicacion,
         id: auth.getUser()?.id  // Asegúrate de obtener este valor de donde corresponda
       };
 
@@ -519,7 +519,7 @@ export default function Dashboard() {
                     <div className='delete'>
                       <h2 className='nameUser'>{(publicacion.name) ?? ""}</h2>
                       <button onClick={() => {
-                        modalHandler(true, publicacion?.image, publicacion?._id, publicacion?.description, publicacion?.name)
+                        modalHandler(true, publicacion?.image, publicacion?.id, publicacion?.description, publicacion?.name)
                       }} className='btn btn-dark'>Ver</button>
                     </div>
                     
@@ -539,7 +539,7 @@ export default function Dashboard() {
         <div >
           <div className='card-body' style={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>
             <button className='btn btn-dark' onClick={() => modalHandlerAgendar(true, fechas, horas, descripcionP)}>Agendar</button>
-            <h1>{idPublicacion || 'sin  id'}</h1>
+            
             <button className='btn btn-danger' onClick={() => modalHandler(false, '', '', '', '')}>X</button>
 
           </div>

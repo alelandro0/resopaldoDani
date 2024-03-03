@@ -17,9 +17,10 @@ import http from "http";
 import { router as DeletePubli  } from "./routes/DeletePubli.mjs";
 import {router as publicationGetAll  } from "./routes/routerPublicGetAll.mjs";
 import {router as citas} from './routes/Appoinment.mjs'
-
 import {router as cancelCita} from './routes/cancelarCitas.mjs'
 import { router as chat  } from "./routes/chatai.mjs";
+import { router as CitasUsuarios } from "./routes/getCitasUsuario.mjs";
+import { router as agendaProfesional } from "./routes/getCitasProfesinal.mjs";
 
 dotenv.config();
 const expressPort = process.env.PORT || 5000;
@@ -65,6 +66,8 @@ app.use("/api/publicationgetAll", publicationGetAll);
 app.use("/api/citas",citas);
 app.use('/api/cancelar-cita',cancelCita)
 app.use("/api/chat", chat)
+app.use("/api/citas-usuario",CitasUsuarios)
+app.use("/api/agenda-profesional", agendaProfesional)
 
 server.listen(expressPort, () => {
     console.log(`El servidor de Express se está ejecutando en el puerto: ${expressPort}`);

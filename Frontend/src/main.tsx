@@ -12,7 +12,8 @@ import { AuthProvider } from './Autentication/AutProvider'
 import {ChatClient} from './routes/Chat.io'
 import {EditarPerfil}  from './routes/EditarPerfil'
 import {Editar} from './routes/Editar'
-
+import AgendaProfesional from './routes/agendaProfesional'
+import CitasCliente from './routes/citasCliente'
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,14 @@ const router = createBrowserRouter([
       {
         path: "/EditarPerfil",
         element: <EditarPerfil/>
+      },
+      {
+        path: "/Agenda",
+        element:<AgendaProfesional/>
+      },
+      {
+        path: "/consultar-citas",
+        element:<CitasCliente/>
       },
       {
         path: "Editar",

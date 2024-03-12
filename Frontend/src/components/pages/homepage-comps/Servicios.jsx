@@ -52,7 +52,7 @@ const MyProjects = () => {
     >
       <div className="max-w-screen-lg p-4 mx-auto flex flex-col justify-center w-full h-full">
         <div className="mb-4">
-          <h2 className="text-4xl font-bold inline border-b-4 border-purple-600 sm:text-5xl pb-1">
+          <h2 className="text-4xl font-bold inline border-b-4 border-blue-600 sm:text-5xl pb-1">
             Servicios
           </h2>
           <p className="py-6">Echa un vistazo a algunos de nuestros servicios</p>
@@ -76,7 +76,7 @@ const MyProjects = () => {
         <div className="flex justify-end mr-4">
           <Link
             to="projects"
-            className="hover:underline hover:underline-offset-4 hover:text-purple-600 cursor-pointer text-gray-300 flex items-center"
+            className="hover:underline hover:underline-offset-4 hover:text-blue-600 cursor-pointer text-blue-00 flex items-center"
           >
             Ver más servicios
             <MdOutlineKeyboardArrowRight size={20} />

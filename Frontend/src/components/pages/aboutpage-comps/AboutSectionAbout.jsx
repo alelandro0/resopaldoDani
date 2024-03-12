@@ -16,7 +16,7 @@ const AboutSectionAbout = () => {
                     
                     <h1 className='text-4xl md:text-5xl font-bold text-white mb-2 md:mb-4'>Quienes somos?</h1>
 
-                    <div className='flex items-center bg-purple-600 rounded-md py-2 px-4'>
+                    <div className='flex items-center bg-blue-600 rounded-md py-2 px-4'>
                     </div>
                     
                     <p className='text-md md:text-lg text-gray-300 py-4 max-x-md text-justify'>En MultiServicios, nos dedicamos a ofrecer una plataforma integral para el trabajo tanto formal como informal. Nuestro objetivo es conectar a personas que buscan servicios con profesionales capacitados en una amplia gama de áreas, desde mantenimiento del hogar hasta servicios profesionales especializados.</p>
@@ -26,7 +26,7 @@ const AboutSectionAbout = () => {
             </div>
 
             <ScrollLink to="Edition" smooth duration={500} className='absolute bottom-2 -left-full md:left-1/2 md:-translate-x-1/2 cursor-pointer hover:text-primary-color'>
-                <i className='bx bx-chevron-down text-7xl text-gray-400 animate-bounce font hover:text-purple-600'></i>
+                <i className='bx bx-chevron-down text-7xl text-gray-400 animate-bounce font hover:text-blue-600'></i>
             </ScrollLink>
         </section>
     );

@@ -131,7 +131,7 @@ async function getImageProfile() {
               <FontAwesomeIcon icon={faBullhorn} />
               <span>Publicaciones</span>
             </div>
-            <button className='menu-bottom-user m-10 hover:text-purple-600' onClick={handleSignOut}>Salir</button>
+            <button className='menu-bottom-user m-10 hover:text-blue-600' onClick={handleSignOut}>Salir</button>
           </div>
         </div>
       </div>

@@ -26,21 +26,16 @@ export default function Login() {
           password
         })
       });
-      console.log('POST login ', response);
 
       if (response.ok) {
-        console.log("Inicio de sesión exitoso.");
         setErrorResponse("");
         const json = (await response.json()) as AuthResponse;
-        console.log(response);
 
         if (json.body.accessToken && json.body.refreshToken) {
           const guardar = auth.saveUser(json);
-          console.log('datos almacenados LOGIN', guardar);
-          goto("/iniciar-sesion");
+          goto("/dashboard");
         }
       } else {
-        console.log("algo malo acurrió :o");
         const json = (await response.json()) as AuthResponseError;
         setErrorResponse(json.body.error);
         return;
@@ -50,6 +45,14 @@ export default function Login() {
     }
   }
 
+  const transparentBg = "bg-transparent";
+  const blueBorder = "border-2 border-blue-500";
+  const blackText = "text-black";
+  const blueButtonBg = "bg-white";
+  const whiteButtonTxt = "text-white";
+  const blueLink = "text-blue-600 hover:bg-blue-600 hover:text-white";
+  const whiteText = "text-white";
+
   if (auth.esAutentico) {
     return <Navigate to="/dashboard" />;
   }
@@ -58,11 +61,11 @@ export default function Login() {
     <>
       <Header />
       <section className="relative z-10 h-screen flex justify-center items-center">
-        <div className="relative bg-white p-8 rounded shadow-md">
-          <h1 className="text-3xl font-bold mb-4 text-black">Iniciar Sesión</h1>
+        <div className={`relative ${transparentBg} p-8 rounded ${blueBorder} shadow-md space-y-4`}>
+          <h1 className="text-3xl font-bold mb-4 text-white">Iniciar Sesión</h1>
           {!!errorResponse && <div className="text-red-500 mb-4">{errorResponse}</div>}
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
               <input
                 type="text"
                 placeholder="Correo Electrónico"
@@ -72,7 +75,7 @@ export default function Login() {
                 className="w-full text-black p-2 border border-gray-300 rounded focus:outline-none focus:border-purple-600"
               />
             </div>
-            <div className="mb-4">
+            <div>
               <input
                 type="password"
                 placeholder="Contraseña"
@@ -82,17 +85,19 @@ export default function Login() {
                 className="w-full text-black p-2 border border-gray-300 rounded focus:outline-none focus:border-purple-600"
               />
             </div>
-            <div className="flex items-center justify-between mb-4">
-              <label className="text-gray-700">
+            <div className="flex items-center justify-between">
+              <label className="text-blue-600">
                 <input type="checkbox" className="mr-2" />
-                Recordar Usuario
+                Recordar Usuario 
               </label>
-              <a href="#" className="text-purple-600">¿Has olvidado tu contraseña?</a>
+              <a href="#" className={`${whiteText}`}>¿Has olvidado tu contraseña?</a>
             </div>
-            <button type="submit" className="w-full bg-purple-600 text-white p-2 rounded hover:bg-purple-700 focus:outline-none">Iniciar Sesión</button>
+            <button type="submit" className={`w-full ${blueButtonBg} ${blackText} p-2 rounded focus:outline-none`}>
+              Iniciar Sesión
+            </button>
           </form>
           <div className="mt-4">
-            <p>¿No tienes una cuenta? <a href="/signup" className="text-purple-600">Registrarse</a></p>
+            <p>¿No tienes una cuenta? <a href="/signup" className={`text-blue-600 `}>Registrarse</a></p>
           </div>
         </div>
       </section>

@@ -41,7 +41,7 @@ const Contact = () => {
         <section name='Contactanos' className='relative w-full md:h-screen p-4 text-white h-unset'>
             <div className='flex flex-col p-4 justify-center max-w-screen-lg mx-auto h-full'>
                 <div className='pb-8'>
-                    <h2 className='text-4xl font-bold inline border-b-4 border-purple-600 border-opacity-40 sm:text-5xl'>Contactanos</h2>
+                    <h2 className='text-4xl font-bold inline border-b-4 border-blue-600 border-opacity-40 sm:text-5xl'>Contactanos</h2>
                     <p className='py-6'>Completa el siguiente formulario para contactarnos</p>
                 </div>
 
@@ -50,24 +50,24 @@ const Contact = () => {
                         <input 
                             type="text" 
                             name='name' placeholder='Ingresar Nombre' 
-                            className='p-2 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-purple-600' required
+                            className='p-2 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600' required
                         />
 
                         <input 
                             type="email" 
                             name='email' placeholder='Ingresa Correo Electronico' 
-                            className='my-4 p-2 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-purple-600' required
+                            className='my-4 p-2 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600' required
                         />
 
                         <textarea 
                             name="message" 
                             rows="10" 
                             placeholder='Escriba un mensaje' 
-                            className='p-2 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-purple-600' required
+                            className='p-2 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600' required
                         ></textarea>
 
                         <button 
-                            className='text-white font-semibold bg-gradient-to-t from-purple-600  px-6 py-3 my-8 mx-auto flex items-center rounded-md hover:scale-110 duration-300'
+                            className='text-white font-semibold bg-gradient-to-t from-blue-600  px-6 py-3 my-8 mx-auto flex items-center rounded-md hover:scale-110 duration-300'
                             disabled={showSpinner} // Deshabilitar el botón mientras se muestra el spinner
                         >
                             {showSpinner ? (

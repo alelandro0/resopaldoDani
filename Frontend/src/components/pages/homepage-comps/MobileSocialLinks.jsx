@@ -52,7 +52,7 @@ const MobileSocialLinks = () => {
             <ul className="flex gap-2 flex-wrap justify-center">
                 {
                     links.map(({id, child, href, style, download}) => (
-                        <li key={id} className={"flex items-center gap-2 w-28 h-9 px-4 bg-gradient-to-t from-purple-600/50  rounded-md" + " " + style }>
+                        <li key={id} className={"flex items-center gap-2 w-28 h-9 px-4 bg-gradient-to-t from-blue-600/50  rounded-md" + " " + style }>
                             <a href={href} className="flex gap-3 items-center w-full text-white text-sm" download={download} target="_blank" rel="noreferrer">
                             {child}
                             </a>

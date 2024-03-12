@@ -1,27 +1,33 @@
-// Header.jsx
-
-import { Link } from 'react-router-dom';
-import logoImage from "../../../assets/multiservicios.png";
+import { Link, useLocation } from 'react-router-dom';
 
 const Header = () => {
+  const location = useLocation();
+
   return (
-    <header className="fixed top-0 z-30 lg:flex text-gray-100 p-4 flex items-center justify-evenly h-full w-full bg-black opacity-0.5"  style={{ height: "90px" }}>
-      <div className="flex items-center space-x-4">
-        <Link to="/" className='mr-3 hover:bg-purple-600'>
-          <img
-            src={logoImage}
-            alt="Logo"
-            className="m-3 h-15 max-h-16 max-w-32 "
-            style={{ filter: 'invert(100%)' }}
-          />
-        </Link> MultiServicios
-        <nav className="flex space-x-4">
-          <Link to="/iniciar-sesion" className=' h-100% hover:text-purple-600'>Iniciar Sesion</Link>
-        </nav>
-        <nav className="flex space-x-4">
-          <Link to="/Registrate" className=' h-100% hover:text-purple-600'>Regístrate</Link>
-        </nav>
+    <header className="fixed top-0 flex bg-neutral-900/60 justify-between h-20 items-center py-4 px-4 md:px-6 text-white mx-auto lg:px-24 md:py-0 w-full z-30 transition-colors duration-700">
+      <div className='flex flex-row gap-4 items-center'>
+        <h1 className='text-[1.1rem] lg:text-[1.3rem] hover:text-blue-600 hover:scale-125 duration-500'>
+          <i className='bx bx-code-curly mr-2 text-base'></i>
+          MultiServicios
+        </h1>
       </div>
+      <ul className='hidden lg:flex flex-row space-x-4 items-center'>
+        <li className={`cursor-pointer rounded-lg p-4 duration-200 text-[1.1rem] lg:text-[1.3rem] opacity-70 ${location.pathname === '/' ? 'bg-blue-600' : 'hover:bg-blue-600'}`}>
+          <Link to="/" className='hover:text-white'>
+            Inicio
+          </Link>
+        </li>
+        <li className={`cursor-pointer rounded-lg p-4 duration-200 text-[1.1rem] lg:text-[1.3rem] opacity-70 ${location.pathname === '/iniciar-sesion' ? 'bg-blue-600' : 'hover:bg-blue-600'}`}>
+          <Link to="/iniciar-sesion" className='hover:text-white'>
+            Iniciar Sesion
+          </Link>
+        </li>
+        <li className={`cursor-pointer rounded-lg p-4 duration-200 text-[1.1rem] lg:text-[1.3rem] opacity-70 text-white ${location.pathname === '/registrate' ? 'bg-blue-600' : 'hover:bg-blue-600'}`}>
+          <Link to="/registrate" className='hover:text-white'>
+            Regístrate
+          </Link>
+        </li>
+      </ul>
     </header>
   );
 };

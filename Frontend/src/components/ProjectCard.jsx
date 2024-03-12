@@ -14,7 +14,7 @@ const ProjectCard = ({ project, handleModalInfo }) => {
   };
 
   return (
-    <div className="shadow-md shadow-gray-600 rounded-lg max-w-md mx-auto">
+    <div className="shadow-md shadow-blue-600 rounded-lg max-w-md mx-auto">
      
       <img
         onClick={() => handleModalInfo(project)}

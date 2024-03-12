@@ -37,14 +37,14 @@ const AllProjects = () => {
 
     return (
         <section name="Servicios" className='relative w-full text-white md:min-h-screen mt-24 mb-10'>
-            <div className='max-w-screen-lg p-4 mx-auto flex flex-col justify-center w-full'>
+            <div className='max-w-screen-lg p-4 mx-auto flex flex-col justify-center w-full p-20'>
                 <div className='pb-8'>
-                    <h2 className='text-4xl font-bold inline border-b-4 border-purple-600 sm:text-5xl'>Todos los Servicios</h2>
+                    <h2 className='text-4xl font-bold inline border-b-4 border-blue-600 sm:text-5xl'>Todos los Servicios</h2>
                     <p className='py-6'>Servicios Ofertados.</p>
                 </div>
                 <div className='grid sm:grid-cols-2 md:grid-cols-3 gap-8'>
                     {projects.map((publication, index) => (
-                        <div key={index} className='shadow-md shadow-gray-600 rounded-lg w-full flex-shrink-0'>
+                        <div key={index} className='shadow-md shadow-blue-600 rounded-lg w-full flex-shrink-0'>
                             <img
                                 loading='lazy'
                                 src={publication.image}
@@ -65,7 +65,7 @@ const AllProjects = () => {
         duration={500}
         className="absolute bottom-2 -left-full md:left-1/2 md:-translate-x-1/2 cursor-pointer hover:text-primary-color"
       >
-        <i className="bx bx-chevron-down text-7xl text-gray-400 animate-bounce font hover:text-purple-600"></i>
+        <i className="bx bx-chevron-down text-7xl text-blue-400 animate-bounce font hover:text-blue-600"></i>
       </ScrollLink>
 
            

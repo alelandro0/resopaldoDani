@@ -6,7 +6,7 @@ const Edition = () => {
             {/* Seccion izquierda */}
             <section className='grid gap-10'>
                 <div>
-                    <h3 className='text-sm text-gray-400'>Videos</h3>
+                    <h3 className='text-sm text-blue-400'>Videos</h3>
                     <h2 className='text-3xl font-semibold mt-2'>Some videos that I have edited.</h2>
                 </div>
 

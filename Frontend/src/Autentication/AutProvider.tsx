@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { useContext, createContext, useState, useEffect } from "react";
@@ -39,6 +40,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
                     authorization: `Bearer ${refreshToken}`
                 }  
             });
+            console.log('respuesta del refres token',response);
+            
             if(response.ok){
                 const json = await response.json() as AccessTokenResponse;
 

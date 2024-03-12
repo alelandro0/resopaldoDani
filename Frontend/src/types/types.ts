@@ -19,6 +19,7 @@ export interface User{
     name: string;
     username: string;
     roll: string;
+    portada: string;
     publication:{
         _id:string,
         image: string,

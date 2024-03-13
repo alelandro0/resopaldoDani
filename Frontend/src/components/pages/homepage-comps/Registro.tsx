@@ -51,7 +51,7 @@ export const Registro = () => {
   }
 
   const transparentBg = "bg-transparent";
-  const blueBorder = "border-2 border-blue-500";
+  const blueBorder = "border-2 border-white";
   const blackText = "text-black";
   const blueButtonBg = "bg-white";
   const whiteButtonTxt = "text-white";
@@ -72,7 +72,7 @@ export const Registro = () => {
             <div className="mb-4">
               <label className={`block ${whiteText} text-sm font-bold mb-2`} htmlFor="name">Nombre</label>
               <input
-                className={`shadow border ${whiteText} border-gray-400 appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline hover:border-purple-600`}
+                className={`shadow border ${whiteText} border-gray-400 appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline hover:border-blue-500`}
                 id="name"
                 type="text"
                 value={name}
@@ -83,7 +83,7 @@ export const Registro = () => {
             <div className="mb-4">
               <label className={`block ${whiteText} text-sm font-bold mb-2`} htmlFor="username">Correo</label>
               <input
-                className={`shadow appearance-none border ${whiteText} border-gray-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline hover:border-purple-600`}
+                className={`shadow appearance-none border ${whiteText} border-gray-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline hover:border-blue-500`}
                 id="username"
                 type="email"
                 value={username}
@@ -94,7 +94,7 @@ export const Registro = () => {
             <div className="mb-4">
               <label className={`block ${whiteText} text-sm font-bold mb-2`} htmlFor="password">Contraseña</label>
               <input
-                className={`shadow border-gray-400 appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline hover:border-purple-600`}
+                className={`shadow border-gray-400 appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline hover:border-blue-500`}
                 id="password"
                 type="password"
                 value={password}

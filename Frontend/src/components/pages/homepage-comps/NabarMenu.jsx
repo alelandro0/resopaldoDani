@@ -8,6 +8,7 @@ import { useAuth } from '../../../Autentication/AutProvider';
 import { Link } from "react-router-dom";
 
 
+
 const NabarMenu = () => {
   const lineContainerRef = useRef(null);
   const menuRef = useRef(null);
@@ -76,20 +77,22 @@ async function getImageProfile() {
 
   return (
     <>
-      <div className="z-6 topbar relative w-full border-b border-white">
-        <div className="topbar-left">
-          <FontAwesomeIcon icon={faHome} className="logo" />
-          <h2 style={{marginLeft:20}}>MultiServicios</h2>
-        </div>
+      <div className="  relative w-full  fixed top-0 flex bg-black justify-between h-20 items-center py-4 px-4 md:px-6 text-white mx-auto lg:px-24 md:py-0  z-30  ">
+      <div className='flex flex-row gap-4 items-center'>
+                <h1 className='text-[1.1rem] lg:text-[1.3rem] hover:text-blue-600 hover:scale-125 duration-500'>
+                    <i className='bx bx-code-curly mr-2 text-base'></i>
+                    MultiServicios
+                </h1>
+            </div>
         <div className="topbar-center">
         </div>
-        <div className="topbar-center" style={{display:'flex', gap:10}}>
+        <div className='flex flex-row gap-4 items-center'>
            <FontAwesomeIcon icon={faUser} />
            <h3>Perfil {auth.getUser()?.roll}</h3>
         </div>
         <div className="topbar-right">
           <div
-            className="line-container cursor-pointer"
+            className="line-container cursor-pointer "
             ref={lineContainerRef}
             onClick={handleToggleMenu}
           >
@@ -111,23 +114,23 @@ async function getImageProfile() {
             </div>
             <FontAwesomeIcon icon={faQuestionCircle} />
           </div>
-            <div className="menu-item">
+            <div className="menu-item hover:bg-blue-600">
               <FontAwesomeIcon icon={faHome} />
               <Link to="/dashboard"> Inicio</Link>
             </div>
-            <div className="menu-item">
+            <div className="menu-item hover:bg-blue-600">
               <FontAwesomeIcon icon={faUser} />
               <span>Perfil</span>
             </div>
-            <div className="menu-item">
+            <div className="menu-item hover:bg-blue-600">
               <FontAwesomeIcon icon={faBriefcase} />
               <span>Agenda</span>
             </div>
-            <div className="menu-item">
+            <div className="menu-item hover:bg-blue-600">
               <FontAwesomeIcon icon={faEdit} />
               <span>Editar</span>
             </div>
-            <div className="menu-item">
+            <div className="menu-item hover:bg-blue-600">
               <FontAwesomeIcon icon={faBullhorn} />
               <span>Publicaciones</span>
             </div>

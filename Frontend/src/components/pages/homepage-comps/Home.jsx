@@ -15,7 +15,7 @@ const Home = () => {
             
             <h1 className='text-4xl md:text-6xl font-bold text-white mb-2 mt-3 md:mt-0 md:mb-4 '>MultiServicios</h1>
             <h2 className='rounded-md bg-blue-600 max-w-max px-6 inline text-xl md:text-3xl lg:text-3xl font-semibold text-white  bg-opacity-20'>¡Es la solucion a la puerta de tu casa! </h2>
-            <p className='text-blue-300 py-4 max-x-md text-justify'>¡Bienvenido a MultiServicios! Somos una plataforma dedicada al trabajo tanto formal como informal, ofreciendo una amplia variedad de servicios para satisfacer todas tus necesidades.</p>
+            <p className='text-white py-4 max-x-md text-justify'>¡Bienvenido a MultiServicios! Somos una plataforma dedicada al trabajo tanto formal como informal, ofreciendo una amplia variedad de servicios para satisfacer todas tus necesidades.</p>
 
             <div className='hidden desktop:flex'>
               <Link to='Acerca de nosotros' smooth duration={500} className='group text-white font-semibold w-fit px-6 py-3 my-2 flex items-center rounded-md bg-gradient-to-t from-blue-600  cursor-pointer mx-auto md:mx-0'>

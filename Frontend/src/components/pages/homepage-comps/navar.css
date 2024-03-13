@@ -93,6 +93,7 @@ h1 {
 .menu {
   width: 250px;
   height: calc(100vh - 50px);
+  margin-top: 30px;
   background-color: black;
   position: absolute;
   top: 50px;
@@ -126,17 +127,6 @@ h1 {
   color: gray;
 }
 
-.menu-search input {
-  width: 75%;
-  border: none;
-  background-color: lightgray;
-  color: black;
-}
-
-.menu-search input:focus {
-  outline: none;
-}
-
 .menu-center {
   flex: 0.8;
 }
@@ -152,10 +142,7 @@ h1 {
   margin-left: 10px;
 }
 
-.menu-item:hover{
-  background: #7c3aed;
-  
-}
+
 .menu-bottom {
   flex: 0.1;
   display: flex;
@@ -199,3 +186,6 @@ h1 {
 .line-container.active .line-3 {
   transform: rotate(-45deg);
 }
+
+
+

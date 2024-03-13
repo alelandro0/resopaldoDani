@@ -14,6 +14,8 @@ import AllProjectsPage from "./components/pages/AllProjectsPage"
 import AllTechsPage from "./components/pages/AllTechsPage"
 import NabarMenu from "./components/pages/homepage-comps/NabarMenu"
 import ProtectedRoute from './components/pages/homepage-comps/protectedRoute'
+import Chat from './components/pages/homepage-comps/ChatButton'
+
 // import { BrowserRouter } from 'react-router-dom'
 
 
@@ -27,6 +29,7 @@ const router= createBrowserRouter(
     <ParticlesBackground />
     <SocialLinks />
     <HomePage />
+    <Chat/>
     <GeneralFooter />
   </>
   },
@@ -49,6 +52,7 @@ const router= createBrowserRouter(
     <Registro/>
     <ParticlesBackground />
     <SocialLinks />
+    <Chat/>
     </> )
   },
   {
@@ -58,6 +62,7 @@ const router= createBrowserRouter(
    <Login/>
    <ParticlesBackground />
    <SocialLinks />
+   <Chat/>
    </> )
   },
   {
@@ -71,6 +76,7 @@ const router= createBrowserRouter(
         <ParticlesBackground />
         <ProtectedRoute />
         <NabarMenu />
+        <Chat/>
         
       </>
       },

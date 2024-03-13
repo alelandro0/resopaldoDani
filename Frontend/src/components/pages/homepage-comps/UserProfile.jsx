@@ -15,9 +15,9 @@ const UserProfile = () => {
   const [downloadURL, setDownloadURL] = useState("");
   const [, setEditingProfileImage] = useState(false);
   const [downloadURLPortada, setDownloadURLPortada] = useState("");
-    
 
-  
+
+
 
 
   const auth = useAuth();
@@ -179,7 +179,7 @@ const UserProfile = () => {
     //
   }
   return (
-    <><section className="seccion-perfil-usuario relative w-full">
+    <div className='profile-container relative  '><section className="seccion-perfil-usuario ">
       <div className="perfil-usuario-header">
         <div className="perfil-usuario-portada " style={{ margin: 30 }} >
           <input
@@ -196,41 +196,67 @@ const UserProfile = () => {
               <FontAwesomeIcon icon={faImage} />
             </label>
           </div>
-          
-            <input
-              type="file"
-              id="PortadaInput"
-              style={{ display: 'none' }}
-              onChange={(e) => handlePortdaImageChange(e.target.files)}
-            />
 
-            <img src={downloadURLPortada} alt="img-portada" className="portada " />
-            <label htmlFor="PortadaInput" className="boton-portada" >
-              <FontAwesomeIcon icon={faImage} /> Cambiar fondo
-            </label>
+          <input
+            type="file"
+            id="PortadaInput"
+            style={{ display: 'none' }}
+            onChange={(e) => handlePortdaImageChange(e.target.files)}
+          />
+
+          <img src={downloadURLPortada} alt="img-portada" className="portada " />
+          <label htmlFor="PortadaInput" className="boton-portada" >
+            <FontAwesomeIcon icon={faImage} /> Cambiar fondo
+          </label>
+        </div>
+      </div>
+      <div className="perfil-usuario-body" style={{ width: '50%' }}>
+        <div className="perfil-usuario-bio" style={{ display: 'flex', flexDirection: 'column' }}>
+          <div>
+            <h2 className='info' style={{ color: 'black', marginBottom: '1rem' }}>Información Personal:</h2>
+          </div>
+          <div>
+            <h2 className="Name" style={{ color: 'black' }}>Nombre: {auth.getUser()?.name}</h2>
+          </div>
+          <div>
+            <p className="Phone" style={{ color: 'black' }}>Numero de celular: 3147109361</p>
+          </div>
+          <div>
+            <p className="Email" style={{ color: 'black' }}>Correo Electronico: Torresgarciajuandavid7@gmail.com</p>
           </div>
         </div>
-        <div className="perfil-usuario-body" style={{ width: '50%' }}>
-  <div className="perfil-usuario-bio" style={{ display: 'flex', flexDirection: 'column' }}>
-    <div>
-      <h2 className='info' style={{ color: 'black', marginBottom: '1rem' }}>Información Personal:</h2>
-    </div>
-    <div>
-      <h2 className="Name" style={{ color: 'black' }}>Nombre: {auth.getUser()?.name}</h2>
-    </div>
-    <div>
-      <p className="Phone" style={{ color: 'black'}}>Numero de celular: 3147109361</p>
-    </div>
-    <div>
-      <p className="Email" style={{ color: 'black' }}>Correo Electronico: Torresgarciajuandavid7@gmail.com</p>
-    </div>
-  </div>
-  <div className="Post-potfile">
-    <h1 className="texto">Publicaciones {auth.getUser()?.publication.filter(pub => pub.estado === true).length}</h1>
-  </div>
-</div>
+        <div className="Post-potfile">
+          <h1 className="texto">Publicaciones {auth.getUser()?.publication.filter(pub => pub.estado === true).length}</h1>
+        </div>
+      </div>
+      <div className="area-comentar">
+        <div className="avatar">
+          <img src="https://firebasestorage.googleapis.com/v0/b/react-firebase-upload-480ee.appspot.com/o/Avatar%2FC__Data_Users_DefApps_AppData_INTERNETEXPLORER_Temp_Saved%20Images_Cortes-de-cabello-para-hombre-4.jpg_1710158906965?alt=media&token=42f22ef9-e239-432b-b935-d293589e03b4" alt="img" />
+        </div>
+        <form action="#" method="post" className="inputs-comentarios">
+          <textarea name="" className="area-comentario text-black " 
+          placeholder="¿Que estas pensando?" style={{textAlign:'center',padding:2}} ></textarea>
+          <div className="botones-comentar">
+            <div className="boton-subir-archivo">
+              <label className="boton-file" htmlFor="adjuntar">
+                <i className="far fa-image"></i>
+                Adjuntar archivo
+              </label>
+              <input type="file" name="" value="" placeholder="" id="adjuntar" />
+            </div>
+            <button className="boton-enviar" type="submit">
+              <i className="fas fa-paper-plane"></i>
+              Enviar
+            </button>
+          </div>
+        </form>
+      </div>
+      <div style={{height:100}}></div>
 
-    </section></>
+    </section>
+
+    </div>
+
   );
 }
 

@@ -46,7 +46,7 @@ export default function Login() {
   }
 
   const transparentBg = "bg-transparent";
-  const blueBorder = "border-2 border-blue-500";
+  const blueBorder = "border-2 border-white";
   const blackText = "text-black";
   const blueButtonBg = "bg-white";
   const whiteButtonTxt = "text-white";

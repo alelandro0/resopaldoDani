@@ -11,7 +11,7 @@ import node from "../../../assets/soldador.png";
 
 import { Link as ScrollLink } from "react-scroll";
 
-const Techs = () => {
+const   Techs = () => {
   const techs = [
     {
       id: 1,

@@ -4,6 +4,7 @@ import { API_URL } from '../../../Autentication/constanst';
 import { useAuth } from '../../../Autentication/AutProvider';
 import type { AuthResponseError } from "../../../types/types";
 import Header from "./Header";
+import LogoMulti from "../../../../public/images/logoMulti.png";
 
 export const Registro = () => {
   const [name, setName] = useState("");
@@ -11,8 +12,6 @@ export const Registro = () => {
   const [password, setPassword] = useState('');
   const [roll, setRoll] = useState("");
   const [errorResponse, setErrorResponse] = useState("");
-  const client = "Cliente";
-  const Profesional = "Profesional";
   const auth = useAuth();
   const goto = useNavigate();
 
@@ -50,13 +49,6 @@ export const Registro = () => {
     }
   }
 
-  const transparentBg = "bg-transparent";
-  const blueBorder = "border-2 border-white";
-  const blackText = "text-black";
-  const blueButtonBg = "bg-white";
-  const whiteButtonTxt = "text-white";
-  const whiteText = "text-white";
-
   if (auth.esAutentico) {
     return <Navigate to="/dashboard" />;
   }
@@ -64,68 +56,83 @@ export const Registro = () => {
   return (
     <>
       <Header />
-      <section className="relative z-10 mt-12 flex items-center justify-center h-screen shadow-md min-h-screen mt-20 ">
-        <div className={`relative max-w-md w-full mx-auto p-10 rounded-md shadow-md bg-blue-1000 text-white ${transparentBg} ${blueBorder}`}>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <h2 className={`text-center text-2xl font-bold mb-4`}>Registro</h2>
-            {!!errorResponse && <div className="bg-red-100 border border-red-600 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">{errorResponse}</div>}
-            <div className="mb-4">
-              <label className={`block ${whiteText} text-sm font-bold mb-2`} htmlFor="name">Nombre</label>
-              <input
-                className={`shadow border ${whiteText} border-gray-400 appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline hover:border-blue-500`}
-                id="name"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Nombre"
+      <section className="relative w-full md:h-screen p-4 text-white h-unset flex justify-center items-center">
+        <div className="flex flex-col max-w-screen-lg mx-auto relative z-10 mt-12">
+          <div className="pb-0">
+            <h2 className="text-4xl font-bold inline border-b-4 border-blue-600 border-opacity-40 sm:text-5xl">Registro</h2>
+            <p className="py-6">Completa el siguiente formulario para registrarte</p>
+          </div>
+
+          <div className="flex justify-center items-center relative z-10 h-96">
+            <form onSubmit={handleSubmit} className="flex flex-col w-full md:w-1/2 rounded-md p-8" style={{ zIndex: "20" }}>
+              <input 
+                type="text" 
+                name="name" 
+                placeholder="Nombre" 
+                value={name} 
+                onChange={(e) => setName(e.target.value)} 
+                className=" my-4 p-2 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600" 
+                required 
               />
-            </div>
-            <div className="mb-4">
-              <label className={`block ${whiteText} text-sm font-bold mb-2`} htmlFor="username">Correo</label>
-              <input
-                className={`shadow appearance-none border ${whiteText} border-gray-400 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline hover:border-blue-500`}
-                id="username"
-                type="email"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Correo"
+
+              <input 
+                type="text" 
+                name="username" 
+                placeholder="Correo Electrónico" 
+                value={username} 
+                onChange={(e) => setUsername(e.target.value)} 
+                className="my-4 p-2 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600" 
+                required 
               />
-            </div>
-            <div className="mb-4">
-              <label className={`block ${whiteText} text-sm font-bold mb-2`} htmlFor="password">Contraseña</label>
-              <input
-                className={`shadow border-gray-400 appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline hover:border-blue-500`}
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Contraseña"
+
+              <input 
+                type="password" 
+                name="password" 
+                placeholder="Contraseña" 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)} 
+                className="my-4 p-2 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600" 
+                required 
               />
-            </div>
-            <div className="mb-4">
-              <label className={`block ${whiteText} text-sm font-bold mb-2`} htmlFor="roll">Tipo de usuario</label>
-              <select
-                className={`block bg-black text-white border-gray-400 appearance-none w-full border py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:border-gray-500 hover:border-blue-600`}
-                id="roll"
-                value={roll}
-                onChange={(e) => setRoll(e.target.value)}
-              >
-                <option value="">Selecione el tipo de usuario</option>
-                <option value={client}>Cliente</option>
-                <option value={Profesional}>Profesional</option>
-              </select>
-            </div>
-            <div className="flex items-center justify-between">
-              <button
-                className={`bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none `}
-                type="submit"
-              >
-                Registrarse
+
+<select 
+  name="roll" 
+  value={roll} 
+  onChange={(e) => setRoll(e.target.value)} 
+  className="my-4 p-2 rounded-md focus:outline-none focus:border-blue-600 bg-black border-2 border-white text-white"
+  required
+>
+  <option value="" className="text-white">Selecciona el tipo de usuario</option>
+  <option value="Cliente" className="text-white">Cliente</option>
+  <option value="Profesional" className="text-white">Profesional</option>
+</select>
+
+
+
+              {!!errorResponse && <div className="text-red-500 mb-4">{errorResponse}</div>}
+
+              <button 
+                type="submit" 
+                className="group text-white font-semibold w-fit px-6 py-3 my-2 flex items-center rounded-md bg-gradient-to-t from-blue-600 cursor-pointer mx-auto md:mx-0"
+              > 
+                Registrarse  
               </button>
+            </form>
+            
+            <div className="ml-8 relative z-20">
+              <img 
+                className="scale-x-[-1] filter invert transition-transform transform hover:scale-110 transition duration-500" 
+                src={LogoMulti} 
+                alt="Imagen" 
+              />
             </div>
-          </form>
+          </div>
+
+          <div className="mt-4">
+            <p>¿Ya tienes una cuenta? <a href="/iniciar-sesion" className="text-blue-600">Iniciar sesión</a></p>
+          </div>
         </div>
       </section>
     </>
-  ) as JSX.Element;
+  );
 };

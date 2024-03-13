@@ -5,6 +5,7 @@ import { ModalInfo } from "../../ModalInfo";
 import ProjectCard from "../../ProjectCard";
 import { API_URL } from "../../../Autentication/constanst";
 
+
 const MyProjects = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState({});
@@ -48,9 +49,10 @@ const MyProjects = () => {
   return (
     <section
       name="Ser"
-      className="relative w-full text-white md:h-screen h-unset"
+      className="servicios relative w-full md:h-screen h-unset"
     >
-      <div className="max-w-screen-lg p-4 mx-auto flex flex-col justify-center w-full h-full">
+      <div  className="max-w-screen-lg mx-auto p-4 flex flex-col justify-center w-full h-full text-white" >
+
         <div className="mb-4">
           <h2 className="text-4xl font-bold inline border-b-4 border-blue-600 sm:text-5xl pb-1">
             Servicios
@@ -62,11 +64,11 @@ const MyProjects = () => {
           {servicios.length > 0 ? (
             servicios.map((project, index) => (
               <ProjectCard
-              key={index}
-              project={project}
-              setSelectedProject={setSelectedProject}
-              handleModalInfo={handleModalInfo}
-          />
+                key={index}
+                project={project}
+                setSelectedProject={setSelectedProject}
+                handleModalInfo={handleModalInfo}
+              />
             ))
           ) : (
             <div>No hay servicios disponibles.</div>

@@ -1,10 +1,14 @@
-
+*{
+    margin: 0;
+    padding: 0;
+}
 .contenedor-comentarios {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     width: 100%;
 }
+
 
 .contenedor-comentarios img {
     width: 100%;
@@ -208,6 +212,7 @@
     width: 100%;
     display: flex;
 }
+
 
 .comentarios-usuarios .comentar-publicacion input[type="text"] {
     border: 0;

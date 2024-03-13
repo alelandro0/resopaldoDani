@@ -8,6 +8,7 @@ import Contact from "./homepage-comps/Contact"
 // import CertificateSlider from './homepage-comps/Educacion'
 import AllProjects from './AllProjects-comps/AllProjects'
 
+
 const HomePage = () => {
     // const certificates = [
     //     {image: '/images/certificates/diploma-frontend-academlo.webp'},

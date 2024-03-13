@@ -2,7 +2,7 @@ export const API_KEY_GEMINI = "AIzaSyBMxPT9d2JGWjgxpVgI8xcC7Wr_Imn0mgk"
 export const GENERATION_CONFIG = {
   stopSequences: ["red"],
   maxOutputTokens: 1000,
-  temperature: 0.9,
+  temperature: 0.4,
   topP: 0.1,
   topK: 16,
 };

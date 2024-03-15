@@ -41,8 +41,13 @@ export const getPublication = async (req, res) => {
             return res.status(400).json({ message: 'Usuario no encontrado' });
         }
         // Verificar si el usuario existe en la base de datos
+        const info=[]
+        const usuario= {
+            user:user.name,
+            imagen: user.imageProfile
+            
+        }
         
-
         // Obtener todas las publicaciones del usuario
         const publications = user.publication
         .filter(pub => pub.estado === true) 

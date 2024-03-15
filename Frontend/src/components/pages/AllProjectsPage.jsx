@@ -1,6 +1,6 @@
 import  { useEffect } from "react";
 import NavbarProjects from "./AllProjects-comps/NavbarProjects";
-import AllProjects from "./AllProjects-comps/AllProjects";
+import AllProjects from "./homepage-comps/AllProjects";
 
 const AllProjectsPage = () => {
   useEffect(() => {

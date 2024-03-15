@@ -88,7 +88,7 @@ async function getImageProfile() {
         </div>
         <div className='flex flex-row gap-4 items-center'>
            <FontAwesomeIcon icon={faUser} />
-           <h3>Perfil {auth.getUser()?.roll}</h3>
+           <h3> {auth.getUser()?.name}</h3>
         </div>
         <div className="topbar-right">
           <div
@@ -116,11 +116,11 @@ async function getImageProfile() {
           </div>
             <div className="menu-item hover:bg-blue-600">
               <FontAwesomeIcon icon={faHome} />
-              <Link to="/dashboard"> Inicio</Link>
+              <Link to="/" >   Inicio</Link>
             </div>
             <div className="menu-item hover:bg-blue-600">
-              <FontAwesomeIcon icon={faUser} />
-              <span>Perfil</span>
+              <FontAwesomeIcon icon={faUser} tyle={{}}/>
+              <Link to="/dashboard">   Perfil</Link>
             </div>
             <div className="menu-item hover:bg-blue-600">
               <FontAwesomeIcon icon={faBriefcase} />

@@ -20,6 +20,7 @@ export interface User{
     username: string;
     roll: string;
     portada: string;
+    telefono: string;
     publication:{
         _id:string,
         image: string,

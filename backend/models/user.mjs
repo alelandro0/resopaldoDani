@@ -11,6 +11,7 @@ const UserSchema = new Mongoose.Schema({
   name: { type: String, required: true , unique: true },
   imageProfile:{type: String} ,
   portada:{type: String},
+  telefono:{type: String},
   publication:[{
     _id: { type: Mongoose.Schema.Types.ObjectId, auto: true },
     image: {type: String, required: true},

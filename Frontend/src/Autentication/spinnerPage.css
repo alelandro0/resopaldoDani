@@ -1,0 +1,31 @@
+* {
+   margin: 0;
+   padding: 0;
+}
+
+.spinner-container {
+   display: flex;
+   justify-content: center; /* Centrar horizontalmente */
+   align-items: center; /* Centrar verticalmente */
+   height: 100vh; /* Ajusta la altura según sea necesario */
+   flex-direction: column;
+}
+
+.spinner {
+   width: 120px;
+   height: 120px;
+   border-radius: 50%;
+   background: conic-gradient(#0000 10%, #2563eb);
+   -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 9px), #000 0);
+   animation: spinner-zp9dbg 1s infinite linear;
+}
+.logo{
+   width: 330px;
+   height: 300px;
+}
+
+@keyframes spinner-zp9dbg {
+   to {
+       transform: rotate(1turn);
+   }
+}

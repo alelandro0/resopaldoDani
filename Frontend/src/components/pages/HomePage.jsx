@@ -6,7 +6,7 @@ import About from "./homepage-comps/Nosotros"
 import Techs from "./homepage-comps/Clasificacion"
 import Contact from "./homepage-comps/Contact"
 // import CertificateSlider from './homepage-comps/Educacion'
-import AllProjects from './AllProjects-comps/AllProjects'
+import AllProjects from './homepage-comps/AllProjects'
 
 
 const HomePage = () => {

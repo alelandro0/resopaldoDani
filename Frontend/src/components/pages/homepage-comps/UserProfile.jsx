@@ -4,20 +4,28 @@
 /* eslint-disable no-undef */
 import './perfil.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImage } from '@fortawesome/free-solid-svg-icons';
+import { faImage, faPen,  faThumbsUp} from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../../Autentication/AutProvider';
 import { API_URL } from '../../../Autentication/constanst';
-
+import { useRef } from 'react';
+import Modal from 'react-modal'
 
 
 const UserProfile = () => {
   const [downloadURL, setDownloadURL] = useState("");
   const [, setEditingProfileImage] = useState(false);
   const [downloadURLPortada, setDownloadURLPortada] = useState("");
-
-
-
+  const [description, setDescription] = useState("");
+  const fileInputRef = useRef(null); // Utiliza useRef() para crear referencias
+  const descriptionTextareaRef = useRef(null);
+  const [publicaciones, setPublicaciones] = useState([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [currenImage, setCurrenImage] = useState('')
+  const [idPublicacion, setCurrentPublicationId] = useState('')
+  const [name, setName] = useState('')
+  // const [horas, setHoras] = useState('')
+  // const [fechas, setfecha] = useState(Date)
 
 
   const auth = useAuth();
@@ -25,6 +33,8 @@ const UserProfile = () => {
     getImageProfile()// Llama a la función para obtener la imagen de perfil cuando el componente se monta
     // eslint-disable-next-line react-hooks/exhaustive-deps
     getImagePortda()
+    obtenerTodasLasPublicaciones()
+
   }, []);
 
 
@@ -42,7 +52,7 @@ const UserProfile = () => {
 
 
       // Subir la nueva imagen
-      const responsePost = await fetch("http://localhost:5000/api/upload", {
+      const responsePost = await fetch(`${API_URL}/upload`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${auth.getAccessToken()}`,
@@ -75,7 +85,7 @@ const UserProfile = () => {
       const id = auth.getUser()?.id
 
       console.log('ID of user Profile', id);
-      const response = await fetch(`http://localhost:5000/api/getImage/${id}`, {
+      const response = await fetch(`${API_URL}/getImage/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -178,6 +188,157 @@ const UserProfile = () => {
     }
     //
   }
+  async function postPublication(event) {
+    event.preventDefault();
+
+    try {
+      const formData = new FormData();
+
+      // Obtener el archivo seleccionado del input de tipo file
+      const files = fileInputRef.current?.files;
+
+      // Obtener el valor del textarea
+      const description = descriptionTextareaRef.current?.value;
+
+      // Agregar la descripción al FormData
+      formData.append('description', description || '');
+
+      if (!files || files.length === 0) {
+        console.error('No se han seleccionado archivos.');
+        return;
+      }
+
+      // Agregar el archivo al FormData
+      for (let i = 0; i < files.length; i++) {
+        formData.append('file', files[i]);
+      }
+
+      const accessToken = auth.getAccessToken();
+      console.log('Token de publicacion', accessToken);
+
+      const response = await fetch(`${API_URL}/publicationpost`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: formData,
+      });
+
+      console.log('POST publicacion:', response);
+
+      if (!response.ok) {
+        console.error("Error al cargar la imagen de publicación:", response.statusText);
+        return;
+      }
+
+      const data = await response.json();
+      console.log("Respuesta del servidor al subir publicacion POST:", data);
+
+      // Actualizar la lista de publicaciones después de la publicación exitosa
+      obtenerTodasLasPublicaciones();
+      getPublishAllUsers();
+
+      // Realizar cualquier acción necesaria después de cargar la nueva publicación
+      // setFile(data.file);
+      fileInputRef.current.value = ''; // Limpiar el input de tipo file
+      setDescription('');
+      console.log('url de imagen publicada',);
+
+    } catch (error) {
+      console.error("Error al cargar la imagen publicada:", error);
+    }
+  }
+  const obtenerTodasLasPublicaciones = async () => {
+    try {
+      const accessToken = auth.getAccessToken();
+      console.log('token de obtener la publiblocaciones ', accessToken);
+      console.log('elemetos de user', auth.getUser());
+
+
+
+      const id = auth.getUser()?.id
+      console.log('ID of user de PUBLICACIONES', id);
+      const response = await fetch(`${API_URL}/publicationget/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      console.log('GET publicaciones', response);
+
+      if (!response.ok) {
+        throw new Error('Error al obtener todas las publicaciones');
+      }
+      const data = await response.json();
+      console.log('data de toadas las publicaciones ', data);
+      // Ordenar las publicaciones por fecha de forma descendente
+      const publicacionesOrdenadas = data.publications.slice().reverse();
+
+
+      console.log('Todas las publicaciones', publicacionesOrdenadas);
+
+      setPublicaciones(publicacionesOrdenadas);
+
+    } catch (error) {
+      if (typeof error === 'string') {
+        setError(error);
+      } else {
+        console.log("error al treer la publicacion");
+        await Swal.fire({
+          icon: 'error',
+          title: '¡Error!',
+          text: 'Ocurrió un error al mostrar la publicacion.',
+
+        });
+      }
+    }
+  };
+  const modalHandler = (isOpen, image, publicationId, descripcion, nombre) => {
+    setModalIsOpen(isOpen)
+    setCurrenImage(image)
+    setCurrentPublicationId(publicationId);
+    setDescription(descripcion);
+    setName(nombre);
+    setTransparentBackground(true);
+  }
+  const getPublishAllUsers = async () => {
+    try {
+      const response = await fetch(`${API_URL}/publicationgetAll`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+      console.log('GET publicaciones', response);
+
+      if (!response.ok) {
+        throw new Error('Error al obtener todas las publicaciones all');
+      }
+      const data = await response.json();
+
+      // Ordenar las publicaciones por fecha de forma descendente
+      const publicacionesOrdenadas = data.publications.slice().reverse();
+
+      console.log('estas son las puplicaiones en el orden que se debe revisar all', publicacionesOrdenadas);
+
+      setPublicacionesUsuarios(publicacionesOrdenadas);
+      console.log('este es data de la publicacion traida todos ', publicacionesOrdenadas);
+    } catch (error) {
+      if (typeof error === 'string') {
+        setError(error);
+      } else {
+        console.log("error al treer la publicacion all");
+        await Swal.fire({
+          icon: 'error',
+          title: '¡Error!',
+          text: 'Ocurrió un error al traer las publicaciones.',
+
+        });
+      }
+    }
+  };
+
   return (
     <div className='profile-container relative  '><section className="seccion-perfil-usuario ">
       <div className="perfil-usuario-header">
@@ -216,42 +377,112 @@ const UserProfile = () => {
             <h2 className='info' style={{ color: 'black', marginBottom: '1rem' }}>Información Personal:</h2>
           </div>
           <div>
+            <h2 className='info' style={{ color: 'black', marginBottom: '2rem' }}>{auth.getUser()?.roll}</h2>
+          </div>
+          <div>
             <h2 className="Name" style={{ color: 'black' }}>Nombre: {auth.getUser()?.name}</h2>
           </div>
           <div>
-            <p className="Phone" style={{ color: 'black' }}>Numero de celular: 3147109361</p>
+            <p className="Phone" style={{ color: 'black' }}>Numero de celular: {auth.getUser()?.telefono}</p>
           </div>
           <div>
-            <p className="Email" style={{ color: 'black' }}>Correo Electronico: Torresgarciajuandavid7@gmail.com</p>
+            <p className="Email" style={{ color: 'black' }}>Correo Electronico: {auth.getUser()?.username}</p>
           </div>
         </div>
         <div className="Post-potfile">
-          <h1 className="texto">Publicaciones {auth.getUser()?.publication.filter(pub => pub.estado === true).length}</h1>
+          <h1 className="texto">Publicaciones {publicaciones.length}</h1>
         </div>
       </div>
       <div className="area-comentar">
         <div className="avatar">
-          <img src="https://firebasestorage.googleapis.com/v0/b/react-firebase-upload-480ee.appspot.com/o/Avatar%2FC__Data_Users_DefApps_AppData_INTERNETEXPLORER_Temp_Saved%20Images_Cortes-de-cabello-para-hombre-4.jpg_1710158906965?alt=media&token=42f22ef9-e239-432b-b935-d293589e03b4" alt="img" />
+          <img src={downloadURL} alt="img" />
         </div>
-        <form action="#" method="post" className="inputs-comentarios">
-          <textarea name="" className="area-comentario text-black " 
-          placeholder="¿Que estas pensando?" style={{textAlign:'center',padding:2}} ></textarea>
+        {/* {seccion formulario publicacion} */}
+        <form className="inputs-comentarios" encType="multipart/form-data" onSubmit={postPublication}>
+          <div className="textarea-container">
+            <textarea
+              name=""
+              className="area-comentario text-black"
+              placeholder="Descripcion del Servicio"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              ref={descriptionTextareaRef}
+              style={{ padding: 2 }}
+            ></textarea>
+          </div>
           <div className="botones-comentar">
             <div className="boton-subir-archivo">
               <label className="boton-file" htmlFor="adjuntar">
-                <i className="far fa-image"></i>
                 Adjuntar archivo
               </label>
-              <input type="file" name="" value="" placeholder="" id="adjuntar" />
+              <input type="file"
+                ref={fileInputRef}
+                name="file"
+                id="adjuntar" />
             </div>
             <button className="boton-enviar" type="submit">
-              <i className="fas fa-paper-plane"></i>
               Enviar
             </button>
           </div>
         </form>
       </div>
-      <div style={{height:100}}></div>
+      {/* {puplicaiones personales} */}
+
+      <div className='publicacion-cometario '>
+        {console.log(publicaciones)}
+        {publicaciones.map((publicacion, index) => (
+          <div className="publicacion-realizada" key={index}>
+            <div className="usuario-publico">
+              <div className="avatar">
+                <img src={auth.getUser()?.imageProfile} alt="img" />
+              </div>
+              <div className="contenido-publicacion">
+               <div style={{display:'flex', gap:15}}>
+               <h4 style={{paddingTop:2}} >{auth.getUser()?.name}</h4>
+                <button onClick={() => {
+                  modalHandler(true, publicacion?.image, publicacion?.id, publicacion?.description, publicacion?.name)
+                }} className='btn-modal' >Ver</button>
+                </div>
+                <ul style={{paddingTop:4}}>
+                  <li>Hace 3 min</li>
+                </ul>
+              </div>
+              <div className="menu-comentario">
+              <FontAwesomeIcon icon={faPen} />
+                <ul className="menu" style={{ background: 'black', maxHeight: 100 }}>
+                  <li><a href="" >Editar</a></li>
+                  <li><a href="" >Eliminar</a></li>
+                </ul>
+              </div>
+            </div>
+            <p className='descripcion'>{publicacion.description}</p>
+            <div className="archivo-publicado">
+              <img src={publicacion.image} alt="img" />
+            </div>
+            <div className="botones-comentario" style={{marginTop:12}}>
+              <button type="" className="boton-puntuar" style={{display:'flex',gap:5, padding:'12px'}} >
+              <FontAwesomeIcon icon={faThumbsUp} style={{marginLeft:2}} />
+               <p>45</p> 
+              </button>
+              <button type="" className="boton-responder" >
+                Comentar
+              </button>
+            </div>
+          </div>
+        ))}
+
+      </div>
+      <Modal className='card' style={{ content: { width: '50%', margin: '0 auto', marginTop: '100px' } }} isOpen={modalIsOpen} onRequestClose={() => modalHandler(false, '', '', '', '',)}>
+        <div >
+          <div className='card-body' style={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>
+            <button onClick={() => deleteHandler()} className='btn btn-danger'>ELIMINAR</button>
+            <button className='btn btn-danger' onClick={() => modalHandler(false, '', '', '', '')}>X</button>
+          </div>
+          <img style={{ padding: 10, width: '100%' }} src={currenImage || ''} alt="" />
+        </div>
+      </Modal>
+
+      <div style={{ height: 100 }}></div>
 
     </section>
 

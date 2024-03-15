@@ -7,6 +7,7 @@ function getUserInfo(user){
         roll: user.roll,
         estado: user.estado,
         portada: user.portada,
+        telefono:user.telefono,
         publication: user.publication.map((pub) => ({
             _id: pub._id,
             image: pub.image,

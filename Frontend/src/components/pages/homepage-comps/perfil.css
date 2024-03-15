@@ -10,7 +10,100 @@ body {
     color: #404040;
     font-family: "Arial", Segoe UI, Tahoma, sans-serifl, Helvetica Neue, Helvetica;
 }
+.publicacion-cometario {
+    width: 50%;
+    display: grid;
+    grid-template-columns: 1fr; /* Una sola columna */
+    gap: 20px; /* Espacio entre elementos */
+    background: transparent;
+    padding: 0;
+}
+.publicacion-realizada .usuario-publico .contenido-publicacion {
+    margin-left: 1rem;
+}
+.publicacion-realizada .contenido-publicacion ul {
+    list-style: none;
+    font-size: 0.8em;
+    color: #909090;
+}
+.menu-comentario{
+    background: black ;
+   
+}
+.descripcion{
+    padding: 4px;
+}
+.menu-comentario:hover{
+    background: #112d6b;
+}
+.comentarios-usuarios .usuario-comentario .menu-comentario {
+    top: 5px;
+    right: -15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .4);
+}
+.comentarios-usuarios .usuario-comentario:hover .menu-comentario {
+    display: flex;
+}
+.publicacion-realizada .menu-comentario {
+    display: flex;
+    right: 0;
+}
+.menu-comentario .menu {
+    list-style: none;
+    position: absolute;
+    right: 100%;
+    background-color: #fff;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, .2);
+    border-radius: 8px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all ease-in 200ms;
+}
+.menu-comentario:hover .menu {
+    opacity: 1;
+    visibility: visible;
+}
+.menu-comentario .menu a {
+    display: block;
+    padding: 7px 15px;
+    color: inherit;
+}
+.menu-comentario .menu a:hover {
+    background-color: #112d6b;
+}
 
+
+.publicacion-realizada {
+    background-color:black;
+    color: gray;
+    border-radius: 12px;
+    padding: 20px;
+    margin: 0;
+    width: 100%; /* Hace que el elemento hijo ocupe todo el ancho del padre */
+}
+
+
+.textarea-container {
+    position: relative;
+  }
+  
+  .textarea-container textarea {
+    width: 100%;
+  }
+ 
+  
+  .textarea-container textarea::placeholder {
+    text-align: start;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: 100%;
+    color: black; /* Puedes cambiar el color del placeholder según tu preferencia */
+  }
+  
 .seccion-perfil-usuario .perfil-usuario-body,
 .seccion-perfil-usuario {
     display: flex;
@@ -37,13 +130,16 @@ body {
     background-color: #F4F4F4;
     border-radius: 50%;
     overflow: hidden;
+    margin-top: 0.4rem;
 }
 .boton-subir-archivo {
-    position: relative;
+    position: static;
     display: inline-block;
+
 }
 .contenedor-comentarios .comentario-principal-usuario .texto, .area-comentar .inputs-comentarios .area-comentario {
     border: 0;
+    margin-top: 0.8rem;
     background-color: #F0F0F0;
     display: block;
     width: 100%;
@@ -67,6 +163,10 @@ body {
     border-radius: 8px;
     cursor: pointer;
 }
+.boton-file, .boton-enviar{
+    margin-top: 0.8rem;
+    background-color: #112d6b;
+}
 .botones-comentario button:hover {
     background-color: #D5D8E1;
 }
@@ -78,7 +178,6 @@ body {
 .boton-file, .boton-enviar {
     display: inline-block;
     border: 0;
-    background-color: #374D71;
     padding: 7px 15px;
     margin-right: 0.5rem;
     color: #fff;
@@ -223,6 +322,7 @@ body {
     text-align: center;
   }
   
+  
  /*Post*/
  
   
@@ -302,13 +402,6 @@ body {
     background-color: #5955FF;
 }
 
-.seccion-perfil-usuario .boton-redes.twitter {
-    background-color: #35E1BF;
-}
-
-.seccion-perfil-usuario .boton-redes.instagram {
-    background: linear-gradient(45deg, #FF2DFD, #40A7FF);
-}
 
 /* adactacion a dispositivos */
 @media (max-width: 750px) {

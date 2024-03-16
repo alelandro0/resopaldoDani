@@ -11,11 +11,13 @@ const postRefreToken= async(req, res)=>{
     if(refreshToken){
         try {
             const found = await Token.findOne({token: refreshToken})
+            console.log('ESTE ES EL POST REFRESTOKEN');
             if(!found){
                 return res.status(401).send(jsonResponse( {error: "Unauthorized"}))
             }
 
             const payload = verifyRefreshToken(found.token);
+            console.log('veryficacionRefresToken',payload);
 
             if(payload){
                const accessToken = generateAccessToken(payload.use);

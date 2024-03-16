@@ -47,7 +47,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
             
             if(response.ok){
                 const json = await response.json() as AccessTokenResponse;
-
+                console.log('valor del token ', json);
+                
                 if(json.error){
                     throw new Error(json.error);
                 }
@@ -102,7 +103,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
             if(token){
                 const newAccessToken = await requestNewAccessToken(token);
                 if(newAccessToken){
-                    const userInfo  = await getUserInfo(newAccessToken);
+                  const userInfo  = await getUserInfo(newAccessToken);
+                  console.log('onformacion de acceso ', userInfo);
                     if(userInfo){
                         saveSessionInfo(userInfo.user, newAccessToken,token);
                         setIsLoading(false);

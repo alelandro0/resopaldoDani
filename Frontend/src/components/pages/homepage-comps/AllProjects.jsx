@@ -36,10 +36,12 @@ const AllProjects = () => {
     };
 
     return (
-        <section name="Servicios" className='relative w-full text-white md:min-h-screen mt-24 mb-10'>
-            <div className='max-w-screen-lg p-4 mx-auto flex flex-col justify-center w-full p-20'>
-                <div className='pb-8'>
-                    <h2 className='text-4xl font-bold inline border-b-4 border-blue-600 sm:text-5xl'>Todos los Servicios</h2>
+        <section name="Servicios" 
+        className='relative w-full text-white md:h-screen h-unset'>
+            <div 
+            className='max-w-screen-lg p-4 mx-auto flex flex-col justify-center w-full h-full'>
+                <div className='mb-4'>
+                    <h2 className='text-4xl font-bold inline border-b-4 border-blue-600 sm:text-5xl  pb-1'>Todos los Servicios</h2>
                     <p className='py-6'>Servicios Ofertados.</p>
                 </div>
                 <div className='grid sm:grid-cols-2 md:grid-cols-3 gap-8'>

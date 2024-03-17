@@ -1,4 +1,4 @@
-import  { useEffect } from 'react'
+
 import Navbar from "./homepage-comps/Navbar"
 import Home from "./homepage-comps/Home"
 import About from "./homepage-comps/Nosotros"
@@ -42,11 +42,6 @@ const HomePage = () => {
     //     {image: '/images/certificates/diploma-pensamiento-logico.webp'},
         
     // ];
-
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [])
 
     return (
         <>

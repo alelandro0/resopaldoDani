@@ -14,7 +14,7 @@ export const postPublication = async (req, res) => {
         }
 
         const { downloadURL } = await uploadFileP(image[0]);
-        console.log('Inicio de la URL:', downloadURL);
+       
         
 
         userToUpdate.publication.push({
@@ -24,7 +24,7 @@ export const postPublication = async (req, res) => {
         });
 
         await userToUpdate.save();
-        console.log('URLs de las imágenes correctas:', downloadURL);
+       
         return res.status(201).json({ message: 'Publicación realizada exitosamente.', downloadURL });
     } catch (error) {
         console.error('Error en la publicación de las imágenes:', error);
@@ -44,8 +44,7 @@ export const getPublication = async (req, res) => {
         const info=[]
         const usuario= {
             user:user.name,
-            imagen: user.imageProfile
-            
+            imagen: user.imageProfile,
         }
         
         // Obtener todas las publicaciones del usuario
@@ -54,13 +53,14 @@ export const getPublication = async (req, res) => {
         .map(pub => ({
             id:pub._id,
             image: pub.image,
-            description: pub.description
+            description: pub.description,
+            createdAt: pub.createdAt 
         }));
 
-        console.log("BD get publicacion ",publications);
+        
         return res.status(200).json({ publications });
     } catch (error) {
-        console.error("Error al obtener las publicaciones:", error);
+       
         return res.status(500).json({ message: "Error interno del servidor" });
     }
 };
@@ -72,8 +72,7 @@ export const deletePublication = async (req, res) => {
         const userId = req.params.userId;
         const publicationId = req.params.publicationId;
 
-        console.log('ID de usuario:', userId);
-        console.log('ID de publicación a eliminar:', publicationId);
+      
         
         const user = await User.findOne({ _id: userId, "publication._id": publicationId });
                
@@ -83,7 +82,7 @@ export const deletePublication = async (req, res) => {
 
        // Obtener el ID de la publicación a eliminar
        const publicationIndex = user.publication.findIndex(pub => pub._id.toString() === publicationId);
-        console.log(publicationIndex);
+     
         if (publicationIndex === -1) {
             return res.status(404).json({ message: 'Publicación no encontrada.' });
         }
@@ -94,7 +93,7 @@ export const deletePublication = async (req, res) => {
 
         return res.status(200).json({ message: 'Publicación eliminada exitosamente.' });
     } catch (error) {
-        console.error("Error al eliminar la publicación:", error);
+       
         return res.status(500).json({ message: "Error interno del servidor" });
     }
 };
@@ -102,7 +101,7 @@ export const deletePublication = async (req, res) => {
 export const getPublicationAll = async (req, res) => {
     try {
         const users = await User.find();
-        console.log("BD todos los usuarios all", users);
+      
 
         if (!users || users.length === 0) {
             return res.status(404).json({ message: "No se encontraron usuarios all" });
@@ -119,10 +118,10 @@ export const getPublicationAll = async (req, res) => {
                                      }));
         });
 
-        console.log("BD get publicacion all", publications);
+       
         return res.status(200).json({ publications });
     } catch (error) {
-        console.error("Error al obtener las publicaciones:", error);
+        
         return res.status(500).json({ message: "Error interno del servidor" });
     }
 };

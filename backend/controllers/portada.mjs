@@ -17,7 +17,7 @@ export const posts = async (req, res) => {
         if (portada && portada.length > 0) {
             // Si se proporciona una nueva imagen, carga y actualiza la URL de la imagen del usuario
             const { downloadURL } = await uploadFileP(portada[0]);
-            console.log('Inicio de la URL:', downloadURL);
+           
 
             // Actualiza la información de la imagen del usuario
             userToUpdate.portada = downloadURL;
@@ -26,7 +26,7 @@ export const posts = async (req, res) => {
         // Guarda los cambios en el usuario
         await userToUpdate.save();
 
-        console.log('URL correcta:', userToUpdate.portada);
+       
         return res.status(201).json({ message: 'Imagen actualizada exitosamente.', downloadURL: userToUpdate.imageProfile });
     } catch (error) {
         console.error(error);
@@ -41,8 +41,7 @@ export const gets = async (req, res) => {
 
         // Buscar el usuario específico por su ID en la base de datos
         const user = await User.findOne({ _id: userId });
-        console.log('id de profile ', userId);
-        console.log("Usuario encontrado:", user);
+      
 
         if (!user) {
             return res.status(404).json({ message: 'Usuario no encontrado.' });
@@ -56,7 +55,7 @@ export const gets = async (req, res) => {
         // Si el usuario tiene una imagen de perfil, devolverla en la respuesta
         return res.status(200).json({ portada: user.portada });
     } catch (error) {
-        console.error("Error al obtener la imagen de perfil:", error);
+       
         res.status(500).json({ message: "Error interno del servidor" });
     }
 }

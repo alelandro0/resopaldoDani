@@ -7,5 +7,6 @@ import React from "react";
 
 export default function ProtectedRoute(){
     const auth = useAuth()
+    
     return auth.esAutentico ? <Outlet/> : <Navigate to="/" />
 }

@@ -3,8 +3,10 @@
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 import { Link as ScrollLink } from 'react-scroll';
+import { useAuth } from '../../../Autentication/AutProvider';
 
 const About = () => {
+    const auth= useAuth()
     return (
         <section name="Acerca de nosotros" 
         className='relative w-full md:h-screen text-white h-unset'>
@@ -26,10 +28,10 @@ const About = () => {
                     </Link>
                 
             </div>
-
-            <ScrollLink to="Servicios" smooth duration={500} className='absolute bottom-2 -left-full md:left-1/2 md:-translate-x-1/2 cursor-pointer hover:text-primary-color'>
+            {!auth.esAutentico &&  <ScrollLink to="Servicios" smooth duration={500} className='absolute bottom-2 -left-full md:left-1/2 md:-translate-x-1/2 cursor-pointer hover:text-primary-color'>
                 <i className='bx bx-chevron-down text-7xl text-gray-400 animate-bounce font hover:text-blue-600'></i>
-            </ScrollLink>
+            </ScrollLink>}
+           
             
         </section>
         

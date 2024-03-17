@@ -22,7 +22,10 @@ const postUser= async (req, res)=>{
             if (correctPassword) {
                 const accessToken = user.createAccessToken();
                 const refreshToken = await user.createRefreshToken();
-    
+                console.log('refresToken  de login',refreshToken);
+                console.log('/n');
+                console.log('---------------------------------');
+                console.log('accessToken de login', refreshToken);
                 res.status(200)
                     .json(
                         jsonResponse(200, {

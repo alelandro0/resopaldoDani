@@ -11,7 +11,9 @@ import node from "../../../assets/soldador.png";
 
 import { Link as ScrollLink } from "react-scroll";
 
+
 const   Techs = () => {
+
   const techs = [
     {
       id: 1,
@@ -87,8 +89,7 @@ const   Techs = () => {
           ))}
         </div>
       </div>
-
-      <ScrollLink
+     <ScrollLink
         to="Contactanos"
         smooth
         duration={500}
@@ -96,6 +97,7 @@ const   Techs = () => {
       >
         <i className="bx bx-chevron-down text-7xl text-gray-400 animate-bounce font hover:text-blue-600"></i>
       </ScrollLink>
+      
     </section>
   );
 };

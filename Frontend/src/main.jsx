@@ -12,9 +12,12 @@ import SocialLinks from "./components/SocialLinks"
 import GeneralFooter from "./components/GeneralFooter"
 import AllProjectsPage from "./components/pages/AllProjectsPage"
 import AllTechsPage from "./components/pages/AllTechsPage"
-import NabarMenu from "./components/pages/homepage-comps/NabarMenu"
 import ProtectedRoute from './components/pages/homepage-comps/protectedRoute'
 import Chat from './components/pages/homepage-comps/ChatButton'
+import Dashboard from './components/pages/homepage-comps/Dashboard'
+import Citas from './components/pages/homepage-comps/Citas'
+import EditarPerfil from './components/pages/homepage-comps/EditarPerfil'
+import PublicaionesT from './components/pages/homepage-comps/PublicacionesT'
 
 // import { BrowserRouter } from 'react-router-dom'
 
@@ -75,10 +78,37 @@ const router= createBrowserRouter(
         <>
         <ParticlesBackground />
         <ProtectedRoute />
-        <NabarMenu />
+        <Dashboard />
         <Chat/>
         
       </>
+      },
+      {
+        path: "/citas",
+        element:
+        <>
+        <ParticlesBackground />
+        <Citas/>
+        <Chat/>
+        </>
+      },
+      {
+        path: "/editarPerfil",
+        element:
+        <>
+        <ParticlesBackground />
+        <EditarPerfil/>
+        <Chat/>
+        </>
+      },
+      {
+        path: "/publicaciones",
+        element:
+        <>
+        <ParticlesBackground />
+        <PublicaionesT/>
+        <Chat/>
+        </>
       },
       // {
       //   path: "/chat",

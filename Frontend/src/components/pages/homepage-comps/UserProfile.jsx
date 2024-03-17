@@ -10,6 +10,7 @@ import { useAuth } from '../../../Autentication/AutProvider';
 import { API_URL } from '../../../Autentication/constanst';
 import { useRef } from 'react';
 import Modal from 'react-modal'
+import './style.css'
 
 
 const UserProfile = () => {
@@ -36,6 +37,27 @@ const UserProfile = () => {
     obtenerTodasLasPublicaciones()
 
   }, []);
+
+  function getTimeElapsed(publishedAt) {
+    const currentDate = new Date();
+    const postDate = new Date(publishedAt);
+    const timeDifference = currentDate.getTime() - postDate.getTime();
+    const secondsElapsed = Math.floor(timeDifference / 1000);
+
+    if (secondsElapsed < 60) {
+        return `${secondsElapsed} segundos`;
+    } else if (secondsElapsed < 3600) {
+        const minutes = Math.floor(secondsElapsed / 60);
+        return `${minutes} minutos`;
+    } else if (secondsElapsed < 86400) {
+        const hours = Math.floor(secondsElapsed / 3600);
+        return `${hours} horas`;
+    } else {
+        const days = Math.floor(secondsElapsed / 86400);
+        return `${days} días`;
+    }
+}
+
 
 
   async function handleProfileImageChange(files) {
@@ -340,7 +362,10 @@ const UserProfile = () => {
   };
 
   return (
-    <div className='profile-container relative  '><section className="seccion-perfil-usuario ">
+    <div name='Perfil
+    
+    
+    ' className='profile-container relative  '><section className="seccion-perfil-usuario ">
       <div className="perfil-usuario-header">
         <div className="perfil-usuario-portada " style={{ margin: 30 }} >
           <input
@@ -444,9 +469,11 @@ const UserProfile = () => {
                 }} className='btn-modal' >Ver</button>
                 </div>
                 <ul style={{paddingTop:4}}>
-                  <li>Hace 3 min</li>
+                  <li>Hace {getTimeElapsed(publicacion.createdAt)}</li>
                 </ul>
+                
               </div>
+            
               <div className="menu-comentario">
               <FontAwesomeIcon icon={faPen} />
                 <ul className="menu" style={{ background: 'black', maxHeight: 100 }}>

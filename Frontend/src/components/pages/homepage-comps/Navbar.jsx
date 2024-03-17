@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import  { useState, useEffect } from 'react'
 import { FaBars, FaTimes } from "react-icons/fa"
 import { Link } from "react-scroll"
 import { Link as RouterLink } from "react-router-dom";
@@ -13,14 +13,16 @@ const Navbar = () => {
         { id: 1, link: "Inicio" },
         { id: 2, link: "Acerca de nosotros" },
         { id: 3, link: "Clasificaciones" },
+        { id: 4, link: "Contactanos" },
         // Enlace al dashboard cuando el usuario está autenticado
     ] : [
         { id: 1, link: "Inicio" },
         { id: 2, link: "Acerca de nosotros" },
         { id: 3, link: "Servicios" },
         { id: 4, link: 'Clasificaciones' },
-        { id: 5, link: "Iniciar Sesion" },
-        { id: 6, link: "Registrate" }
+        { id: 5, link: "Contactanos" },
+        { id: 6, link: "Iniciar Sesion" },
+        { id: 7, link: "Registrate" }
     ];
 
     const [isShowNav, setIsShowNav] = useState(false)
@@ -52,14 +54,15 @@ const Navbar = () => {
 
             <ul className='hidden lg:flex'>
                 {links.map(({ id, link }) => (
-                    <li key={id} className='cursor-pointer hover:scale-105 rounded-lg hover:bg-blue-600  hover: p-4 duration-200 text-[1.1rem] lg:text-[1.1rem] hover:opacity-70'>
-                                  {link.toLowerCase().replace(' ', '-') === 'iniciar-sesion' || link.toLowerCase().replace(' ', '-') === 'registrate' ? (
+                    autentico && (link === "Servicios") ? null : (
+                        <li key={id} className='cursor-pointer hover:scale-105 rounded-lg hover:bg-blue-600  hover: p-4 duration-200 text-[1.1rem] lg:text-[1.1rem] hover:opacity-70'>
+                            {link.toLowerCase().replace(' ', '-') === 'iniciar-sesion' || link.toLowerCase().replace(' ', '-') === 'registrate' ? (
                                 <RouterLink to={`/${link.toLowerCase().replace(/\s+/g, '-')}`} onClick={() => setIsShowNav(!isShowNav)}>{link}</RouterLink>
-                        ) : (
-                            <Link to={link} smooth duration={500}>{link}</Link>
-                        )}
-
-                    </li>
+                            ) : (
+                                <Link to={link} smooth duration={500}>{link}</Link>
+                            )}
+                        </li>
+                    )
                 ))}
                    <div className='flex items-center justify-center'>
                     <RouterPerfil to='/dashboard'>
@@ -82,24 +85,24 @@ const Navbar = () => {
             </div>
 
             {isShowNav && (
-        <ul className='flex flex-col justify-center items-center absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-black via-black to-blue-600 opacity-90'>
-        {links.map(({ id, link }) => (
-          <li key={id} className='px-4 cursor-pointer py-6 text-xl md:text-2xl lg:text-3xl xl:text-4xl opacity-100'>
-            {link.toLowerCase().replace(' ', '-') === 'iniciar-sesion' || link.toLowerCase().replace(' ', '-') === 'registrate' ? (
-              <RouterLink to={`/${link.toLowerCase().replace(/\s+/g, '-')}`} onClick={() => setIsShowNav(!isShowNav)} className="text-white hover:text-blue-600">{link}</RouterLink>
-            ) : (
-              <Link onClick={() => setIsShowNav(!isShowNav)} to={link} smooth duration={500} className="text-white hover:text-blue-600">{link}</Link>
-            )}
-          </li>
-        ))}
-        {autentico ? (
-          <RouterPerfil to='/dashboard'>
-            <h2 style={{padding: 6, fontSize: '2rem'}} className='mr-2 hover:text-blue-600 lg:text-xl xl:text-2xl'>Perfil de usuario</h2>
-          </RouterPerfil>
-        ) : null}
-      </ul>
-      
-
+                <ul className='flex flex-col justify-center items-center absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-black via-black to-blue-600 opacity-90'>
+                    {links.map(({ id, link }) => (
+                        autentico && (link === "Servicios") ? null : (
+                            <li key={id} className='px-4 cursor-pointer py-6 text-xl md:text-2xl lg:text-3xl xl:text-4xl opacity-100'>
+                                {link.toLowerCase().replace(' ', '-') === 'iniciar-sesion' || link.toLowerCase().replace(' ', '-') === 'registrate' ? (
+                                    <RouterLink to={`/${link.toLowerCase().replace(/\s+/g, '-')}`} onClick={() => setIsShowNav(!isShowNav)} className="text-white hover:text-blue-600">{link}</RouterLink>
+                                ) : (
+                                    <Link onClick={() => setIsShowNav(!isShowNav)} to={link} smooth duration={500} className="text-white hover:text-blue-600">{link}</Link>
+                                )}
+                            </li>
+                        )
+                    ))}
+                    {autentico ? (
+                        <RouterPerfil to='/dashboard'>
+                            <h2 style={{padding: 6, fontSize: '2rem'}} className='mr-2 hover:text-blue-600 lg:text-xl xl:text-2xl'>Perfil de usuario</h2>
+                        </RouterPerfil>
+                    ) : null}
+                </ul>
             )}
         </header>
     )

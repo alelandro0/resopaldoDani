@@ -1,9 +1,10 @@
-import  { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { FaBars, FaTimes } from "react-icons/fa"
 import { Link } from "react-scroll"
 import { Link as RouterLink } from "react-router-dom";
 import { Link as RouterPerfil } from "react-router-dom";
 import { useAuth } from '../../../Autentication/AutProvider';
+import LogoMulti from '../../../../public/images/logoMulti.png';
 
 const Navbar = () => {
     const user = useAuth();
@@ -45,9 +46,9 @@ const Navbar = () => {
 
     return (
         <header className={`fixed top-0 flex bg-neutral-900/60 justify-between h-20 items-center py-4 px-4 md:px-6 text-white mx-auto lg:px-24 md:py-0 w-full z-30 transition-colors duration-700 ${isScrolled ? 'bg-black/90' : ''}`}>
-            <div className='flex flex-row gap-4 items-center'>
-                <h1 className='text-[1.1rem] lg:text-[1.3rem] hover:text-blue-600 hover:scale-125 duration-500'>
-                    <i className='bx bx-code-curly mr-2 text-base'></i>
+            <div className='flex flex-row gap-0 items-center'>
+                <img src={LogoMulti} alt="Logo" className="h-20 w-auto scale-x-[-1] filter invert" />
+                <h1 className='text-[1.1rem] lg:text-[1.3rem] hover:text-blue-600 hover:scale-125 duration-500 m-0 text-xs'>
                     MultiServicios
                 </h1>
             </div>

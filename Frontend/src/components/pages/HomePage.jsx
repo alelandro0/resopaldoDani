@@ -7,6 +7,7 @@ import Techs from "./homepage-comps/Clasificacion"
 import Contact from "./homepage-comps/Contact"
 // import CertificateSlider from './homepage-comps/Educacion'
 import AllProjects from './homepage-comps/AllProjects'
+import ScrollHandler from "../pages/handleScroll";
 
 
 const HomePage = () => {
@@ -45,12 +46,12 @@ const HomePage = () => {
 
     return (
         <>
+            <ScrollHandler />
             <Navbar />
             <Home />
             <About />
             <AllProjects/>
             <Techs />
-            {/* <CertificateSlider certificates={certificates} /> */}
             <Contact />
         </>
     )

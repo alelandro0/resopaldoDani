@@ -6,6 +6,7 @@ import {  faHome,faUser,   faBriefcase, faEdit, faBullhorn, faQuestionCircle } f
 import { API_URL } from '../../../Autentication/constanst';
 import { useAuth } from '../../../Autentication/AutProvider';
 import { Link } from "react-router-dom";
+// import {logoMulti} from '../../../../public/images/logoMulti.png'
 
 const NabarMenu = () => {
   const lineContainerRef = useRef(null);
@@ -79,33 +80,29 @@ const NabarMenu = () => {
 
   return (
     <>
-      <div className="" style={{background:'black',position:'relative'}}>
-        <div className="" style={{display:'flex',justifyContent:'space-between',padding:'1.6rem'}}>
-          <div className="">
-            <h1 className="">
-              <i className=""></i>
-              MultiServicios
-            </h1>
+      <div className="header-container" style={{ background:'black', position:'relative' }}>
+        <div className="header-content" style={{ display:'flex', justifyContent:'space-between', padding:'1.6rem' }}>
+          <div className="logo-container">
+            {/* <img src={logoMulti} alt="" /> */}
+            <h1 className=''>MultiServicios</h1>
           </div>
-          <div className=""style={{display:'flex',gap:20}}>
+          <div className="user-info" style={{ display:'flex', gap:20 }}>
             <FontAwesomeIcon icon={faUser} />
             <h3> {auth.getUser()?.name}</h3>
           </div>
-          <div
-            className="line-container "
-            ref={lineContainerRef}
-            onClick={handleToggleMenu}
-          >
-            <div className={`line line-1 ${isActive ? 'active' : ''}`}></div>
-            <div className={`line line-2 ${isActive ? 'active' : ''}`}></div>
-            <div className={`line line-3 ${isActive ? 'active' : ''}`}></div>
+          <div className="menu-toggle" onClick={handleToggleMenu}>
+            <div className={`line-container ${isActive ? 'active' : ''}`} ref={lineContainerRef}>
+              <div className={`line line-1 ${isActive ? 'active' : ''}`}></div>
+              <div className={`line line-2 ${isActive ? 'active' : ''}`}></div>
+              <div className={`line line-3 ${isActive ? 'active' : ''}`}></div>
+            </div>
           </div>
         </div>
-        <div style={{ width: '100%' }}>
+        <div style={{ width:'100%' }}>
           <div className={`menu ${isActive ? 'active' : ''}`} ref={menuRef}>
             <div className="menu-top"></div>
             <div className="menu-center">
-              <div className="menu-bottom">
+              <div className="menu-bottom"> 
                 <div className="menu-bottom-user">
                   <img src={downloadURL} alt="" />
                   <span>{auth.getUser()?.name}</span>
@@ -117,18 +114,16 @@ const NabarMenu = () => {
                 <Link className='p-4' to="/">Inicio</Link>
               </div>
               <div className="menu-item hover:bg-blue-600">
-                <FontAwesomeIcon icon={faUser} tyle={{}}/>
+                <FontAwesomeIcon icon={faUser} />
                 <Link className='p-4' to="/dashboard">Perfil</Link>
               </div>
               <div className="menu-item hover:bg-blue-600">
                 <FontAwesomeIcon icon={faBriefcase} />
                 <Link className='p-4' to="/citas">Agenda</Link>
-                
               </div>
               <div className="menu-item hover:bg-blue-600">
                 <FontAwesomeIcon icon={faEdit} />
                 <Link className='p-4' to="/editarPerfil">Editar</Link>
-                
               </div>
               <div className="menu-item hover:bg-blue-600">
                 <FontAwesomeIcon icon={faBullhorn} />
@@ -141,6 +136,7 @@ const NabarMenu = () => {
       </div>
     </>
   );
+  
 }
 
 export default NabarMenu;

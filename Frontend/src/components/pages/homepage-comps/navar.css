@@ -1,19 +1,28 @@
+/* Variables */
+:root {
+  --primary-color: black;
+  --text-color: white;
+  --menu-width: 250px;
+  --transition-speed: 0.7s;
+}
+
+/* Reset */
 * {
   margin: 0;
-  color: white;
+  color: var(--text-color);
 }
 
 body {
   overflow: hidden;
 }
 
+/* Topbar */
 .topbar {
   width: 100%;
   height: 80px;
-  background-color: black;
+  background-color: var(--primary-color);
   display: flex;
   align-items: center;
-  
 }
 
 .topbar-left {
@@ -70,6 +79,7 @@ h1 {
   justify-content: flex-end;
 }
 
+/* Menu toggle */
 .line-container {
   margin-right: 20px;
   width: 24px;
@@ -80,29 +90,29 @@ h1 {
   cursor: pointer;
 }
 
-
 .line {
   width: 100%;
   height: 2px;
-  background-color: white;
+  background-color: var(--text-color);
   border-radius: 20px;
-  transition: transform 1s ease, opacity 0.5s ease;
+  transition: transform var(--transition-speed) ease, opacity 0.5s ease;
   transform-origin: left;
 }
 
+/* Menu */
 .menu {
-  width: 250px;
+  width: var(--menu-width);
   height: calc(100vh - 50px);
   margin-top: 30px;
-  background-color: black;
+  background-color: var(--primary-color);
   position: absolute;
   top: 50px;
-  right: -250px;
+  right: calc(-1 * var(--menu-width));
   padding: 0 20px;
   display: flex;
   flex-direction: column;
   font-family: sans-serif;
-  transition: all 1s ease;
+  transition: all var(--transition-speed) ease;
   z-index: 1;
 }
 
@@ -111,20 +121,6 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.menu-search {
-  width: 100%;
-  height: 30px;
-  background-color: lightgray;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
-.search-icon {
-  color: gray;
 }
 
 .menu-center {
@@ -141,7 +137,6 @@ h1 {
 .menu-item span {
   margin-left: 10px;
 }
-
 
 .menu-bottom {
   flex: 0.1;
@@ -171,10 +166,10 @@ h1 {
 }
 
 .menu.active {
-  transform: translateX(-250px);
-  
+  transform: translateX(calc(-1 * var(--menu-width)));
 }
 
+/* Menu toggle animation */
 .line-container.active .line-1 {
   transform: rotate(45deg);
 }
@@ -186,6 +181,3 @@ h1 {
 .line-container.active .line-3 {
   transform: rotate(-45deg);
 }
-
-
-

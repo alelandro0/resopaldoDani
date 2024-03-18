@@ -4,7 +4,7 @@
 /* eslint-disable no-undef */
 import './perfil.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImage, faPen,  faThumbsUp} from '@fortawesome/free-solid-svg-icons';
+import { faImage, faPen, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../../Autentication/AutProvider';
 import { API_URL } from '../../../Autentication/constanst';
@@ -45,18 +45,18 @@ const UserProfile = () => {
     const secondsElapsed = Math.floor(timeDifference / 1000);
 
     if (secondsElapsed < 60) {
-        return `${secondsElapsed} segundos`;
+      return `${secondsElapsed} segundos`;
     } else if (secondsElapsed < 3600) {
-        const minutes = Math.floor(secondsElapsed / 60);
-        return `${minutes} minutos`;
+      const minutes = Math.floor(secondsElapsed / 60);
+      return `${minutes} minutos`;
     } else if (secondsElapsed < 86400) {
-        const hours = Math.floor(secondsElapsed / 3600);
-        return `${hours} horas`;
+      const hours = Math.floor(secondsElapsed / 3600);
+      return `${hours} horas`;
     } else {
-        const days = Math.floor(secondsElapsed / 86400);
-        return `${days} días`;
+      const days = Math.floor(secondsElapsed / 86400);
+      return `${days} días`;
     }
-}
+  }
 
 
 
@@ -362,156 +362,154 @@ const UserProfile = () => {
   };
 
   return (
-    <div name='Perfil
-    
-    
-    ' className='profile-container relative  '><section className="seccion-perfil-usuario ">
-      <div className="perfil-usuario-header">
-        <div className="perfil-usuario-portada " style={{ margin: 30 }} >
-          <input
-            type="file"
-            id="fileInput"
-            style={{ display: 'none' }}
-            onChange={(e) => handleProfileImageChange(e.target.files)}
-          />
-          <div className="perfil-usuario-avatar relative z-10" onClick={() => setEditingProfileImage(true)}>
-            <img src={downloadURL} alt="img-avatar" className="avatar-img " />
-            <label htmlFor="fileInput" style={{ background: 'black' }}
-              className="boton-avatar flex items-center justify-center"
-              onClick={(e) => handleProfileImageChange(e.target.files)}>
-              <FontAwesomeIcon icon={faImage} />
+    <div name='Perfil' className='User-body'>
+      <section className="seccion-perfil-usuario ">
+        <div className="perfil-usuario-header">
+          <div className="perfil-usuario-portada "  >
+            <input
+              type="file"
+              id="fileInput"
+              style={{ display: 'none' }}
+              onChange={(e) => handleProfileImageChange(e.target.files)}
+            />
+            <div className="" onClick={() => setEditingProfileImage(true)}>
+              <img src={downloadURL} alt="img-avatar" className="avatar-img " />
+              <label htmlFor="fileInput"
+                className=""
+                onClick={(e) => handleProfileImageChange(e.target.files)}>
+                <FontAwesomeIcon icon={faImage} />
+              </label>
+            </div>
+
+            <input
+              type="file"
+              id="PortadaInput"
+              style={{ display: 'none' }}
+              onChange={(e) => handlePortdaImageChange(e.target.files)}
+            />
+
+            <img src={downloadURLPortada} alt="img-portada" className="portada " />
+            <label htmlFor="PortadaInput" className="boton-portada" >
+              <FontAwesomeIcon icon={faImage} /> Cambiar fondo
             </label>
           </div>
-
-          <input
-            type="file"
-            id="PortadaInput"
-            style={{ display: 'none' }}
-            onChange={(e) => handlePortdaImageChange(e.target.files)}
-          />
-
-          <img src={downloadURLPortada} alt="img-portada" className="portada " />
-          <label htmlFor="PortadaInput" className="boton-portada" >
-            <FontAwesomeIcon icon={faImage} /> Cambiar fondo
-          </label>
         </div>
-      </div>
-      <div className="perfil-usuario-body" style={{ width: '50%' }}>
-        <div className="perfil-usuario-bio" style={{ display: 'flex', flexDirection: 'column' }}>
-          <div>
-            <h2 className='info' style={{ color: 'black', marginBottom: '1rem' }}>Información Personal:</h2>
-          </div>
-          <div>
-            <h2 className='info' style={{ color: 'black', marginBottom: '2rem' }}>{auth.getUser()?.roll}</h2>
-          </div>
-          <div>
-            <h2 className="Name" style={{ color: 'black' }}>Nombre: {auth.getUser()?.name}</h2>
-          </div>
-          <div>
-            <p className="Phone" style={{ color: 'black' }}>Numero de celular: {auth.getUser()?.telefono}</p>
-          </div>
-          <div>
-            <p className="Email" style={{ color: 'black' }}>Correo Electronico: {auth.getUser()?.username}</p>
-          </div>
-        </div>
-        <div className="Post-potfile">
-          <h1 className="texto">Publicaciones {publicaciones.length}</h1>
-        </div>
-      </div>
-      <div className="area-comentar">
-        <div className="avatar">
-          <img src={downloadURL} alt="img" />
-        </div>
-        {/* {seccion formulario publicacion} */}
-        <form className="inputs-comentarios" encType="multipart/form-data" onSubmit={postPublication}>
-          <div className="textarea-container">
-            <textarea
-              name=""
-              className="area-comentario text-black"
-              placeholder="Descripcion del Servicio"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              ref={descriptionTextareaRef}
-              style={{ padding: 2 }}
-            ></textarea>
-          </div>
-          <div className="botones-comentar">
-            <div className="boton-subir-archivo">
-              <label className="boton-file" htmlFor="adjuntar">
-                Adjuntar archivo
-              </label>
-              <input type="file"
-                ref={fileInputRef}
-                name="file"
-                id="adjuntar" />
+        <div className="perfil-usuario-body" style={{ width: '50%' }}>
+          <div className="perfil-usuario-bio" style={{ display: 'flex', flexDirection: 'column' }}>
+            <div>
+              <h2 className='info' style={{ color: 'black', marginBottom: '1rem' }}>Información Personal:</h2>
             </div>
-            <button className="boton-enviar" type="submit">
-              Enviar
-            </button>
+            <div>
+              <h2 className='info' style={{ color: 'black', marginBottom: '2rem' }}>{auth.getUser()?.roll}</h2>
+            </div>
+            <div>
+              <h2 className="Name" style={{ color: 'black' }}>Nombre: {auth.getUser()?.name}</h2>
+            </div>
+            <div>
+              <p className="Phone" style={{ color: 'black' }}>Numero de celular: {auth.getUser()?.telefono}</p>
+            </div>
+            <div>
+              <p className="Email" style={{ color: 'black' }}>Correo Electronico: {auth.getUser()?.username}</p>
+            </div>
           </div>
-        </form>
-      </div>
-      {/* {puplicaiones personales} */}
-
-      <div className='publicacion-cometario '>
-        {console.log(publicaciones)}
-        {publicaciones.map((publicacion, index) => (
-          <div className="publicacion-realizada" key={index}>
-            <div className="usuario-publico">
-              <div className="avatar">
-                <img src={auth.getUser()?.imageProfile} alt="img" />
+          <div className="Post-potfile">
+            <h1 className="texto">Publicaciones {publicaciones.length}</h1>
+          </div>
+        </div>
+        <div className="area-comentar">
+          <div className="avatar">
+            <img src={downloadURL} alt="img" />
+          </div>
+          {/* {seccion formulario publicacion} */}
+          <form className="inputs-comentarios" encType="multipart/form-data" onSubmit={postPublication}>
+            <div className="textarea-container">
+              <textarea
+                name=""
+                className="area-comentario text-black"
+                placeholder="Descripcion del Servicio"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                ref={descriptionTextareaRef}
+                style={{ padding: 2 }}
+              ></textarea>
+            </div>
+            <div className="botones-comentar">
+              <div className="boton-subir-archivo">
+                <label className="boton-file" htmlFor="adjuntar">
+                  Adjuntar archivo
+                </label>
+                <input type="file"
+                  ref={fileInputRef}
+                  name="file"
+                  id="adjuntar" />
               </div>
-              <div className="contenido-publicacion">
-               <div style={{display:'flex', gap:15}}>
-               <h4 style={{paddingTop:2}} >{auth.getUser()?.name}</h4>
-                <button onClick={() => {
-                  modalHandler(true, publicacion?.image, publicacion?.id, publicacion?.description, publicacion?.name)
-                }} className='btn-modal' >Ver</button>
+              <button className="boton-enviar" type="submit">
+                Enviar
+              </button>
+            </div>
+          </form>
+        </div>
+        {/* {puplicaiones personales} */}
+
+        <div className='publicacion-cometario '>
+          {console.log(publicaciones)}
+          {publicaciones.map((publicacion, index) => (
+            <div className="publicacion-realizada" key={index}>
+              <div className="usuario-publico">
+                <div className="avatar">
+                  <img src={auth.getUser()?.imageProfile} alt="img" />
                 </div>
-                <ul style={{paddingTop:4}}>
-                  <li>Hace {getTimeElapsed(publicacion.createdAt)}</li>
-                </ul>
-                
-              </div>
-            
-              <div className="menu-comentario">
-              <FontAwesomeIcon icon={faPen} />
-                <ul className="menu" style={{ background: 'black', maxHeight: 100 }}>
-                  <li><a href="" >Editar</a></li>
-                  <li><a href="" >Eliminar</a></li>
-                </ul>
-              </div>
-            </div>
-            <p className='descripcion'>{publicacion.description}</p>
-            <div className="archivo-publicado">
-              <img src={publicacion.image} alt="img" />
-            </div>
-            <div className="botones-comentario" style={{marginTop:12}}>
-              <button type="" className="boton-puntuar" style={{display:'flex',gap:5, padding:'12px'}} >
-              <FontAwesomeIcon icon={faThumbsUp} style={{marginLeft:2}} />
-               <p>45</p> 
-              </button>
-              <button type="" className="boton-responder" >
-                Comentar
-              </button>
-            </div>
-          </div>
-        ))}
+                <div className="contenido-publicacion">
+                  <div style={{ display: 'flex', gap: 15 }}>
+                    <h4 style={{ paddingTop: 2 }} >{auth.getUser()?.name}</h4>
+                    <button onClick={() => {
+                      modalHandler(true, publicacion?.image, publicacion?.id, publicacion?.description, publicacion?.name)
+                    }} className='btn-modal' >Ver</button>
+                  </div>
+                  <ul style={{ paddingTop: 4 }}>
+                    <li>Hace {getTimeElapsed(publicacion.createdAt)}</li>
+                  </ul>
 
-      </div>
-      <Modal className='card' style={{ content: { width: '50%', margin: '0 auto', marginTop: '100px' } }} isOpen={modalIsOpen} onRequestClose={() => modalHandler(false, '', '', '', '',)}>
-        <div >
-          <div className='card-body' style={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>
-            <button onClick={() => deleteHandler()} className='btn btn-danger'>ELIMINAR</button>
-            <button className='btn btn-danger' onClick={() => modalHandler(false, '', '', '', '')}>X</button>
-          </div>
-          <img style={{ padding: 10, width: '100%' }} src={currenImage || ''} alt="" />
+                </div>
+
+                <div className="menu-comentario">
+                  <FontAwesomeIcon icon={faPen} />
+                  <ul className="menu" style={{ background: 'black', maxHeight: 100 }}>
+                    <li><a href="" >Editar</a></li>
+                    <li><a href="" >Eliminar</a></li>
+                  </ul>
+                </div>
+              </div>
+              <p className='descripcion'>{publicacion.description}</p>
+              <div className="archivo-publicado">
+                <img src={publicacion.image} alt="img" />
+              </div>
+              <div className="botones-comentario" style={{ marginTop: 12 }}>
+                <button type="" className="boton-puntuar" style={{ display: 'flex', gap: 5, padding: '12px' }} >
+                  <FontAwesomeIcon icon={faThumbsUp} style={{ marginLeft: 2 }} />
+                  <p>45</p>
+                </button>
+                <button type="" className="boton-responder" >
+                  Comentar
+                </button>
+              </div>
+            </div>
+          ))}
+
         </div>
-      </Modal>
+        <Modal className='card' style={{ content: { width: '50%', margin: '0 auto', marginTop: '100px' } }} isOpen={modalIsOpen} onRequestClose={() => modalHandler(false, '', '', '', '',)}>
+          <div >
+            <div className='card-body' style={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>
+              <button onClick={() => deleteHandler()} className='btn btn-danger'>ELIMINAR</button>
+              <button className='btn btn-danger' onClick={() => modalHandler(false, '', '', '', '')}>X</button>
+            </div>
+            <img style={{ padding: 10, width: '100%' }} src={currenImage || ''} alt="" />
+          </div>
+        </Modal>
 
-      <div style={{ height: 100 }}></div>
+        <div style={{ height: 100 }}></div>
 
-    </section>
+      </section>
 
     </div>
 

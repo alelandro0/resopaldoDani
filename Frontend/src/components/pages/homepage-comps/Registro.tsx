@@ -63,51 +63,65 @@ export const Registro = () => {
             <p className="py-6">Completa el siguiente formulario para registrarte</p>
           </div>
 
-          <div className="flex justify-center items-center relative z-10 h-96">
-            <form onSubmit={handleSubmit} className="flex flex-col w-full md:w-1/2 rounded-md p-8" style={{ zIndex: "20" }}>
-              <input 
-                type="text" 
-                name="name" 
-                placeholder="Nombre" 
-                value={name} 
-                onChange={(e) => setName(e.target.value)} 
-                className=" my-4 p-2 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600" 
-                required 
-              />
+          <div className="flex justify-center items-center relative z-10 h-76">
+            <form onSubmit={handleSubmit} className="flex flex-col w-full md:w-1/2 rounded-md p-0" style={{ zIndex: "20" }}>
+              <div className="flex flex-col mb-4">
+                <label htmlFor="name" className="text-white">Nombre</label>
+                <input 
+                  type="text" 
+                  id="name" 
+                  name="name" 
+                  placeholder="Ingresa tu nombre" 
+                  value={name} 
+                  onChange={(e) => setName(e.target.value)} 
+                  className="p-2 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600" 
+                  required 
+                />
+              </div>
 
-              <input 
-                type="text" 
-                name="username" 
-                placeholder="Correo Electrónico" 
-                value={username} 
-                onChange={(e) => setUsername(e.target.value)} 
-                className="my-4 p-2 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600" 
-                required 
-              />
+              <div className="flex flex-col mb-4">
+                <label htmlFor="username" className="text-white">Correo Electrónico</label>
+                <input 
+                  type="text" 
+                  id="username" 
+                  name="username" 
+                  placeholder="Ingresa tu correo electrónico" 
+                  value={username} 
+                  onChange={(e) => setUsername(e.target.value)} 
+                  className="p-2 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600" 
+                  required 
+                />
+              </div>
 
-              <input 
-                type="password" 
-                name="password" 
-                placeholder="Contraseña" 
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
-                className="my-4 p-2 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600" 
-                required 
-              />
+              <div className="flex flex-col mb-4">
+                <label htmlFor="password" className="text-white">Contraseña</label>
+                <input 
+                  type="password" 
+                  id="password" 
+                  name="password" 
+                  placeholder="Ingresa tu contraseña" 
+                  value={password} 
+                  onChange={(e) => setPassword(e.target.value)} 
+                  className="p-2 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600" 
+                  required 
+                />
+              </div>
 
-<select 
-  name="roll" 
-  value={roll} 
-  onChange={(e) => setRoll(e.target.value)} 
-  className="my-4 p-2 rounded-md focus:outline-none focus:border-blue-600 bg-black border-2 border-white text-white"
-  required
->
-  <option value="" className="text-white">Selecciona el tipo de usuario</option>
-  <option value="Cliente" className="text-white">Cliente</option>
-  <option value="Profesional" className="text-white">Profesional</option>
-</select>
-
-
+              <div className="flex flex-col mb-4">
+                <label htmlFor="roll" className="text-white">Tipo de Usuario</label>
+                <select 
+                  name="roll" 
+                  id="roll"
+                  value={roll} 
+                  onChange={(e) => setRoll(e.target.value)} 
+                  className="p-2 rounded-md focus:outline-none focus:border-blue-600 bg-black border-2 border-white text-white"
+                  required
+                >
+                  <option value="">Selecciona el tipo de usuario</option>
+                  <option value="Cliente">Cliente</option>
+                  <option value="Profesional">Profesional</option>
+                </select>
+              </div>
 
               {!!errorResponse && <div className="text-red-500 mb-4">{errorResponse}</div>}
 
@@ -136,3 +150,4 @@ export const Registro = () => {
     </>
   );
 };
+

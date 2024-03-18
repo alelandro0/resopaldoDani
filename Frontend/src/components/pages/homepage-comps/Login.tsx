@@ -61,33 +61,41 @@ export default function Login() {
             <p className="py-6">Completa el siguiente formulario para iniciar sesión</p>
           </div>
 
-          <div className="flex justify-center items-center relative z-10 h-52">
-            <form onSubmit={handleSubmit} className="flex flex-col w-full md:w-1/2 rounded-md p-8" style={{ zIndex: "20" }}>
-              <input 
-                type="text" 
-                name="name" 
-                placeholder="Correo Electrónico" 
-                value={username} 
-                onChange={(e) => setUsername(e.target.value)} 
-                className="my-4 p-2 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600" 
-                required 
-              />
+          <div className="flex justify-center items-center relative z-10 h-60">
+            <form onSubmit={handleSubmit} className="flex flex-col w-full md:w-1/2 rounded-md p-0 space-y-4" style={{ zIndex: "20" }}>
+              <div className="flex flex-col">
+                <label htmlFor="username" className="text-white">Correo Electrónico</label>
+                <input 
+                  type="text" 
+                  id="username" 
+                  name="username" 
+                  placeholder="Ingrese su correo electronico"
+                  value={username} 
+                  onChange={(e) => setUsername(e.target.value)} 
+                  className="p-3 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600" 
+                  required 
+                />
+              </div>
 
-              <input 
-                type="password" 
-                name="password" 
-                placeholder="Contraseña" 
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)} 
-                className="my-4 p-2 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600" 
-                required 
-              />
+              <div className="flex flex-col">
+                <label htmlFor="password" className="text-white">Contraseña</label>
+                <input 
+                  type="password" 
+                  id="password" 
+                  name="password" 
+                  placeholder="Ingrese su contraseña"
+                  value={password} 
+                  onChange={(e) => setPassword(e.target.value)} 
+                  className="p-3 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600" 
+                  required 
+                />
+              </div>
 
-              {!!errorResponse && <div className="text-red-500 mb-4">{errorResponse}</div>}
+              {!!errorResponse && <div className="text-red-500">{errorResponse}</div>}
 
               <button 
                 type="submit" 
-                className="group text-white font-semibold w-fit px-6 py-3 my-2 flex items-center rounded-md bg-gradient-to-t from-blue-600 cursor-pointer mx-auto md:mx-0"
+                className="group text-white font-semibold w-fit px-6 py-3 flex items-center rounded-md bg-gradient-to-t from-blue-600 cursor-pointer mx-auto md:mx-0"
               > 
                 Iniciar Sesión  
               </button>

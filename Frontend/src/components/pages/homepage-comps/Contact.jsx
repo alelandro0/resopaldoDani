@@ -41,7 +41,7 @@ const Contact = () => {
         <section name='Contactanos' className='relative w-full md:h-screen p-4 text-white h-unset'>
             <div className='flex flex-col p-4 justify-center max-w-screen-lg mx-auto h-full'>
                 <div className='pb-8 flex justify-center items-center flex-col'>
-                    <h2 className='text-4xl font-bold inline border-b-4 border-blue-600 border-opacity-40 sm:text-5xl'>Contactanos</h2>
+                    <h2 className='text-4xl font-bold inline border-b-4 border-blue-600 border-opacity-40 sm:text-5xl'>Contáctanos</h2>
                     <p className='py-6'>Completa el siguiente formulario para contactarnos</p>
                 </div>
 
@@ -50,13 +50,13 @@ const Contact = () => {
                     <form onSubmit={handleSubmit} className='flex flex-col w-full md:w-1/2'>
                         <input
                             type="text"
-                            name='name' placeholder='Ingresar Nombre'
+                            name='name' placeholder='Ingresar nombre'
                             className='p-2 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600' required
                         />
 
                         <input
                             type="email"
-                            name='email' placeholder='Ingresa Correo Electronico'
+                            name='email' placeholder='Ingresa correo electrónico'
                             className='my-4 p-2 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600' required
                         />
 

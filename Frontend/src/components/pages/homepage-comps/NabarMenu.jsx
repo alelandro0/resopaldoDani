@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import './navar.css';
-import { useRef, useState ,useEffect} from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  faHome,faUser,   faBriefcase, faEdit, faBullhorn, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faUser, faBriefcase, faEdit, faBullhorn, faQuestionCircle } from '@fortawesome/free-solid-svg-icons';
 import { API_URL } from '../../../Autentication/constanst';
 import { useAuth } from '../../../Autentication/AutProvider';
 import { Link } from "react-router-dom";
@@ -13,7 +13,7 @@ const NabarMenu = () => {
   const [isActive, setIsActive] = useState(false);
   const [downloadURL, setDownloadURL] = useState("");
   const auth = useAuth();
-  
+
   useEffect(() => {
     getImageProfile();
   }, []);
@@ -25,19 +25,19 @@ const NabarMenu = () => {
   async function handleSignOut(e) {
     e.preventDefault();
     try {
-        const response = await fetch(`${API_URL}/signout`,{
-            method: "DELETE",
-            headers:{
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${auth.getRefreshToken()}`
-            }
-        });
-        console.log('repuesta de salir ', response, auth.getUser()?.name);
-        if(response.ok){
-            auth.signOut();
+      const response = await fetch(`${API_URL}/signout`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${auth.getRefreshToken()}`
         }
+      });
+      console.log('repuesta de salir ', response, auth.getUser()?.name);
+      if (response.ok) {
+        auth.signOut();
+      }
     } catch (error) {
-      console.error( error);
+      console.error(error);
     }
   }
 
@@ -78,15 +78,15 @@ const NabarMenu = () => {
 
   return (
     <>
-      <div className="" style={{background:'black',position:'relative'}}>
-        <div className="" style={{display:'flex',justifyContent:'space-between',padding:'1.6rem'}}>
+      <div className="" style={{ background: 'black', position: 'relative' }}>
+        <div className="" style={{ display: 'flex', justifyContent: 'space-between', padding: '1.6rem' }}>
           <div className="">
             <h1 className="">
               <i className=""></i>
               MultiServicios
             </h1>
           </div>
-          <div className=""style={{display:'flex',gap:20}}>
+          <div className="" style={{ display: 'flex', gap: 20 }}>
             <FontAwesomeIcon icon={faUser} />
             <h3> {auth.getUser()?.name}</h3>
           </div>
@@ -116,23 +116,33 @@ const NabarMenu = () => {
                 <Link className='p-4' to="/">Inicio</Link>
               </div>
               <div className="menu-item hover:bg-blue-600">
-                <FontAwesomeIcon icon={faUser} tyle={{}}/>
+                <FontAwesomeIcon icon={faUser} tyle={{}} />
                 <Link className='p-4' to="/dashboard">Perfil</Link>
               </div>
               <div className="menu-item hover:bg-blue-600">
-                <FontAwesomeIcon icon={faBriefcase} />
-                <Link className='p-4' to="/citas">Agenda</Link>
-                
+                {auth.getUser()?.roll === "Cliente" ? (
+                  <>
+                    <FontAwesomeIcon icon={faBriefcase} />
+                    <Link className='p-4' to="/citas">Agenda</Link>
+                  </>
+                ) : (
+                  <>
+                    <FontAwesomeIcon icon={faBriefcase} />
+                    <Link className='p-4' to="/portafolio">Agenda</Link>
+                  </>
+                )}
               </div>
+
               <div className="menu-item hover:bg-blue-600">
                 <FontAwesomeIcon icon={faEdit} />
                 <Link className='p-4' to="/editarPerfil">Editar</Link>
-                
+
               </div>
-              <div className="menu-item hover:bg-blue-600">
+              {auth.getUser()?.roll==="Profesional"?(<> <div className="menu-item hover:bg-blue-600">
                 <FontAwesomeIcon icon={faBullhorn} />
                 <Link className='p-4' to="/publicaciones">Publicaciones</Link>
-              </div>
+              </div></>):null}
+             
               <button className='p-14 hover:text-blue-500' onClick={handleSignOut}>Salir</button>
             </div>
           </div>

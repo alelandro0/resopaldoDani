@@ -18,6 +18,7 @@ import Dashboard from './components/pages/homepage-comps/Dashboard'
 import Citas from './components/pages/homepage-comps/Citas'
 import EditarPerfil from './components/pages/homepage-comps/EditarPerfil'
 import PublicaionesT from './components/pages/homepage-comps/PublicacionesT'
+import CitasCliente from './components/pages/homepage-comps/citasCliente'
 
 // import { BrowserRouter } from 'react-router-dom'
 
@@ -84,7 +85,7 @@ const router= createBrowserRouter(
       </>
       },
       {
-        path: "/citas",
+        path: "/portafolio",
         element:
         <>
         <ParticlesBackground />
@@ -109,7 +110,23 @@ const router= createBrowserRouter(
         <PublicaionesT/>
         <Chat/>
         </>
-      },
+      },{
+        path: "/citas",
+        element:
+        <>
+        <ParticlesBackground/>
+        <CitasCliente/>
+        <Chat/>
+        </>
+      },{
+        path: "/publicaciones",
+        element:
+        <>
+        <ParticlesBackground/>
+        <PublicaionesT/>
+        <Chat/>
+        </>
+      }
       // {
       //   path: "/chat",
       //   element:<ChatClient/>

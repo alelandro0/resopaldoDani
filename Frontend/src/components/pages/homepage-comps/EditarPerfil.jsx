@@ -1,8 +1,8 @@
 import NabarMenu from "./NabarMenu";
 import { useAuth } from "../../../Autentication/AutProvider";
 import './EditarPerfil.css';
-import { useEffect, useState, ChangeEvent } from 'react';
-import React from 'react';
+import { useEffect, useState } from 'react';
+
 
 export const EditarPerfil = () => {
   const [name, setName] = useState('');
@@ -64,6 +64,7 @@ export const EditarPerfil = () => {
 
   useEffect(() => {
     getImageProfile();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function getImageProfile() {

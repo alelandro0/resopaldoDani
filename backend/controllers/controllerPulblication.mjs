@@ -109,16 +109,19 @@ export const getPublicationAll = async (req, res) => {
 
         const publications = users.map(user => {
             const nombre = user.name;
+            const imagenUser= user.imageProfile
             return user.publication.filter(pub => pub.estado === true)
                                      .map(pub => ({
                                          id: pub._id,
                                          image: pub.image,
                                          description: pub.description,
-                                         name : nombre
+                                         name : nombre,
+                                         createdAt:pub.createdAt,
+                                         imageProfile:imagenUser
                                      }));
         });
 
-       
+       console.log(publications);
         return res.status(200).json({ publications });
     } catch (error) {
         

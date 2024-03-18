@@ -7,7 +7,8 @@ const deleteSignout = async (req, res) => {
         const refreshToken = getTokenFromHeader(req.headers);
         if (refreshToken) {
             const refrescar = await Token.findOneAndRemove({ token: refreshToken });
-            if (refrescar) {
+            console.log('token removido',refrescar);
+            if (!refrescar) {
                 return res.status(200).json(jsonResponse(200, { message: "Logout successful" }));
             } else {
                 return res.status(404).json(jsonResponse(404, { message: "Refresh token not found" }));

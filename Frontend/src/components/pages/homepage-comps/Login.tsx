@@ -34,7 +34,6 @@ export default function Login() {
 
         if (json.body.accessToken && json.body.refreshToken) {
           const guardar = auth.saveUser(json);
-          localStorage.setItem('Token',json.body.refreshToken)
           goto("/dashboard");
         }
       } else {

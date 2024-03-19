@@ -15,12 +15,7 @@ import { Link as ScrollLink } from "react-scroll";
 const   Techs = () => {
 
   const techs = [
-    {
-      id: 1,
-      src: html,
-      title: "HOSPITAL",
-      style: "shadow-white",
-    },
+    
  
     {
       id: 3,

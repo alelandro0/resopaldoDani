@@ -17,6 +17,7 @@ body {
     gap: 20px; /* Espacio entre elementos */
     background: transparent;
     padding: 0;
+    justify-content: space-between;
 }
 .publicacion-realizada .usuario-publico .contenido-publicacion {
     margin-left: 1rem;
@@ -76,14 +77,37 @@ body {
 
 
 .publicacion-realizada {
-    background-color:black;
+    background-color: black;
     color: gray;
     border-radius: 12px;
-    padding: 20px;
-    margin: 0;
-    width: 100%; /* Hace que el elemento hijo ocupe todo el ancho del padre */
+    padding: 10px; /* Reducir el padding */
+    margin: 0 auto; /* Centrar horizontalmente */
+    width: 100%;
+    height: auto;
+
+    
+}
+.publicacion-realizada .usuario-publico {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    position: relative;
+    justify-content: space-between;
 }
 
+.publicacion-realizada .archivo-publicado img {
+    max-width: 100%; /* Hacer que la imagen se ajuste al contenedor */
+    height: 50vh; 
+    object-fit: cover;
+}
+
+.publicacion-comentario {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Centrar las tarjetas horizontalmente */
+    gap: 20px; /* Espaciado entre las tarjetas */
+}
 
 .textarea-container {
     position: relative;
@@ -115,11 +139,11 @@ body {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
-    margin-bottom: 1.5rem;
+    margin-bottom: -0.5rem;
     background-color: black;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 2px;
     width: 50%;
-    padding: 18px;
+    padding: 27px;
     border-radius: 12px;
     margin-top: 3px;
 }
@@ -137,6 +161,10 @@ body {
     display: inline-block;
 
 }
+
+.area-comentario ::placeholder{
+    padding-left: 10px;
+}
 .contenedor-comentarios .comentario-principal-usuario .texto, .area-comentar .inputs-comentarios .area-comentario {
     border: 0;
     margin-top: 0.8rem;
@@ -153,28 +181,31 @@ body {
     margin-left: .5rem;
 }
 .botones-comentario {
-    display: block;
+    display: flex;
+    justify-content: flex-end; /* Centra los botones a la derecha */
 }
+
 .botones-comentario button {
     display: inline-block;
     border: 0;
-    padding: 3px 8px;
-    font-size: .8rem;
+    padding: 8px 12px; /* Ajusta el padding según necesites */
+    font-size: 0.8rem;
     border-radius: 8px;
     cursor: pointer;
+    background-color: #000000; /* Color de fondo */
+    color: #fff; /* Color de texto */
+    transition: background-color 0.3s; /* Transición al cambiar el color de fondo */
+    margin-top: 8px; /* Margen superior */
+    margin-left: 10px; /* Espacio entre los botones */
 }
-.boton-file, .boton-enviar{
-    margin-top: 0.8rem;
-    background-color: #112d6b;
+
+.boton-file,
+.boton-enviar {
+    margin-top: 8px;    
 }
-.botones-comentario button:hover {
-    background-color: #D5D8E1;
-}
-.botones-comentario span.tiempo-comentario {
-    font-size: 0.8rem !important;
-    color: #9F9F9F;
-    margin-left: .25rem;
-}
+
+
+
 .boton-file, .boton-enviar {
     display: inline-block;
     border: 0;
@@ -196,6 +227,11 @@ body {
     width: 0;
     height: 0;
 }
+
+.botones-comentar {
+    gap: 7px;
+}
+
 .area-comentar .inputs-comentarios .botones-comentar {
     display: flex;
     justify-content: flex-end;
@@ -268,6 +304,11 @@ body {
     object-fit: cover;
 }
 
+.avatar img{
+    object-fit: cover;
+}
+
+
 .seccion-perfil-usuario .perfil-usuario-avatar .boton-avatar {
     position: absolute;
     left: -2px;
@@ -289,6 +330,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin-bottom: 1.5rem;
   }
   
   .perfil-usuario-bio {
@@ -305,7 +347,13 @@ body {
     margin-bottom: 1rem;
   }
   .info{
+    font-size: 1em;
+    color: #fff;
+  }
+
+  .infor{
     font-size: 1.5em;
+    color: #2563eb;
   }
   
   .perfil-usuario-bio .Name,

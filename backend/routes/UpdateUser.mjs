@@ -3,7 +3,7 @@ import { UpdatePerfil } from "../controllers/UpdateUser.mjs";
 import { getUserById } from "../controllers/UpdateUser.mjs";
 
 const router = express.Router();
-router.get ('/:id', getUserById)
+router.get ('', getUserById)
 
 router.put('/:id', UpdatePerfil);
 

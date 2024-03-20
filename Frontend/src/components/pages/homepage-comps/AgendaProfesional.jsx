@@ -14,7 +14,7 @@ const AgendaProfesional = () => {
 
     const consultarCitas = async () => {
         try {
-            const response = await fetch(`${API_URL}/agenda-profesional/${auth.getUser()?.name}`, {
+            const response = await fetch(`${API_URL}/agenda-profesional/${auth.getUser()?.id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ const AgendaProfesional = () => {
                 throw new Error('No se pudieron cargar las citas');
             }
             const data = await response.json();
-            console.log('Datos obtenidos:', data);
+            console.log('Datos obtenidos AGENDAPROFESIONAL:', data);
             // Aquí asumiendo que data es un array de objetos con el formato correcto de CitaData
             setDatos(data);
         } catch (error) {
@@ -65,7 +65,7 @@ const AgendaProfesional = () => {
                     <div key={index} className="col-md-6 mt-4">
                         <div className="card">
                             <div className="card-body">
-                                <img src={cita.userImageProfile} className="card-img-top rounded-circle m-2" alt="Imagen de perfil" style={{ width: '150px', height: '150px' }}/>
+                                <img src={cita.imagenCliente} className="card-img-top rounded-circle m-2" alt="Imagen de perfil" style={{ width: '150px', height: '150px' }}/>
                                 <h2 className='modal-header' style={{background:'#3c3c3c'}}>Cita Programada</h2>
                                 <div style={{width:"100%",padding:'25px',background:'#3c3c3c',borderRadius:12,color:'white'}}>
                                     <h1 className="card-title">Fecha: {formatFecha(cita.date)}</h1>

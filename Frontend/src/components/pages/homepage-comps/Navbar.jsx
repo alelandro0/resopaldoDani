@@ -72,7 +72,7 @@ const Navbar = () => {
                     <div style={{ width: '30px', height: '30px', overflow: 'hidden' }}>
                         {autentico && (
                             <img
-                                src={user.getUser()?.imageProfile}
+                                src={user.getUser()?.imageProfile || 'https://static.vecteezy.com/system/resources/previews/003/337/584/large_2x/default-avatar-photo-placeholder-profile-icon-vector.jpg'}
                                 alt=""
                                 style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%', border: '2px solid white', backgroundColor: 'white' }}
                             />

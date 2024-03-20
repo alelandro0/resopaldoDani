@@ -61,7 +61,8 @@ const CitasCliente = () => {
           Mis Citas
         </h1>
         <div className="row justify-content-center">
-            {datos.map((cita, index) => (
+          {Array.isArray(datos) && datos.length > 0 ? (
+            datos.map((cita, index) => (
               <div key={index} className="col-md-6 mt-4">
                 <div className="card h-auto">
                   <h2 className='modal-header' style={{ background: '#3c3c3c' }}>Cita Programada</h2>
@@ -72,11 +73,15 @@ const CitasCliente = () => {
                   </div>
                 </div>
               </div>
-            ))}
-          
+            ))
+          ) : (
+            <div className="col-md-6 mt-4">
+              <p>No hay citas pendientes</p>
+            </div>
+          )}
         </div>
       </div>
-      </>
+    </>
     );
 };
 

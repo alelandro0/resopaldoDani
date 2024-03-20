@@ -12,6 +12,7 @@ import { ModalInfo } from '../../ModalInfo';
 import { useRef } from 'react';
 import Modal from 'react-modal'
 import './style.css'
+import Swal from 'sweetalert2';
 
 
 
@@ -36,6 +37,7 @@ const UserProfile = () => {
   const [descripcionCita, setDescripcionCita] = useState('');
   const [descripcionP, setdeProfesion] = useState('')
   const [selectedProject, setSelectedProject] = useState(null);
+  const [transparentBackground, setTransparentBackground] = useState(false);
 
 
 
@@ -46,6 +48,7 @@ const UserProfile = () => {
     getImagePortda();
     obtenerTodasLasPublicaciones();
     getPublishAllUsers();
+    deleteHandler(eliminar)
 
   }, []);
   const modalHandlerAgendar = (isOpenAge, date, hora, descripcionCita, nombre) => {
@@ -59,11 +62,13 @@ const UserProfile = () => {
   // Función para abrir el modal con el proyecto seleccionado
   const openModal = (image, description) => {
     setSelectedProject({ image, description });
+    console.log('modal abierto');
   };
 
   // Función para cerrar el modal
   const closeModal = () => {
-    setSelectedProject(null);
+    setSelectedProject(false);
+    console.log('modal cerrado ');
   };
 
   function getTimeElapsed(publishedAt) {
@@ -543,8 +548,7 @@ const UserProfile = () => {
           </div>) : null}
 
         </div>
-
-        <div className="area-comentar" style={{ height: '20vh' }}>
+          {auth.getUser().roll === "Profesional"?( <div className="area-comentar" style={{ height: '20vh' }}>
           <div className="avatar">
             <img src={downloadURL} alt="img" />
           </div>
@@ -573,45 +577,46 @@ const UserProfile = () => {
               </button>
             </div>
           </form>
-        </div>
+        </div>):null}
+       
 
         {/* {puplicaiones personales} */}
 
-        <div class='publicacion-cometario '>
+        <div className='publicacion-cometario '>
           {console.log(publicaciones)}
           {publicaciones.map((publicacion, index) => (
-            <div class="publicacion-realizada" key={index}>
-              <div class="usuario-publico">
-                <div class="avatar">
-                  <img src={auth.getUser()?.imageProfile} alt="img" />
+            <div className="publicacion-realizada" key={index}>
+              <div className="usuario-publico">
+                <div className="avatar">
+                  <img src={downloadURL || 'https://static.vecteezy.com/system/resources/previews/003/337/584/large_2x/default-avatar-photo-placeholder-profile-icon-vector.jpg'} alt="img" />
                 </div>
-                <div class="contenido-publicacion">
+                <div className="contenido-publicacion">
                   <div>
                     <h4>{auth.getUser()?.name}</h4>
-                    <button onClick={() => { modalHandler(true, publicacion?.image, publicacion?.id, publicacion?.description, publicacion?.name) }} class='btn-modal'>Ver</button>
+                    <button onClick={() => { modalHandler(true, publicacion?.image, publicacion?.id, publicacion?.description, publicacion?.name) }} className='btn-modal'>Ver</button>
                   </div>
                   <ul style={{ paddingTop: 4 }}>
                     <li>Hace {getTimeElapsed(publicacion.createdAt)}</li>
                   </ul>
                 </div>
-                <div class="menu-comentario">
+                <div className="menu-comentario">
                   <FontAwesomeIcon icon={faPen} />
-                  <ul class="menu">
-                    <button class=''>Editar</button>
-                    <button class='' onClick={() => deleteHandler(publicacion.id)}>Eliminar</button>
+                  <ul className="menu">
+                    <button className=''>Editar</button>
+                    <button className='' onClick={() => deleteHandler(publicacion.id)}>Eliminar</button>
                   </ul>
                 </div>
               </div>
-              <p class='descripcion'>{publicacion.description}</p>
-              <div class="archivo-publicado py-6">
+              <p className='descripcion'>{publicacion.description}</p>
+              <div className="archivo-publicado py-6">
                 <img src={publicacion.image} />
               </div>
-              <div class="botones-comentario">
-                <button type="" class="boton-puntuar">
+              <div className="botones-comentario">
+                <button type="" className="boton-puntuar">
                   <FontAwesomeIcon icon={faThumbsUp} />
                   <p>45</p>
                 </button>
-                <button type="" class="boton-responder">
+                <button type="" className="boton-responder">
                   Comentar
                 </button>
               </div>
@@ -643,7 +648,7 @@ const UserProfile = () => {
                       </ul></div></div>
                   <div className="flex flex-row justify-center gap-4">
                     <button
-                      onClick={() => openModal(publicacion?.image, publicacion?.description)} // Abrir el modal al hacer clic en el botón "Ver"
+                      onClick={() => openModal(true,publicacion?.image, publicacion?.description)} // Abrir el modal al hacer clic en el botón "Ver"
                       className="btn-modal"
                     >
                       Ver
@@ -686,10 +691,6 @@ const UserProfile = () => {
 
       </section>
 
-
-
-
-
         {selectedProject && <ModalInfo SelectedProject={selectedProject} closeModal={closeModal} />}
 
         <Modal className='card' style={{ content: { width: '30%', margin: '0 auto', marginTop: '100px' } }} isOpen={agendarModalIsOpen} onRequestClose={() => modalHandlerAgendar(false, '', '', '', '')}>
@@ -721,6 +722,14 @@ const UserProfile = () => {
             </div>
           </div>
         </Modal></>)}
+        <Modal className='card' style={{ content: { width: '50%', margin: '0 auto', marginTop: '100px' } }} isOpen={modalIsOpen} onRequestClose={() => modalHandler(false, '', '', '', '',)}>
+          <div >
+            <div className='card-body' style={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>
+              <button className='btn btn-danger' onClick={() => modalHandler(false, '', '', '', '')}>X</button>
+            </div>
+            <img style={{ padding: 10, width: '100%' }} src={currenImage || ''} alt="" />
+          </div>
+        </Modal>
 
     </div>
 

@@ -118,15 +118,7 @@ const router= createBrowserRouter(
         <CitasCliente/>
         <Chat/>
         </>
-      },{
-        path: "/publicaciones",
-        element:
-        <>
-        <ParticlesBackground/>
-        <PublicaionesT/>
-        <Chat/>
-        </>
-      }
+      },
       // {
       //   path: "/chat",
       //   element:<ChatClient/>

@@ -6,6 +6,7 @@ import { faHome, faUser, faBriefcase, faEdit, faBullhorn, faQuestionCircle } fro
 import { API_URL } from '../../../Autentication/constanst';
 import { useAuth } from '../../../Autentication/AutProvider';
 import { Link } from "react-router-dom";
+import LogoMulti from '../../../../public/images/logoMulti.png';
 
 const NabarMenu = () => {
   const lineContainerRef = useRef(null);
@@ -78,15 +79,17 @@ const NabarMenu = () => {
 
   return (
     <>
-      <div className="" style={{ background: 'black', position: 'relative' }}>
-        <div className="" style={{ display: 'flex', justifyContent: 'space-between', padding: '1.6rem' }}>
-          <div className="">
-            <h1 className="">
-              <i className=""></i>
+      <div className="" style={{ background: 'black', position: 'relative', padding: '10px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="">
+          <div className='flex flex-row gap-0 items-center'>
+            <img src={LogoMulti} alt="Logo" className="h-20 w-auto scale-x-[-1] filter invert" />
+            <h1 className='text-[1.1rem] lg:text-[1.3rem] hover:text-blue-600 hover:scale-125 duration-500 m-0 text-xs'>
               MultiServicios
             </h1>
           </div>
-          <div className="" style={{ display: 'flex', gap: 20 }}>
+        </div>
+        <div className="flex gap-20 items-center">
+          <div className="flex gap-4 items-center">
             <FontAwesomeIcon icon={faUser} />
             <h3> {auth.getUser()?.name}</h3>
           </div>
@@ -100,54 +103,58 @@ const NabarMenu = () => {
             <div className={`line line-3 ${isActive ? 'active' : ''}`}></div>
           </div>
         </div>
-        <div style={{ width: '100%' }}>
-          <div className={`menu ${isActive ? 'active' : ''}`} ref={menuRef}>
-            <div className="menu-top"></div>
-            <div className="menu-center">
-              <div className="menu-bottom">
-                <div className="menu-bottom-user">
-                  <img src={downloadURL} alt="" />
-                  <span>{auth.getUser()?.name}</span>
-                </div>
-                <FontAwesomeIcon icon={faQuestionCircle} />
-              </div>
-              <div className="menu-item hover:bg-blue-600">
-                <FontAwesomeIcon icon={faHome} />
-                <Link className='p-4' to="/">Inicio</Link>
-              </div>
-              <div className="menu-item hover:bg-blue-600">
-                <FontAwesomeIcon icon={faUser} tyle={{}} />
-                <Link className='p-4' to="/dashboard">Perfil</Link>
-              </div>
-              <div className="menu-item hover:bg-blue-600">
-                {auth.getUser()?.roll === "Cliente" ? (
-                  <>
-                    <FontAwesomeIcon icon={faBriefcase} />
-                    <Link className='p-4' to="/citas">Agenda</Link>
-                  </>
-                ) : (
-                  <>
-                    <FontAwesomeIcon icon={faBriefcase} />
-                    <Link className='p-4' to="/portafolio">Agenda</Link>
-                  </>
-                )}
-              </div>
+      </div>
 
-              <div className="menu-item hover:bg-blue-600">
-                <FontAwesomeIcon icon={faEdit} />
-                <Link className='p-4' to="/editarPerfil">Editar</Link>
 
+
+
+      <div style={{ width: '100%' }}>
+        <div className={`menu ${isActive ? 'active' : ''}`} ref={menuRef}>
+          <div className="menu-top"></div>
+          <div className="menu-center">
+            <div className="menu-bottom">
+              <div className="menu-bottom-user">
+                <img src={downloadURL} alt="" />
+                <span>{auth.getUser()?.name}</span>
               </div>
-              {auth.getUser()?.roll==="Profesional"?(<> <div className="menu-item hover:bg-blue-600">
-                <FontAwesomeIcon icon={faBullhorn} />
-                <Link className='p-4' to="/publicaciones">Publicaciones</Link>
-              </div></>):null}
-             
-              <button className='p-14 hover:text-blue-500' onClick={handleSignOut}>Salir</button>
+              <FontAwesomeIcon icon={faQuestionCircle} />
             </div>
+            <div className="menu-item hover:bg-blue-600">
+              <FontAwesomeIcon icon={faHome} />
+              <Link className='p-4' to="/">Inicio</Link>
+            </div>
+            <div className="menu-item hover:bg-blue-600">
+              <FontAwesomeIcon icon={faUser} style={{}} />
+              <Link className='p-4' to="/dashboard">Perfil</Link>
+            </div>
+            <div className="menu-item hover:bg-blue-600">
+              {auth.getUser()?.roll === "Cliente" ? (
+                <>
+                  <FontAwesomeIcon icon={faBriefcase} />
+                  <Link className='p-4' to="/citas">Agenda</Link>
+                </>
+              ) : (
+                <>
+                  <FontAwesomeIcon icon={faBriefcase} />
+                  <Link className='p-4' to="/portafolio">Agenda</Link>
+                </>
+              )}
+            </div>
+
+            <div className="menu-item hover:bg-blue-600">
+              <FontAwesomeIcon icon={faEdit} />
+              <Link className='p-4' to="/editarPerfil">Editar</Link>
+            </div>
+            {auth.getUser()?.roll === "Profesional" ? (<> <div className="menu-item hover:bg-blue-600">
+              <FontAwesomeIcon icon={faBullhorn} />
+              <Link className='p-4' to="/publicaciones">Publicaciones</Link>
+            </div></>) : null}
+
+            <button className='p-14 hover:text-blue-500' onClick={handleSignOut}>Salir</button>
           </div>
         </div>
       </div>
+
     </>
   );
 }

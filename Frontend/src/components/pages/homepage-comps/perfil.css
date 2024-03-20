@@ -451,6 +451,11 @@ body {
 }
 
 
+
+/*Modal agendar citas*/
+
+/* Estilos para el modal */
+
 /* adactacion a dispositivos */
 @media (max-width: 750px) {
     .profile-container {

@@ -11,7 +11,7 @@ export function ModalInfo({ SelectedProject, closeModal }) {
         <div className="overflow-hidden rounded-tl-lg rounded-tr-lg">
           <img
             className="w-full h-auto object-cover"
-            src={SelectedProject.image}
+            src={SelectedProject?.image || ""}
             alt="Resident image"
           />
         </div>
@@ -20,7 +20,7 @@ export function ModalInfo({ SelectedProject, closeModal }) {
           <ul>
             <li>
               <span className="text-primary-color">Descripcion: </span>
-              <span>{SelectedProject.description}</span>
+              <span>{SelectedProject?.description}</span>
             </li>
             {/* Agrega más elementos aquí según sea necesario */}
           </ul>
@@ -36,3 +36,4 @@ export function ModalInfo({ SelectedProject, closeModal }) {
     </section>
   );
 }
+

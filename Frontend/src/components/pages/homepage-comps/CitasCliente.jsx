@@ -13,7 +13,7 @@ const CitasCliente = () => {
     useEffect(() => {
         const fetchCitasCliente = async () => {
             try {
-                const response = await fetch(`${API_URL}/citas-usuario/${auth.getUser()?.id}`);
+                const response = await fetch(`${API_URL}/citas-usuario/${auth.getUser()?.name}`);
                 const data= await response.json()
                 console.log('respuesta del servidor',data);
             

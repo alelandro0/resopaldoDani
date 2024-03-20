@@ -90,9 +90,9 @@ export const updateAppointment = async (req, res) => {
 export const getCitasUser = async (req, res) => {
   try {
     // Obtener el userId de la solicitud
-    const userId = req.params.userId;
+    const name = req.params.userId;
     // Buscar todas las citas asociadas a este userId
-    const citas = await Cita.find({ userId: userId });
+    const citas = await Cita.find({ name: userName });
     // Verificar si se encontraron citas
     if (!citas || citas.length === 0) {
       return res.status(404).json({ message: 'No se encontraron citas para este usuario' });

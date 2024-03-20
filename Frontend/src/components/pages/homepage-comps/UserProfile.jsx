@@ -548,7 +548,7 @@ const UserProfile = () => {
           </div>) : null}
 
         </div>
-          {auth.getUser().roll === "Profesional"?( <div className="area-comentar" style={{ height: '20vh' }}>
+        {auth.getUser().roll === "Profesional" ? (<div className="area-comentar" style={{ height: '20vh' }}>
           <div className="avatar">
             <img src={downloadURL} alt="img" />
           </div>
@@ -577,8 +577,8 @@ const UserProfile = () => {
               </button>
             </div>
           </form>
-        </div>):null}
-       
+        </div>) : null}
+
 
         {/* {puplicaiones personales} */}
 
@@ -648,8 +648,9 @@ const UserProfile = () => {
                       </ul></div></div>
                   <div className="flex flex-row justify-center gap-4">
                     <button
-                      onClick={() => openModal(true,publicacion?.image, publicacion?.description)} // Abrir el modal al hacer clic en el botón "Ver"
-                      className="btn-modal"
+                      onClick={() => openModal(true, publicacion?.image, publicacion?.description)} 
+                      className="group text-white font-semibold w-fit px-6 py-3 my-2 flex items-center rounded-md bg-gradient-to-t from-blue-600 cursor-pointer mx-auto md:mx-0 p-3 rounded-md'
+                      onClick={() => modalHandlerAgendar(true, fechas, horas, descripcionP, publicacion.name"
                     >
                       Ver
                     </button>
@@ -692,44 +693,51 @@ const UserProfile = () => {
       </section>
 
         {selectedProject && <ModalInfo SelectedProject={selectedProject} closeModal={closeModal} />}
+        <Modal isOpen={agendarModalIsOpen} onRequestClose={() => modalHandlerAgendar(false, '', '', '', '')}>
+  <section className="fixed inset-0 flex items-center justify-center bg-opacity-70 bg-black z-40 over">
+    <div className="relative bg-white/20 p-2 rounded-lg w-[70%] sm:w-[60%] max-w-[600px] modalCard max-h-[80vh] flex flex-col overflow-y-auto lg:text-lg lg:w-[90%]">
+      <div className="overflow-hidden rounded-tl-lg rounded-tr-lg">
+        {/* Aquí puedes insertar la imagen de acuerdo a tu lógica */}
+      </div>
 
-        <Modal className='card' style={{ content: { width: '30%', margin: '0 auto', marginTop: '100px' } }} isOpen={agendarModalIsOpen} onRequestClose={() => modalHandlerAgendar(false, '', '', '', '')}>
-          <div className="modal-dialog modal-dialog-centered ">
-            <div className="modal-content bg-black">
-              <div className='modal-header mt-5 bg-gray-800 text-white'>
-                <h5 className='modal-title mx-4'>Agendar Cita  Con : {name || 'sin nombre'}</h5>
-                <button type='button' className='btn btn-danger' onClick={() => modalHandlerAgendar(false, '', '', '', '')}>X</button>
-              </div>
-              <div className='modal-body bg-white p-5'>
-                <form onSubmit={handleAgendarCita}>
-                  <div className="mb-4">
-                    <label htmlFor="date" className="block text-sm font-medium text-gray-700">Fecha:</label>
-                    <input type="date" className="form-control mt-1 p-2 border rounded-md w-full" id="date" name="date" value={fechas} onChange={(e) => setfecha(e.target.value)} required />
-                  </div>
-                  <div className="mb-4">
-                    <label htmlFor="time" className="block text-sm font-medium text-gray-700">Hora:</label>
-                    <input type="time" className="form-control mt-1 p-2 border rounded-md w-full" id="time" name="time" value={horas} onChange={(e) => setHoras(e.target.value)} required />
-                  </div>
-                  <div className="mb-4">
-                    <label htmlFor="description" className="block text-sm font-medium text-gray-700">Descripción:</label>
-                    <textarea className="form-control mt-1 p-2 border rounded-md w-full" id="description" name="description" value={descripcionCita} onChange={(e) => setDescripcionCita(e.target.value)} required></textarea>
-                  </div>
-                  <div className="flex justify-end">
-                    <button type="submit" className="btn btn-primary bg-gray-800 text-white px-4 py-2 rounded-md">Agendar</button>
-                  </div>
-                </form>
-              </div>
-            </div>
+      <div className="w-full text-white p-10 flex flex-col bg-black/80 border-opacity-70 border-primary-color rounded-bl-lg rounded-br-lg">
+        <h5 className="text-white mx-4 ">Agendar Cita Con: {name || 'sin nombre'}</h5>
+        <form onSubmit={handleAgendarCita} className="p-4">
+          <div className="mb-4">
+            <label htmlFor="date" className="block text-sm font-medium text-white-700">Fecha:</label>
+            <input type="date" className="form-control mt-1 p-2 border rounded-md w-full text-black" id="date" name="date" value={fechas} onChange={(e) => setfecha(e.target.value)} required />
           </div>
-        </Modal></>)}
-        <Modal className='card' style={{ content: { width: '50%', margin: '0 auto', marginTop: '100px' } }} isOpen={modalIsOpen} onRequestClose={() => modalHandler(false, '', '', '', '',)}>
-          <div >
-            <div className='card-body' style={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>
-              <button className='btn btn-danger' onClick={() => modalHandler(false, '', '', '', '')}>X</button>
-            </div>
-            <img style={{ padding: 10, width: '100%' }} src={currenImage || ''} alt="" />
+          <div className="mb-4">
+            <label htmlFor="time" className="block text-sm font-medium text-white-700">Hora:</label>
+            <input type="time" className="form-control mt-1 p-2 border rounded-md w-full text-black" id="time" name="time" value={horas} onChange={(e) => setHoras(e.target.value)} required />
           </div>
-        </Modal>
+          <div className="mb-4">
+            <label htmlFor="description" className="block text-sm font-medium text-white-700">Descripción:</label>
+            <textarea className="form-control mt-1 p-2 border rounded-md w-full text-black" id="description" name="description" value={descripcionCita} onChange={(e) => setDescripcionCita(e.target.value)} required></textarea>
+          </div>
+          <div className="flex justify-end">
+            <button type="submit" className="text-white font-semibold w-fit px-6 py-3 my-2 flex items-center rounded-md bg-gradient-to-t from-blue-600 cursor-pointer mx-auto md:mx-0 p-3 rounded-md">Agendar</button>
+          </div>
+        </form>
+      </div>
+
+      <button onClick={() => modalHandlerAgendar(false, '', '', '', '')} className="absolute top-3 right-2 lg:right-4 cursor-pointer">
+        <i className="bx bx-x-circle bg-black  text-[2.25rem] rounded-full transition-transform duration-300 hover:scale-110"></i>
+      </button>
+    </div>
+  </section>
+</Modal>
+
+
+      </>)}
+      <Modal className='card' style={{ content: { width: '50%', margin: '0 auto', marginTop: '100px' } }} isOpen={modalIsOpen} onRequestClose={() => modalHandler(false, '', '', '', '',)}>
+        <div >
+          <div className='card-body' style={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>
+            <button className='btn btn-danger' onClick={() => modalHandler(false, '', '', '', '')}>X</button>
+          </div>
+          <img style={{ padding: 10, width: '100%' }} src={currenImage || ''} alt="" />
+        </div>
+      </Modal>
 
     </div>
 

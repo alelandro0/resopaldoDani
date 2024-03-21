@@ -20,7 +20,7 @@ const isValidEmail = (email) => {
 export const UpdatePerfil = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, username, password } = req.body;
+    const { name, username, password, telefono} = req.body;
 
     // Validación de campos vacíos
     if (!name && !username && !password) {
@@ -31,7 +31,10 @@ export const UpdatePerfil = async (req, res) => {
     if (username && !isValidEmail(username)) {
       return res.status(400).json({ mensaje: 'El correo electrónico proporcionado no es válido' });
     }
-
+    //Validacion de telefono
+    if (telefono && telefono.length == 10) {
+      return res.status(400).json({ mensaje: 'El telefono tiene que tener 10 digitos' });
+    }
     // Validación de la contraseña
     if (password && password.length < 6) {
       return res.status(400).json({ mensaje: 'La contraseña debe tener al menos 6 caracteres' });
@@ -44,6 +47,9 @@ if (name !== undefined && name !== "") {
 }
 if (username !== undefined && username !== "") {
   dataToUpdate.username = username;
+}
+if (telefono !== undefined && telefono !== "") {
+  dataToUpdate.telefono = telefono;
 }
 if (password !== undefined && password !== "") {
   dataToUpdate.password = await bcrypt.hash(password, 10);

@@ -121,7 +121,7 @@ export const EditarPerfil = () => {
                   onChange={handleNombreChange}
                   placeholder="Ingrese su nuevo Nombre"
                   className="p-3 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600"
-                  required
+                
                 />
               </div>
 
@@ -134,7 +134,7 @@ export const EditarPerfil = () => {
                   onChange={handleEmailChange}
                   placeholder="Ingrese su nuevo Correo Electrónico"
                   className="p-3 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600"
-                  required
+                  
                 />
               </div>
 
@@ -147,7 +147,7 @@ export const EditarPerfil = () => {
                   onChange={handleContrasenaChange}
                   placeholder="Ingrese su nueva contraseña"
                   className="p-3 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600"
-                  required
+                  
                 />
               </
               div>

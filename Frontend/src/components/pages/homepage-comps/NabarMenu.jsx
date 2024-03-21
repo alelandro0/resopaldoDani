@@ -79,7 +79,7 @@ const NabarMenu = () => {
 
   return (
     <>
-      <div className="" style={{ background: 'black', position: 'relative', padding: '10px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="header-porfile" style={{ background: 'black', position: 'relative', padding: '10px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div className="">
           <div className='flex flex-row gap-0 items-center'>
             <img src={LogoMulti} alt="Logo" className="h-20 w-auto scale-x-[-1] filter invert" />

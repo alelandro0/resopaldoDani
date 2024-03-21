@@ -181,3 +181,50 @@ h1 {
 .line-container.active .line-3 {
   transform: rotate(-45deg);
 }
+
+/* Media Query para pantallas de hasta 480px */
+@media screen and (max-width: 480px) {
+  .menu {
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    transform: translateY(-100%);
+    border-radius: 0;
+  }
+
+  .menu.active {
+    transform: translateY(0);
+  }
+
+  .menu-top,
+  .menu-bottom {
+    display: none;
+  }
+
+  .menu-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .menu-item {
+    margin: 10px 0;
+  }
+
+  .menu-item span {
+    display: none;
+  }
+
+  .menu img {
+    margin-right: 0;
+  }
+
+  .header-porfile{
+    flex-direction: column;
+  }
+}
+
+

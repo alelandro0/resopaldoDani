@@ -7,9 +7,10 @@
 }
 
 body {
-    color: #404040;
+    color: #000000;
     font-family: "Arial", Segoe UI, Tahoma, sans-serifl, Helvetica Neue, Helvetica;
 }
+
 .publicacion-cometario {
     width: 50%;
     display: grid;
@@ -19,36 +20,44 @@ body {
     padding: 0;
     justify-content: space-between;
 }
+
 .publicacion-realizada .usuario-publico .contenido-publicacion {
     margin-left: 1rem;
 }
+
 .publicacion-realizada .contenido-publicacion ul {
     list-style: none;
     font-size: 0.8em;
     color: #909090;
 }
-.menu-comentario{
-    background: black ;
-   
+
+.menu-comentario {
+    background: black;
 }
-.descripcion{
+
+.descripcion {
     padding: 4px;
 }
-.menu-comentario:hover{
+
+.menu-comentario:hover {
     background: #112d6b;
 }
+
 .comentarios-usuarios .usuario-comentario .menu-comentario {
     top: 5px;
     right: -15px;
     box-shadow: 0 0 5px rgba(0, 0, 0, .4);
 }
+
 .comentarios-usuarios .usuario-comentario:hover .menu-comentario {
     display: flex;
 }
+
 .publicacion-realizada .menu-comentario {
     display: flex;
     right: 0;
 }
+
 .menu-comentario .menu {
     list-style: none;
     position: absolute;
@@ -62,19 +71,21 @@ body {
     visibility: hidden;
     transition: all ease-in 200ms;
 }
+
 .menu-comentario:hover .menu {
     opacity: 1;
     visibility: visible;
 }
+
 .menu-comentario .menu a {
     display: block;
     padding: 7px 15px;
     color: inherit;
 }
+
 .menu-comentario .menu a:hover {
     background-color: #112d6b;
 }
-
 
 .publicacion-realizada {
     background-color: black;
@@ -84,9 +95,8 @@ body {
     margin: 0 auto; /* Centrar horizontalmente */
     width: 100%;
     height: auto;
-
-    
 }
+
 .publicacion-realizada .usuario-publico {
     display: flex;
     flex-wrap: wrap;
@@ -111,14 +121,13 @@ body {
 
 .textarea-container {
     position: relative;
-  }
-  
-  .textarea-container textarea {
+}
+
+.textarea-container textarea {
     width: 100%;
-  }
- 
-  
-  .textarea-container textarea::placeholder {
+}
+
+.textarea-container textarea::placeholder {
     text-align: start;
     position: absolute;
     top: 50%;
@@ -126,15 +135,17 @@ body {
     transform: translateY(-50%);
     width: 100%;
     color: black; /* Puedes cambiar el color del placeholder según tu preferencia */
-  }
-  
+}
+
 .seccion-perfil-usuario .perfil-usuario-body,
 .seccion-perfil-usuario {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
+    
 }
+
 .area-comentar {
     display: flex;
     flex-wrap: wrap;
@@ -147,6 +158,7 @@ body {
     border-radius: 12px;
     margin-top: 3px;
 }
+
 .comentar-publicacion .avatar, .publicacion-realizada .usuario-publico .avatar, .contenedor-comentarios .comentario-principal-usuario .avatar, .area-comentar .avatar {
     display: flex;
     width: 65px;
@@ -156,15 +168,16 @@ body {
     overflow: hidden;
     margin-top: 0.4rem;
 }
+
 .boton-subir-archivo {
     position: static;
     display: inline-block;
-
 }
 
-.area-comentario ::placeholder{
+.area-comentario ::placeholder {
     padding-left: 10px;
 }
+
 .contenedor-comentarios .comentario-principal-usuario .texto, .area-comentar .inputs-comentarios .area-comentario {
     border: 0;
     margin-top: 0.8rem;
@@ -174,12 +187,14 @@ body {
     border-radius: 12px;
     margin-bottom: 0.5rem;
 }
+
 .contenedor-comentarios .comentario-principal-usuario .comentario,
 .area-comentar .inputs-comentarios {
     flex-grow: 1;
     flex-basis: 0;
     margin-left: .5rem;
 }
+
 .botones-comentario {
     display: flex;
     justify-content: flex-end; /* Centra los botones a la derecha */
@@ -203,8 +218,6 @@ body {
 .boton-enviar {
     margin-top: 8px;    
 }
-
-
 
 .boton-file, .boton-enviar {
     display: inline-block;
@@ -236,6 +249,7 @@ body {
     display: flex;
     justify-content: flex-end;
 }
+
 .seccion-perfil-usuario .perfil-usuario-header {
     width: 100%;
     display: flex;
@@ -250,12 +264,7 @@ body {
     height: 17rem;
     background-image: linear-gradient(45deg, black, white);
     border-radius: 20px 20px  20px 20px;
-    /*
-    background-image: url('http://localhost/multimedia/png/user-portada-3.png');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    */
+    overflow: hidden;
 }
 
 .seccion-perfil-usuario .perfil-usuario-portada .boton-portada {
@@ -285,29 +294,23 @@ body {
     border-radius: 50%;
     box-shadow: 0 0 12px rgba(0, 0, 0, .2);
     position: absolute;
-    bottom: -40px;
+    bottom: 4px;
     left: calc(50% - 90px);
-    z-index: 1;
+    z-index: 0;
 }
-.seccion-perfil-usuario .portada {
-    border-radius: 15px ;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-   
-}
+
 .seccion-perfil-usuario .perfil-usuario-avatar img {
     width: 100%;
     position: relative;
     border-radius: 50%;
     aspect-ratio: 1/1;
     object-fit: cover;
+    z-index: 0;
 }
 
 .avatar img{
     object-fit: cover;
 }
-
 
 .seccion-perfil-usuario .perfil-usuario-avatar .boton-avatar {
     position: absolute;
@@ -322,8 +325,6 @@ body {
     cursor: pointer;
 }
 
-/**/
-
 .perfil-usuario-body {
     width: 50%;
     position: relative;
@@ -331,53 +332,45 @@ body {
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 1.5rem;
-  }
-  
-  .perfil-usuario-bio {
+}
+
+.perfil-usuario-bio {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
-  
-  .perfil-usuario-bio .personal-info {
+}
+
+.perfil-usuario-bio .personal-info {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin-bottom: 1rem;
-  }
-  .info{
+}
+
+.info{
     font-size: 1em;
     color: #fff;
-  }
+}
 
-  .infor{
+.infor{
     font-size: 1.5em;
     color: #2563eb;
-  }
-  
-  .perfil-usuario-bio .Name,
-  .perfil-usuario-bio .Phone,
-  .perfil-usuario-bio .Email {
+}
+
+.perfil-usuario-bio .Name,
+.perfil-usuario-bio .Phone,
+.perfil-usuario-bio .Email {
     color: black;
     font-size: 1em;
     margin-bottom: 0.5rem;
-  }
-  
-  .perfil-usuario-bio .texto {
+}
+
+.perfil-usuario-bio .texto {
     color: black;
     font-size: 1em;
     text-align: center;
-  }
-  
-  
- /*Post*/
- 
-  
-
-
-
- /**/
+}
 
 .seccion-perfil-usuario .perfil-usuario-footer,
 .seccion-perfil-usuario .perfil-usuario-bio {
@@ -389,15 +382,13 @@ body {
     border-radius: 15px;
     width: 100%;
 }
+
 .profile-container {
     display: flex;
     flex-direction: column;
     height: 100vh;
     overflow-y: auto; /* Hace que el contenido se desplace si es necesario */
-  }
-  
-  /* Agrega otros estilos según sea necesario */
-  
+}
 
 .seccion-perfil-usuario .perfil-usuario-bio {
     margin-bottom: 1.25rem;
@@ -451,40 +442,46 @@ body {
 }
 
 
+/*Media Quaries*/
 
-/*Modal agendar citas*/
 
-/* Estilos para el modal */
+@media screen and (max-width: 480px) {
+    .publicacion-cometario {
+        width: 100%; /* Cambia el ancho al 100% para ocupar todo el ancho disponible */
+    }
 
-/* adactacion a dispositivos */
-@media (max-width: 750px) {
-    .profile-container {
-        height: auto; /* Eliminar la altura máxima */
-      }
+    .area-comentar {
+        width: 100%; /* Cambia el ancho al 100% para ocupar todo el ancho disponible */
+    }
+
     
-    .seccion-perfil-usuario .lista-datos {
+
+    .perfil-usuario-portada {
+        width: 100%; /* Cambia el ancho al 100% para ocupar todo el ancho disponible */
+        height: 10rem; /* Reducir la altura de la imagen de portada */
+    }
+
+    .perfil-usuario-avatar {
+        width: 120px; /* Reducir el tamaño del avatar */
+        height: 120px; /* Reducir el tamaño del avatar */
+        bottom: -20px; /* Ajustar la posición del avatar */
+    }
+
+    .perfil-usuario-avatar img {
+        width: 100%; /* Ajustar el ancho de la imagen del avatar */
+        height: 100%; /* Ajustar el alto de la imagen del avatar */
+    }
+    .seccion-perfil-usuario .perfil-usuario-avatar{
+        width: 100px;
+        height: 100px;
+        margin: 0;
+        margin-left: 43px;
+    }
+    .seccion-perfil-usuario .perfil-usuario-portada{
         width: 100%;
+        height: 200px;
     }
-
-    .seccion-perfil-usuario .perfil-usuario-portada,
-    .seccion-perfil-usuario .perfil-usuario-body {
-        width: 90%;
-    }
-
-    .seccion-perfil-usuario .redes-sociales {
-        position: relative;
-        flex-direction: row;
-        width: 100%;
-        left: 0;
-        text-align: center;
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-        align-items: center;
-        justify-content: center
-    }
-
-    .seccion-perfil-usuario .redes-sociales .boton-redes+.boton-redes {
-        margin-left: 1rem;
-        margin-top: 0;
-    }
+    .perfil-usuario-body1 {
+        width: 85%;
+      }
 }

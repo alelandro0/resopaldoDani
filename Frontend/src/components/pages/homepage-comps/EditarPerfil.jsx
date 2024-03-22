@@ -1,41 +1,56 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import NabarMenu from "./NabarMenu";
 import { useAuth } from "../../../Autentication/AutProvider";
 import { useEffect, useState } from 'react';
+import { API_URL } from "../../../Autentication/constanst";
+import Swal from 'sweetalert2';
+
 
 export const EditarPerfil = () => {
-  
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [telefono, setTelefono] = useState('');
   const [contrasena, setContrasena] = useState('');
   const [showModal, setShowModal] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
   const [downloadURL, setDownloadURL] = useState("");
   const auth = useAuth();
 
-  const handleNombreChange = () => {
+  const handleNombreChange = (event) => {
     setName(event.target.value);
   };
 
-  const handleEmailChange = () => {
+  const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
 
-  const handleContrasenaChange = () => {
+  const handleTelefonoChange = (event) => {
+    setTelefono(event.target.value);
+  };
+
+  const handleContrasenaChange = (event) => {
     setContrasena(event.target.value);
   };
 
-  const handleGuardarCambios = async () => {
+  const handleGuardarCambios = async (event) => {
+    event.preventDefault();
     try {
-      const response = await fetch(`http://localhost:5000/api/perfil/${auth.getUser()?.id}`, {
+      const response = await fetch(`${API_URL}/perfil/${auth.getUser()?.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${auth.getAccessToken()}`,
         },
-        body: JSON.stringify({ name, username: email, password: contrasena }),
+        body: JSON.stringify({ name, username: email, password: contrasena, telefono }),
       });
 
       if (response.ok) {
+        await Swal.fire({
+          icon: 'success',
+          title: '¡Cita Agendada Exitosamente!',
+          showConfirmButton: false,
+          timer: 1500
+        });
         console.log('Perfil actualizado exitosamente');
         setModalMessage("Perfil actualizado exitosamente");
         setShowModal(true);
@@ -55,6 +70,12 @@ export const EditarPerfil = () => {
         setShowModal(true);
       }
     } catch (error) {
+      await Swal.fire({
+        icon: 'error',
+        title: '¡Error!',
+        text: 'Ocurrió un error al actualizar.',
+
+      });
       console.error('Error al actualizar el perfil:', error);
       setModalMessage("Error al actualizar el perfil: " + error.message);
       setShowModal(true);
@@ -63,13 +84,12 @@ export const EditarPerfil = () => {
 
   useEffect(() => {
     getImageProfile();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function getImageProfile() {
     try {
       const id = auth.getUser()?.id;
-      const response = await fetch(`http://localhost:5000/api/getImage/${id}`, {
+      const response = await fetch(`${API_URL}/getImage/${id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -121,7 +141,6 @@ export const EditarPerfil = () => {
                   onChange={handleNombreChange}
                   placeholder="Ingrese su nuevo Nombre"
                   className="p-3 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600"
-                  required
                 />
               </div>
 
@@ -134,7 +153,18 @@ export const EditarPerfil = () => {
                   onChange={handleEmailChange}
                   placeholder="Ingrese su nuevo Correo Electrónico"
                   className="p-3 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600"
-                  required
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label htmlFor="telefono" className="text-white">Teléfono:</label>
+                <input
+                  type="text"
+                  id="telefono"
+                  value={telefono}
+                  onChange={handleTelefonoChange}
+                  placeholder="Ingrese su nuevo Teléfono"
+                  className="p-3 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600"
                 />
               </div>
 
@@ -147,11 +177,9 @@ export const EditarPerfil = () => {
                   onChange={handleContrasenaChange}
                   placeholder="Ingrese su nueva contraseña"
                   className="p-3 bg-transparent border-2 rounded-md text-white focus:outline-none focus:border-blue-600"
-                  required
                 />
-              </
-              div>
-
+              </div>
+              
               <button
                 type="submit"
                 className="group text-white font-semibold w-fit px-6 py-3 flex items-center rounded-md bg-gradient-to-t from-blue-600 cursor-pointer mx-auto md:mx-0"

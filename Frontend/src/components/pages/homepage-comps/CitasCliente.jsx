@@ -54,22 +54,27 @@ const CitasCliente = () => {
   };
 
     return (
-    <>
-     <NabarMenu/>
-      <div className="container mt-5">
-        <h1 className="text-center" style={{ fontFamily: 'Montserrat, sans-serif', fontSize: '3.5rem', fontWeight: 'bold', color: '#3c3c3c' }}>
+      <>
+      <NabarMenu /> 
+      <div className="relative container mx-auto mt-5 px-4 sm:px-6 lg:px-8">
+        <h1 className="text-center font-bold text-3xl text-white">
           Mis Citas
         </h1>
-        <div className="row justify-content-center">
+        <div className= "grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
           {Array.isArray(datos) && datos.length > 0 ? (
             datos.map((cita, index) => (
-              <div key={index} className="col-md-6 mt-4">
-                <div className="card h-auto">
-                  <h2 className='modal-header' style={{ background: '#3c3c3c' }}>Cita Programada</h2>
-                  <div className="card-body">
-                    <h1 className="card-title">Fecha: {formatFecha(cita.date)}</h1>
-                    <h1 className="card-title">Hora: {formatHora(cita.hora)}</h1>
-                    <h1 className="card-title">Profesional: {cita.nombre}</h1>
+              <div key={index} className="shadow-md rounded-lg">
+                <div className="bg-gray-100 p-4 rounded-t-lg ">
+                  <h2 className="text-white bg-black text-lg font-bold px-4 py-2 rounded-t-lg">
+                    Cita Programada
+                  </h2>
+                  <div className="mt-4 ">
+                    <p className="font-semibold text-black">Fecha:</p>
+                    <p className='text-black'>{formatFecha(cita.date)}</p>
+                    <p className="font-semibold text-black">Hora:</p>
+                    <p className='text-black'>{formatHora(cita.hora)}</p>
+                    <p className="font-semibold text-black">Profesional:</p>
+                    <p className='text-black'>{cita.nombre}</p>
                   </div>
                 </div>
               </div>

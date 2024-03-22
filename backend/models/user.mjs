@@ -14,6 +14,7 @@ const UserSchema = new Mongoose.Schema({
   telefono: { type: String },
   publication: [{
     _id: { type: Mongoose.Schema.Types.ObjectId, auto: true },
+    profesionalId:{type:String},
     image: { type: String, required: true },
     description: String,
     estado: { type: Boolean },

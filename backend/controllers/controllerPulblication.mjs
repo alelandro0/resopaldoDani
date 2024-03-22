@@ -8,6 +8,7 @@ export const postPublication = async (req, res) => {
     const userId = req.user.id;
     try {
         const userToUpdate = await User.findById(userId);
+       
 
         if (!userToUpdate) {
             return res.status(404).json({ message: 'Usuario no encontrado.' });
@@ -18,6 +19,7 @@ export const postPublication = async (req, res) => {
         
 
         userToUpdate.publication.push({
+            profesionalId: userId,
             image: downloadURL,
             description: description,
             estado: true
@@ -113,6 +115,7 @@ export const getPublicationAll = async (req, res) => {
             return user.publication.filter(pub => pub.estado === true)
                                      .map(pub => ({
                                          id: pub._id,
+                                         profesionalId:pub.profesionalId,
                                          image: pub.image,
                                          description: pub.description,
                                          name : nombre,

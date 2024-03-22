@@ -11,7 +11,7 @@ export function ModalInfo({ SelectedProject, closeModal }) {
         <div className="overflow-hidden rounded-tl-lg rounded-tr-lg">
           <img
             className="w-full h-auto object-cover"
-            src={SelectedProject?.image || ""}
+            src={typeof SelectedProject?.image === 'string' ? SelectedProject?.image : ""}
             alt="Resident image"
           />
         </div>

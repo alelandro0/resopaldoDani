@@ -18,11 +18,12 @@ import Dashboard from './components/pages/homepage-comps/Dashboard'
 import Citas from './components/pages/homepage-comps/Citas'
 import EditarPerfil from './components/pages/homepage-comps/EditarPerfil'
 import PublicaionesT from './components/pages/homepage-comps/PublicacionesT'
-import CitasCliente from './components/pages/homepage-comps/citasCliente'
+import CitasCliente from './components/pages/homepage-comps/CitasCliente'
+import Modal from 'react-modal'
 
 // import { BrowserRouter } from 'react-router-dom'
 
-
+Modal.setAppElement('#root');
 const router= createBrowserRouter(
  
   [

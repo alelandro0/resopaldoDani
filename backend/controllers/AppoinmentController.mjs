@@ -4,7 +4,7 @@ import sendEmailDate from "../validations/correoCitasProgramadas.mjs";
 
 export const agendarCita = async (req, res) => {
   try {
-    const { description, date, hora, id, nombre } = req.body;
+    const { description, date, hora, id, nombre , profesionalId} = req.body;
     
     // Obtenemos el usuario que realizó la cita
     const usuario = await User.findById(id);
@@ -20,7 +20,7 @@ export const agendarCita = async (req, res) => {
     
     // Crea la cita utilizando el modelo de cita
     const cita = await Cita.create({
-      ProfesionalId: usuario._id, // Asignamos el ID del usuario que realizó la cita
+      ProfesionalId:  profesionalId, // Asignamos el ID del usuario que realizó la cita
       nombre,
       date,
       hora,
@@ -131,9 +131,9 @@ export const getCitasUser = async (req, res) => {
 
 export const getCitasProfesional = async (req, res) => {
   try {
-    const { nombre } = req.params;
+    const { ProfesionalId } = req.params;
 
-    const citas = await Cita.find({ nombre: nombre });
+    const citas = await Cita.find({ ProfesionalId: ProfesionalId });
 
     if (!citas || citas.length === 0) {
       return res.status(404).json({ message: 'No se encontraron citas para este profesional' });

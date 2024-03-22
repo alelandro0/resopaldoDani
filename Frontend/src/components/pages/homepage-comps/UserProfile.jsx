@@ -38,6 +38,7 @@
     const [descripcionP, setdeProfesion] = useState('')
     const [selectedProject, setSelectedProject] = useState(null);
     const [transparentBackground, setTransparentBackground] = useState(false);
+    const [profesionalesId ,setIdP] = useState('')
 
 
 
@@ -49,14 +50,16 @@
       obtenerTodasLasPublicaciones();
       getPublishAllUsers();
       deleteHandler(eliminar)
+      
 
     }, []);
-    const modalHandlerAgendar = (isOpenAge, date, hora, descripcionCita, nombre) => {
+    const modalHandlerAgendar = (isOpenAge, date, hora, descripcionCita, nombre, ProfesionalId) => {
       setAgendarModalIsOpen(isOpenAge)
       setfecha(date)
       setHoras(hora)
       setdeProfesion(descripcionCita)
       setName(nombre)
+      setIdP(ProfesionalId)
     }
 
     // Función para abrir el modal con el proyecto seleccionado
@@ -400,6 +403,7 @@
         }
       }
     };
+  
     //ELIMINAR PUBLICACION 
     const deleteHandler = async (idPublicacion) => {
       try {
@@ -449,7 +453,7 @@
 
       try {
         const formData = {
-
+          profesionalId:profesionalesIdo,
           nombre: name,
           description: descripcionCita,
           date: fechas,
@@ -458,7 +462,7 @@
           id: auth.getUser()?.id  // Asegúrate de obtener este valor de donde corresponda
         };
 
-        const response = await fetch(`http://localhost:5000/api/citas`, {
+        const response = await fetch(`${API_URL}/citas`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -640,6 +644,7 @@
                         <img src={publicacion.imageProfile || 'https://thumbs.dreamstime.com/b/vector-de-perfil-avatar-predeterminado-foto-usuario-medios-sociales-icono-183042379.jpg'} alt="" />
                       </div>
                       <div className='flex flex-col font-sans font-arial'>
+                        {console.log('este es el ID del profesional',publicacion.profesionalId)}
                         <div className='flex'>
                           <h2 className='nameUser px-3'>{(publicacion.name) ?? ""}</h2>
                         </div>
@@ -648,7 +653,7 @@
                         </ul></div></div>
                     <div className="flex flex-row justify-center gap-4">
                       <button
-                        onClick={() => openModal(true, publicacion?.image, publicacion?.description)} 
+                        onClick={() => openModal(true,publicacion?.description, publicacion?.image )} 
                         className="group text-white font-semibold w-fit px-6 py-3 my-2 flex items-center rounded-md bg-gradient-to-t from-blue-600 cursor-pointer mx-auto md:mx-0 p-3 rounded-md'
                         onClick={() => modalHandlerAgendar(true, fechas, horas, descripcionP, publicacion.name"
                       >
@@ -730,13 +735,25 @@
 
 
         </>)}
-        <Modal className='card' style={{ content: { width: '50%', margin: '0 auto', marginTop: '100px' } }} isOpen={modalIsOpen} onRequestClose={() => modalHandler(false, '', '', '', '',)}>
-          <div >
-            <div className='card-body' style={{ display: 'flex', justifyContent: 'space-between', width: "100%" }}>
-              <button className='btn btn-danger' onClick={() => modalHandler(false, '', '', '', '')}>X</button>
+        <Modal className='fixed inset-0 flex items-center justify-center bg-opacity-70 bg-black z-40 over'  isOpen={modalIsOpen} onRequestClose={() => modalHandler(false, '', '', '', '',)}>
+          <div className="relative bg-white/20 p-2 rounded-lg w-[70%] sm:w-[60%] max-w-[800px] modalCard max-h-[80vh] flex flex-col overflow-y-auto lg:text-lg lg:w-[90%]">
+            <div className="overflow-hidden rounded-tl-lg rounded-tr-lg">
+            <img className='w-full h-auto object-cover' src={currenImage || ''} alt="" />
             </div>
-            <img style={{ padding: 10, width: '100%' }} src={currenImage || ''} alt="" />
-          </div>
+            <div className='w-full text-white p-8 flex flex-col bg-black/80 border-opacity-70 border-primary-color rounded-bl-lg rounded-br-lg'>
+              <ul>
+                <li>
+                  <span className='text-blue-600'>Descripcion:</span>
+                  <span>{description}</span>
+                </li>
+              </ul>
+            </div>
+              <button className='absolute top-3 right-2 lg:right-4 cursor-pointer' onClick={() => modalHandler(false, '', '', '', '')}>
+                <li className='bx bx-x-circle bg-black text-blue-600 text-[2.25rem] rounded-full transition-transform duration-300 hover:scale-110'></li>
+              </button>
+            </div>
+            
+          
         </Modal>
 
       </div>

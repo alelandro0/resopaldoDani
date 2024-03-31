@@ -24,10 +24,14 @@ import { router as agendaProfesional } from "./routes/getCitasProfesinal.mjs";
 import { router as UpdatePerfil } from "./routes/UpdateUser.mjs";
 import {router as portada} from './routes/portada.mjs'
 import {router as portadaGet} from './routes/portadaGet.mjs'
+import { router as buscar } from "./routes/buscarUser.mjs";
+import {router as like} from "./routes/likes.mjs"
+import {router as dislike} from "./routes/Dislike.mjs"
+import User from "./models/user.mjs"
 
 dotenv.config();
 const expressPort = process.env.PORT || 5000;
-
+User.updateLikesToZero();
 const server = http.createServer(app);
 
 const io = new SocketServer(server, {
@@ -74,6 +78,9 @@ app.use("/api/agenda-profesional", agendaProfesional)
 app.use("/api/perfil", UpdatePerfil)
 app.use("/api/portada",authenticate,portada)
 app.use("/api/portadaGet",portadaGet)
+app.use("/api/profileSearch",buscar)
+app.use("/api/likes",like)
+app.use("/api/dislikes",dislike)
 
 server.listen(expressPort, () => {
     console.log(`El servidor de Express se está ejecutando en el puerto: ${expressPort}`);

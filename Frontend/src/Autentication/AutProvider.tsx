@@ -7,12 +7,16 @@ import { API_URL } from "../Autentication/constanst";
 import './spinnerPage.css'
 import ParticlesBackground from "../components/ParticlesBackground";
 
+
+
 interface AuthProviderProps {
     children: React.ReactNode;
 }
 
 const AuthContext = createContext({
     esAutentico: false,
+    setUserName: (nombreUsuario: string) => {},
+    nombreUsuario:'',
     getAccessToken: () => {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     saveUser: (_userData: AuthResponse) => {},
@@ -27,13 +31,36 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const [accessToken, setAccessToken] = useState<string>();
     const [user, setUser] = useState<User>();
     const [isLoading,setIsLoading]=useState(true);
+    const [nombreUsuario, setNombreUsuario] = useState<string>(() => {
+        const storedUserName = localStorage.getItem('userName');
+        return storedUserName || ''; // Inicializa con el valor del almacenamiento local o una cadena vacía
+    });
+    
+    useEffect(() => {
+        // Actualiza el nombre de usuario en el almacenamiento local cuando cambie
+        localStorage.setItem('userName', nombreUsuario);
+    }, [nombreUsuario]);
     //const [refreshToken, setRefreshToken] = useState<string>("");
 
     useEffect(()=>{
         checkAuth();
         
     },[]);
-
+    useEffect(() => {
+        const storedUserName = localStorage.getItem('userName');
+        if (storedUserName) {
+            setNombreUsuario(storedUserName);
+        }
+    }, [nombreUsuario]);
+    function setUserName(nombreUsuario: string) {
+        console.log('nombre de usuario de provider', nombreUsuario);
+        localStorage.setItem('userName', nombreUsuario);
+        setNombreUsuario(nombreUsuario);
+    }
+    useEffect(()=>{
+       setUserName(nombreUsuario);
+        
+    },[nombreUsuario]);
     async function requestNewAccessToken(refreshToken: string) {
         try {
             const response = await fetch(`${API_URL}/refresh-token`, {
@@ -125,6 +152,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setUser(undefined);
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
+        localStorage.removeItem("userName");
     }
     
     
@@ -165,7 +193,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     return (
-        <AuthContext.Provider value={{ esAutentico, getAccessToken, saveUser, getRefreshToken, getUser, signOut }}>
+        <AuthContext.Provider value={{ esAutentico,nombreUsuario,setUserName, getAccessToken, saveUser, getRefreshToken, getUser, signOut }}>
             {isLoading?  <div className="spinner-container relative w-full md:h-screen p-4 text-white h-unset flex justify-center items-center Z-10">
             <ParticlesBackground/>
                 <div style={{display:'flex', alignItems:'center'}} className="Z-10">

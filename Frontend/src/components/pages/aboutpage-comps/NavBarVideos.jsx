@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { FaBars, FaTimes } from "react-icons/fa"
 import { Link } from "react-scroll"
 import LogoMulti from '../../../../public/images/logoMulti.png';
-import Home from '../homepage-comps/Home'; 
+
 
 const NavbarVideos = () => {
     const links = [

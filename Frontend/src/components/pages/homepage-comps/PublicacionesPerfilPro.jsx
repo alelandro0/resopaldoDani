@@ -4,6 +4,7 @@ import { faImage, faThumbsUp, faCalendarAlt } from '@fortawesome/free-solid-svg-
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../../Autentication/AutProvider';
 import { API_URL } from '../../../Autentication/constanst';
+import { Link } from 'react-router-dom';
 import { useRef } from 'react';
 import Swal from 'sweetalert2';
 import Modal from 'react-modal'
@@ -30,6 +31,8 @@ const PublicacionesPerfilPro = () => {
   const [descripcionCita, setDescripcionCita] = useState('');
   const [descripcionP, setdeProfesion] = useState('')
   const [, setError] = useState("");
+  const [nombreUsuario, setNombreUsuario] = useState('');
+ 
 
 
 
@@ -397,7 +400,7 @@ const PublicacionesPerfilPro = () => {
         id: auth.getUser()?.id  // Asegúrate de obtener este valor de donde corresponda
       };
 
-      const response = await fetch(`http://localhost:5000/api/citas`, {
+      const response = await fetch(`${API_URL}/citas`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -429,7 +432,15 @@ const PublicacionesPerfilPro = () => {
       // Aquí puedes manejar el error, por ejemplo, mostrando un mensaje de error al usuario.
     }
   };
-
+ 
+  const nombreUser = (nuevoNombreUsuario) => {
+    console.log('este es le nombre de userprofile',nuevoNombreUsuario);
+     auth.setUserName(nuevoNombreUsuario)
+   };
+   useEffect(() => {
+     setNombreUsuario(nombreUsuario);
+   }, [nombreUsuario]);
+   
   return (
     <div name='Perfil'
       className='profile-container relative  '>
@@ -531,11 +542,17 @@ const PublicacionesPerfilPro = () => {
                 <div className='usuario-publico  publicacionesall'>
                   <div className='flex items-center gap-1'>
                     <div className='avatar'>
+                    
                       <img src={publicacion.imageProfile || 'https://thumbs.dreamstime.com/b/vector-de-perfil-avatar-predeterminado-foto-usuario-medios-sociales-icono-183042379.jpg'} alt="" />
                     </div>
                     <div className='flex flex-col font-sans font-arial'>
                       <div className='flex'>
-                        <h2 className='nameUser px-3'>{(publicacion.name) ?? ""}</h2>
+                      <h2 className='nameUser px-3' onClick={() => nombreUser(publicacion.name)}>
+                        {console.log('nombre del usuario de la publicacion ', publicacion.name)}
+                          <Link  to="/selectUser">
+                            {publicacion.name ?? ""}
+                          </Link>
+                        </h2>
 
                         <button onClick={() => {
                           modalHandler(true, publicacion?.image, publicacion?.id, publicacion?.description, publicacion?.name);
@@ -552,7 +569,8 @@ const PublicacionesPerfilPro = () => {
                   <img className=' ' src={publicacion?.image} alt="" />
                 </div>
                 <div className="botones-comentario " style={{ marginTop: 12 }}>
-                  <button type="" className="boton-puntuar" style={{ display: 'flex', gap: 5, padding: '12px' }}>
+                  <button type="" className="boton-puntuar"
+                   style={{ display: 'flex', gap: 5, padding: '12px' }}>
                     <FontAwesomeIcon icon={faThumbsUp} style={{ marginLeft: 2 }} />
                     <p>45</p>
                   </button>

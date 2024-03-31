@@ -120,7 +120,8 @@ export const getPublicationAll = async (req, res) => {
                                          description: pub.description,
                                          name : nombre,
                                          createdAt:pub.createdAt,
-                                         imageProfile:imagenUser
+                                         imageProfile:imagenUser,
+                                         likes:pub.likes
                                      }));
         });
 

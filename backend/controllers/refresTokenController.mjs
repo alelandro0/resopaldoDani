@@ -2,6 +2,8 @@ import getTokenFromHeader from "../auth/getTokenFromHeader.mjs";
 import { jsonResponse } from "../lib/jsonResponse.mjs";
 import Token from "../models/token.mjs";
 import {verifyRefreshToken} from "../auth/verifyToken.mjs";
+import {generateAccessToken} from "../auth/generateTokens.mjs"
+
 
 
 const postRefreToken= async(req, res)=>{
@@ -21,6 +23,7 @@ const postRefreToken= async(req, res)=>{
 
             if(payload){
                const accessToken = generateAccessToken(payload.use);
+                console.log("este es generateaccesToken",accessToken);
 
                return res.status(200).json(jsonResponse({accessToken}))
             }else{

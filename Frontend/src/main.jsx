@@ -20,8 +20,10 @@ import EditarPerfil from './components/pages/homepage-comps/EditarPerfil'
 import PublicaionesT from './components/pages/homepage-comps/PublicacionesT'
 import CitasCliente from './components/pages/homepage-comps/CitasCliente'
 import Modal from 'react-modal'
+import UsuarioDePublicacion from './components/pages/homepage-comps/UsuarioDePublicacion'
 
 // import { BrowserRouter } from 'react-router-dom'
+
 
 Modal.setAppElement('#root');
 const router= createBrowserRouter(
@@ -119,7 +121,15 @@ const router= createBrowserRouter(
         <CitasCliente/>
         <Chat/>
         </>
-      },
+      },{
+        path: "/selectUser",
+        element:
+        <>
+        <ParticlesBackground/>
+        <UsuarioDePublicacion/>
+        <Chat/>
+        </>
+      }
       // {
       //   path: "/chat",
       //   element:<ChatClient/>

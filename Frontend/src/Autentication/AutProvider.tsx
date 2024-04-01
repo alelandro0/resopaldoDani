@@ -1,8 +1,13 @@
+/* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React, { useContext, createContext, useState, useEffect } from "react";
 import type { AccessTokenResponse, AuthResponse, User  } from "../types/types";
 import { API_URL } from "../Autentication/constanst";
+import './spinnerPage.css'
+import ParticlesBackground from "../components/ParticlesBackground";
+
+
 
 interface AuthProviderProps {
     children: React.ReactNode;
@@ -10,9 +15,11 @@ interface AuthProviderProps {
 
 const AuthContext = createContext({
     esAutentico: false,
+    setUserName: (nombreUsuario: string) => {},
+    nombreUsuario:'',
     getAccessToken: () => {},
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    saveUser: (userData: AuthResponse) => {},
+    saveUser: (_userData: AuthResponse) => {},
     getRefreshToken:()=>{},
     getUser: ()=>({} as User | undefined),
     signOut: ()=>{},
@@ -21,121 +28,158 @@ const AuthContext = createContext({
 export function AuthProvider({ children }: AuthProviderProps) {
 
     const [esAutentico, setEsAutentico] = useState(false);
-    const [accessToken, setAccessToken] = useState<string>("");
+    const [accessToken, setAccessToken] = useState<string>();
     const [user, setUser] = useState<User>();
     const [isLoading,setIsLoading]=useState(true);
+    const [nombreUsuario, setNombreUsuario] = useState<string>(() => {
+        const storedUserName = localStorage.getItem('userName');
+        return storedUserName || ''; // Inicializa con el valor del almacenamiento local o una cadena vacía
+    });
+    
+    useEffect(() => {
+        // Actualiza el nombre de usuario en el almacenamiento local cuando cambie
+        localStorage.setItem('userName', nombreUsuario);
+    }, [nombreUsuario]);
     //const [refreshToken, setRefreshToken] = useState<string>("");
 
     useEffect(()=>{
         checkAuth();
+        
     },[]);
-
-    async function requestNewAccessToken(refreshToken: string){
+    useEffect(() => {
+        const storedUserName = localStorage.getItem('userName');
+        if (storedUserName) {
+            setNombreUsuario(storedUserName);
+        }
+    }, [nombreUsuario]);
+    function setUserName(nombreUsuario: string) {
+        console.log('nombre de usuario de provider', nombreUsuario);
+        localStorage.setItem('userName', nombreUsuario);
+        setNombreUsuario(nombreUsuario);
+    }
+    useEffect(()=>{
+       setUserName(nombreUsuario);
+        
+    },[nombreUsuario]);
+    async function requestNewAccessToken(refreshToken: string) {
         try {
-            const response = await fetch(`${API_URL}/refresh-token`,{
+            const response = await fetch(`${API_URL}/refresh-token`, {
                 method: "POST",
-                headers:{
+                headers: {
                     "Content-Type": "application/json",
                     authorization: `Bearer ${refreshToken}`
-                }  
+                }
             });
-            if(response.ok){
+            console.log('respuesta del refres token', response);
+    
+            if (response.ok) {
                 const json = await response.json() as AccessTokenResponse;
-
-                if(json.error){
+                console.log('valor del token  ', json);
+    
+                if (json.error) {
                     throw new Error(json.error);
                 }
                 return json.body.accesToken;
-            }else{
+            } else {
                 throw new Error(response.statusText);
             }
         } catch (error) {
-        console.log(error);
-        return null;
+            console.error('Error al solicitar un nuevo token de acceso:', error);
+            return null;
         }
     }
-
-    async function getUserInfo(accessToken:string) {
+    
+    async function getUserInfo(accessToken: string) {
         try {
-            const response = await fetch(`${API_URL}/user`,{
+            const response = await fetch(`${API_URL}/user`, {
                 method: "GET",
-                headers:{
+                headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${accessToken}`
-                }  
+                }
             });
-            
-            
-            if(response.ok){
+    
+    
+            if (response.ok) {
                 const json = await response.json();
-                console.log('datos de el user getUserInfo: ',json.publicacion);
-                if(json.error){
+                console.log('datos de el user getUserInfo: ', json.publicacion);
+                if (json.error) {
                     throw new Error(json.error);
                 }
                 return json.body;
-            }else{
+            } else {
                 throw new Error(response.statusText);
             }
         } catch (error) {
-        console.log(error);
-        return null;
-        } 
+            console.error('Error al obtener información del usuario:', error);
+            return null;
+        }
     }
+    
 
     async function checkAuth() {
-        if(accessToken){
-            const userInfo  = await getUserInfo(accessToken);
-            if(userInfo){
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                saveSessionInfo(userInfo.user, accessToken, getRefreshToken()!);
-                setIsLoading(false);
-                return; 
-            }
-        }else{
-            const token = getRefreshToken();
-            if(token){
-                const newAccessToken = await requestNewAccessToken(token);
-                if(newAccessToken){
-                    const userInfo  = await getUserInfo(newAccessToken);
-                    if(userInfo){
-                        saveSessionInfo(userInfo.user, newAccessToken,token);
+        try {
+            const accessToken = localStorage.getItem("accessToken");
+            const refreshToken = localStorage.getItem("refreshToken");
+    
+            if (accessToken) {
+                const userInfo = await getUserInfo(accessToken);
+                if (userInfo) {
+                    saveSessionInfo(userInfo, accessToken, refreshToken!);
+                    setIsLoading(false);
+                    return;
+                }
+            } else if (refreshToken) {
+                const newAccessToken = await requestNewAccessToken(refreshToken);
+                if (newAccessToken) {
+                    const userInfo = await getUserInfo(newAccessToken);
+                    if (userInfo) {
+                        saveSessionInfo(userInfo, newAccessToken, refreshToken);
                         setIsLoading(false);
-                        return; 
+                        return;
                     }
                 }
             }
+            setIsLoading(false);
+        } catch (error) {
+            console.error('Error en la verificación de autenticación:', error);
+            setIsLoading(false);
         }
-        setIsLoading(false);
     }
-
     function signOut(){
         setEsAutentico(false);
         setAccessToken("");
         setUser(undefined);
-        localStorage.removeItem("token");
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("userName");
     }
+    
     
     function saveSessionInfo(userInfo: User, accessToken: string, refreshToken: string) {
         setAccessToken(accessToken);
-        localStorage.setItem("token", JSON.stringify(refreshToken));
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
         setEsAutentico(true);
         setUser(userInfo);
-        console.log('informacion del usuario authProvider :', userInfo);
     }
+    
     
 
     function getAccessToken() {
         return accessToken;
     }
+   
 
     function getRefreshToken():string | null {
-        const tokenData = localStorage.getItem("token");
+        const tokenData = localStorage.getItem("token",);
         if(tokenData){
             const token = JSON.parse(tokenData);
             return token;
         }
         return null;
     }
+ 
 
     function saveUser(userData: AuthResponse) {
         saveSessionInfo(
@@ -149,8 +193,16 @@ export function AuthProvider({ children }: AuthProviderProps) {
     }
 
     return (
-        <AuthContext.Provider value={{ esAutentico, getAccessToken, saveUser, getRefreshToken, getUser, signOut }}>
-            {isLoading? <div>Cargando...</div>: children}
+        <AuthContext.Provider value={{ esAutentico,nombreUsuario,setUserName, getAccessToken, saveUser, getRefreshToken, getUser, signOut }}>
+            {isLoading?  <div className="spinner-container relative w-full md:h-screen p-4 text-white h-unset flex justify-center items-center Z-10">
+            <ParticlesBackground/>
+                <div style={{display:'flex', alignItems:'center'}} className="Z-10">
+               <img src="../../../../public/images/logoMulti.png" 
+                className="logo scale-x-[-1] filter invert "
+               alt="" /> <h1 style={{marginLeft:'-100px', fontSize:100,marginTop:30}}>ultiServicios</h1></div>
+            <div className="spinner"></div>
+            <h1 style={{padding:20, fontSize:30}}>Loading...</h1>
+        </div>: children}
         </AuthContext.Provider>
     );
 

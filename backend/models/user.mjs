@@ -19,23 +19,20 @@ const UserSchema = new Mongoose.Schema({
     description: String,
     estado: { type: Boolean },
     createdAt: { type: Date, default: Date.now },
-    comentario:{type:String},
-    likes:{type:Number}
+    comentario:[{
+      imagenPerfil:{type:String},
+      respuesta:{type:String},
+      nombre:{type:String},}],
+      idUsuario:{type:String},
+    likes:[{
+      userId:{type:String},
+      estado:{type:Boolean}
+    }]
   }],
   roll: { type: String },
   estado: { type: Boolean }
 });
-UserSchema.statics.updateLikesToZero = async function() {
-  try {
-    await this.updateMany(
-      { 'publication.likes': { $exists: false } }, // Filtrar las publicaciones sin campo 'likes' definido
-      { $set: { 'publication.$[].likes': 0 } } // Establecer 'likes' en 0 para las publicaciones coincidentes
-    );
-    console.log('Likes actualizados a cero correctamente.');
-  } catch (error) {
-    console.error('Error al actualizar los likes:', error);
-  }
-};
+
 
 // Hook pre para actualizar la fecha de creación de la publicación antes de guardarla
 UserSchema.pre("save", function (next) {

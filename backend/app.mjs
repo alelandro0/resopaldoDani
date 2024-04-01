@@ -31,7 +31,7 @@ import User from "./models/user.mjs"
 
 dotenv.config();
 const expressPort = process.env.PORT || 5000;
-User.updateLikesToZero();
+
 const server = http.createServer(app);
 
 const io = new SocketServer(server, {

@@ -47,7 +47,7 @@ export const EditarPerfil = () => {
       if (response.ok) {
         await Swal.fire({
           icon: 'success',
-          title: '¡Cita Agendada Exitosamente!',
+          title: '¡Perfil Actualizado con exito!',
           showConfirmButton: false,
           timer: 1500
         });

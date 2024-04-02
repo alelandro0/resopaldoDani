@@ -796,7 +796,7 @@ const UserProfile = () => {
                   
                   <div> 
                     <div></div>
-                    <h1 style="color: white">HOKLA</h1>
+                    <h1 style={{color:'white'}}>HOKLA</h1>
                     <label htmlFor="comment"></label>
                     <input type="text" name='comment' />
                     <button

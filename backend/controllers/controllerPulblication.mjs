@@ -122,7 +122,8 @@ export const getPublicationAll = async (req, res) => {
                                          name : nombre,
                                          createdAt:pub.createdAt,
                                          imageProfile:imagenUser,
-                                         likes:pub.likes.length
+                                         likes:pub.likes.length,
+                                         comentario:pub.comentario
                                      }));
         });
 

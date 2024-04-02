@@ -27,6 +27,7 @@ import {router as portadaGet} from './routes/portadaGet.mjs'
 import { router as buscar } from "./routes/buscarUser.mjs";
 import {router as like} from "./routes/likes.mjs"
 import {router as dislike} from "./routes/Dislike.mjs"
+import {router as agregarComentario} from "./routes/comentario.mjs"
 
 
 dotenv.config();
@@ -81,6 +82,7 @@ app.use("/api/portadaGet",portadaGet)
 app.use("/api/profileSearch",buscar)
 app.use("/api/likes",like)
 app.use("/api/dislikes",dislike)
+app.use("/api/cometario",agregarComentario)
 
 server.listen(expressPort, () => {
     console.log(`El servidor de Express se está ejecutando en el puerto: ${expressPort}`);

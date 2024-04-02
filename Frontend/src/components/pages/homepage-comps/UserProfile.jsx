@@ -40,8 +40,8 @@ const UserProfile = () => {
   const [transparentBackground, setTransparentBackground] = useState(false);
   const [profesionalesId, setIdP] = useState('')
   const [nombreUsuario, setNombreUsuario] = useState('');
-  const [like, setLike] =useState(false)
- 
+  const [like, setLike] = useState(false)
+
 
   const auth = useAuth();
   useEffect(() => {
@@ -404,6 +404,46 @@ const UserProfile = () => {
     }
   };
 
+  const addComment= async (userId, publicationId, comentario) => {
+    try {
+      const response = await fetch(`${API_URL}/cometario`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: userId, publicationId, comentario
+
+      });
+      console.log('publicaciones de todos los usrios', response);
+
+      if (!response.ok) {
+        throw new Error('Error no se pudo comentar');
+      }
+      const data = await response.json();
+
+      // Ordenar las publicaciones por fecha de forma descendente
+      console.log(data);
+      // const publicacionesOrdenadas = data.publications.slice().reverse();
+
+
+      console.log('estas son las puplicaiones en el orden que se debe revisar all', publicacionesOrdenadas);
+      setPublicacionesUsuarios(publicacionesOrdenadas);
+      console.log('este es data de la publicacion traida todos  aqui es: A', publicacionesOrdenadas);
+    } catch (error) {
+      if (typeof error === 'string') {
+        setError(error);
+      } else {
+        console.log("error al treer la publicacion all");
+        await Swal.fire({
+          icon: 'error',
+          title: '¡Error!',
+          text: 'Ocurrió un error al traer las publicaciones.',
+
+        });
+      }
+    }
+  };
+
   //ELIMINAR PUBLICACION 
   const deleteHandler = async (idPublicacion) => {
     try {
@@ -495,32 +535,32 @@ const UserProfile = () => {
       // Aquí puedes manejar el error, por ejemplo, mostrando un mensaje de error al usuario.
     }
   };
-  const nombreUser = ( nuevoNombreUsuario) => {
-   console.log('este es le nombre de userprofile',nuevoNombreUsuario);
+  const nombreUser = (nuevoNombreUsuario) => {
+    console.log('este es le nombre de userprofile', nuevoNombreUsuario);
     auth.setUserName(nuevoNombreUsuario)
   };
   useEffect(() => {
     setNombreUsuario(nombreUsuario);
   }, [nombreUsuario]);
- 
+
   //LIKES Y DESLIKES
-  const HandleLikes = async(userId,publicationId) => {
-   
+  const HandleLikes = async (userId, publicationId) => {
+
     if (!like) {
-      console.log(userId,"  ",publicationId );
+      console.log(userId, "  ", publicationId);
       try {
-        const responseLikes = await fetch(`${API_URL}/likes`, {  
+        const responseLikes = await fetch(`${API_URL}/likes`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({userId,publicationId})
+          body: JSON.stringify({ userId, publicationId })
         });
-        
+
         if (!responseLikes.ok) {
           throw new Error('No se pudo dar like a la publicación');
         }
-  
+
         const data = await responseLikes.json();
         getPublishAllUsers()
         setLike(true)
@@ -537,7 +577,7 @@ const UserProfile = () => {
           },
           body: JSON.stringify({ userId, publicationId })
         });
-  
+
         if (!responseDislike.ok) {
           throw new Error('No se pudo quitar el like de la publicación');
         }
@@ -549,13 +589,13 @@ const UserProfile = () => {
       }
     }
   };
-  
+
   useEffect(() => {
     HandleLikes();
   }, []); // Incluye like como dependencia
-  
 
- 
+
+
   return (
     <div name='Perfil'
       className='profile-container relative  '><section className="seccion-perfil-usuario ">
@@ -567,7 +607,7 @@ const UserProfile = () => {
               style={{ display: 'none' }}
               onChange={(e) => handleProfileImageChange(e.target.files)}
             />
-            {console.log( 'id de usuario', 'id publicacion',idPublicacion)}
+            {console.log('id de usuario', 'id publicacion', idPublicacion)}
             <div className="perfil-usuario-avatar relative z-10" onClick={() => setEditingProfileImage(true)}>
               <img src={downloadURL} alt="img-avatar" className="avatar-img " />
               <label htmlFor="fileInput" style={{ background: 'black' }}
@@ -682,10 +722,14 @@ const UserProfile = () => {
                   <FontAwesomeIcon icon={faThumbsUp} />
                   <p>{publicacion.likes}</p>
                 </button>
+                <div>
+                  <label htmlFor="comment">Comment: </label>
+                  <input type="text" name='comment' />
+                </div>
                 <button type="" className="boton-responder">
                   Comentar
                 </button>
-                
+
               </div>
             </div>
           ))}
@@ -702,19 +746,19 @@ const UserProfile = () => {
             Array.isArray(usuarioPublicaciones) && usuarioPublicaciones.map((publicacion, subIndex) => (
               <li className='publicacion-realizada' key={`${index}-${subIndex}`}>
                 <div className='usuario-publico  publicacionesall'>
-                  {console.log("P",profesionalesId,"I",idPublicacion)}
+                  {console.log("P", profesionalesId, "I", idPublicacion)}
                   <div className='flex items-center gap-1'>
                     <div className='avatar'>
                       <img src={publicacion.imageProfile || 'https://thumbs.dreamstime.com/b/vector-de-perfil-avatar-predeterminado-foto-usuario-medios-sociales-icono-183042379.jpg'} alt="" />
                     </div>
                     <div className='flex flex-col font-sans font-arial'>
-                  
+
                       <div className='flex ' >
-                      
-                      <h2 className='nameUser px-3' onClick={() => nombreUser( publicacion.name)}>
-                     
-                        {console.log('nombre del usuario de la publicacion ', publicacion.name)}
-                          <Link  to="/selectUser"> 
+
+                        <h2 className='nameUser px-3' onClick={() => nombreUser(publicacion.name)}>
+
+                          {console.log('nombre del usuario de la publicacion ', publicacion.name)}
+                          <Link to="/selectUser">
                             {publicacion.name ?? ""}
                           </Link>
                         </h2>
@@ -742,19 +786,27 @@ const UserProfile = () => {
                   <img className=' ' src={publicacion?.image} alt="" />
                 </div>
                 <div className="botones-comentario" style={{ marginTop: 12 }}>
-                <button type=""
-                onClick={()=> HandleLikes(publicacion.profesionalId,publicacion.id)
-                }
-                 className="text-white font-semibold w-fit px-6 py-3 my-2 flex items-center rounded-md bg-gradient-to-t from-blue-600 cursor-pointer mx-auto md:mx-0 p-3 rounded-md">
-                  <FontAwesomeIcon icon={faThumbsUp} />
-                  <p>{publicacion.likes}</p>
-                </button>
-                  <button
+                  <button type=""
+                    onClick={() => HandleLikes(publicacion.profesionalId, publicacion.id)
+                    }
+                    className="text-white font-semibold w-fit px-6 py-3 my-2 flex items-center rounded-md bg-gradient-to-t from-blue-600 cursor-pointer mx-auto md:mx-0 p-3 rounded-md">
+                    <FontAwesomeIcon icon={faThumbsUp} />
+                    <p>{publicacion.likes}</p>
+                  </button>
+                  
+                  <div> 
+                    <div></div>
+                    <h1 style="color: white">HOKLA</h1>
+                    <label htmlFor="comment"></label>
+                    <input type="text" name='comment' />
+                    <button
                     type=""
                     className="text-white font-semibold w-fit px-6 py-3 my-2 flex items-center rounded-md bg-gradient-to-t from-blue-600 cursor-pointer mx-auto md:mx-0 p-3 rounded-md"
                   >
                     Comentar
                   </button>
+                  <h1 style={{color:'white'}}>hola</h1>
+                  </div>
                 </div>
 
                 {/* <button className='citas'></button><h4>AGENDA</h4> */}

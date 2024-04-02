@@ -49,31 +49,37 @@ export const darLike = async (req, res) => {
 };
 
 // QUITAR LIKE
+// QUITAR LIKE
 export const quitarLike = async (req, res) => {
   const { userId, publicationId } = req.body;
 
   try {
+    // Busca al usuario que dio el like
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }
 
+    // Busca al propietario de la publicación
     const publicationOwner = await User.findOne({ "publication._id": publicationId });
     if (!publicationOwner) {
       return res.status(404).json({ message: "Publicación no encontrada" });
     }
 
+    // Busca la publicación específica dentro de las publicaciones del propietario
     const publication = publicationOwner.publication.find(pub => pub._id.toString() === publicationId);
     if (!publication) {
       return res.status(404).json({ message: "Publicación no encontrada" });
     }
 
     // Verifica si el usuario ha dado like a la publicación
-    if (!publication.likes.includes(userId)) {
+    const likeIndex = publication.likes.findIndex(like => like.userId === userId);
+    if (likeIndex === -1) {
       return res.status(400).json({ message: "El usuario no ha dado like a esta publicación" });
     }
 
-    publication.likes -= 1; // Disminuye el contador de likes
+    // Elimina el like del array de likes de la publicación
+    publication.likes.splice(likeIndex, 1);
 
     await publicationOwner.save();
 

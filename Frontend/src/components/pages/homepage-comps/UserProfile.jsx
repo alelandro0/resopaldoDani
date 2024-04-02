@@ -41,8 +41,7 @@ const UserProfile = () => {
   const [profesionalesId, setIdP] = useState('')
   const [nombreUsuario, setNombreUsuario] = useState('');
   const [like, setLike] =useState(false)
-  const [idProfe, setIdProfe]= useState('')
-  const [idPubli, setIdPublic]= useState('')
+ 
 
   const auth = useAuth();
   useEffect(() => {
@@ -503,26 +502,19 @@ const UserProfile = () => {
   useEffect(() => {
     setNombreUsuario(nombreUsuario);
   }, [nombreUsuario]);
-  function handleEvent (idProfe, idPubli){
-    setIdProfe(idProfe);
-    setIdPublic(idPubli);
-  }
+ 
   //LIKES Y DESLIKES
-  const HandleLikes = async() => {
-    const formData={
-      userId : idProfe,
-      publicationId : idPubli,
-    }
-    
-  
+  const HandleLikes = async(userId,publicationId) => {
+   
     if (!like) {
+      console.log(userId,"  ",publicationId );
       try {
         const responseLikes = await fetch(`${API_URL}/likes`, {  
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify(formData)
+          body: JSON.stringify({userId,publicationId})
         });
         
         if (!responseLikes.ok) {
@@ -530,6 +522,7 @@ const UserProfile = () => {
         }
   
         const data = await responseLikes.json();
+        getPublishAllUsers()
         setLike(true)
         console.log('respuesta del servidor', data);
       } catch (error) {
@@ -548,7 +541,8 @@ const UserProfile = () => {
         if (!responseDislike.ok) {
           throw new Error('No se pudo quitar el like de la publicación');
         }
-  
+        getPublishAllUsers()
+        setLike(false)
         console.log('respuesta del servidor', await responseDislike.json());
       } catch (error) {
         console.error('Error al quitar like:', error);
@@ -558,9 +552,9 @@ const UserProfile = () => {
   
   useEffect(() => {
     HandleLikes();
-  }, [idProfe, idPubli]); // Incluye like como dependencia
+  }, []); // Incluye like como dependencia
   
-  
+
  
   return (
     <div name='Perfil'
@@ -713,17 +707,13 @@ const UserProfile = () => {
                       <img src={publicacion.imageProfile || 'https://thumbs.dreamstime.com/b/vector-de-perfil-avatar-predeterminado-foto-usuario-medios-sociales-icono-183042379.jpg'} alt="" />
                     </div>
                     <div className='flex flex-col font-sans font-arial'>
-                      {console.log('este es el ID del profesional', publicacion.profesionalId)}
-                      {console.log('ID de la publicacion ', publicacion.id)}
+                  
                       <div className='flex ' >
-                      {/* {handleifoPublic( publicacion.profesionalId)} */}
+                      
                       <h2 className='nameUser px-3' onClick={() => nombreUser( publicacion.name)}>
                      
                         {console.log('nombre del usuario de la publicacion ', publicacion.name)}
-                          <Link  to="/selectUser">
-                            <h1>profesional {idProfe}</h1>
-                            <h1>Publicacion {idPubli}</h1>
-                         
+                          <Link  to="/selectUser"> 
                             {publicacion.name ?? ""}
                           </Link>
                         </h2>
@@ -734,8 +724,7 @@ const UserProfile = () => {
                   <div className="flex flex-row justify-center gap-4">
                     <button
                       onClick={() => openModal(true, publicacion?.description, publicacion?.image)}
-                      className="group text-white font-semibold w-fit px-6 py-3 my-2 flex items-center rounded-md bg-gradient-to-t from-blue-600 cursor-pointer mx-auto md:mx-0 p-3 rounded-md'
-                        onClick={() => modalHandlerAgendar(true, fechas, horas, descripcionP, publicacion.name"
+                      className="group text-white font-semibold w-fit px-6 py-3 my-2 flex items-center rounded-md bg-gradient-to-t from-blue-600 cursor-pointer mx-auto md:mx-0 p-3 rounded-md"
                     >
                       Ver
                     </button>
@@ -752,7 +741,13 @@ const UserProfile = () => {
                   <img className=' ' src={publicacion?.image} alt="" />
                 </div>
                 <div className="botones-comentario" style={{ marginTop: 12 }}>
-          
+                <button type=""
+                onClick={()=> HandleLikes(publicacion.profesionalId,publicacion.id)
+                }
+                 className="text-white font-semibold w-fit px-6 py-3 my-2 flex items-center rounded-md bg-gradient-to-t from-blue-600 cursor-pointer mx-auto md:mx-0 p-3 rounded-md">
+                  <FontAwesomeIcon icon={faThumbsUp} />
+                  <p>{publicacion.likes}</p>
+                </button>
                   <button
                     type=""
                     className="text-white font-semibold w-fit px-6 py-3 my-2 flex items-center rounded-md bg-gradient-to-t from-blue-600 cursor-pointer mx-auto md:mx-0 p-3 rounded-md"

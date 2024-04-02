@@ -45,8 +45,8 @@ export const agendarCita = async (req, res) => {
 
 export const cancelCita = async (req, res) => {
   try {
-    const { id } = req.body; // Extrae el ID de req.body
-
+    const { id } = req.params; // Extrae el ID de req.params
+    
     // Selecciona y actualiza la cita basada en el ID
     const updatedCita = { estado: 'cancelada' }; // Suponiendo que quieres cambiar el estado a "cancelada"
     const user = await Cita.findOneAndUpdate({ _id: id }, updatedCita, { new: true });
@@ -77,7 +77,7 @@ export const cancelCita = async (req, res) => {
 // Controlador para actualizar una cita
 export const updateAppointment = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.params.id;
     const { estado } = req.body;
     const cita = await Cita.findByIdAndUpdate({ _id: id }, { estado }, { new: true });
     if (!cita) {
@@ -93,7 +93,7 @@ export const getCitasUser = async (req, res) => {
     // Obtener el userId de la solicitud
     const userId = req.params.userId;
     // Buscar todas las citas asociadas a este userId
-    const citas = await Cita.find({ userId: userId });
+    const citas = await Cita.find({ userId: userId, estado:'pendiente' });
     // Verificar si se encontraron citas
     if (!citas || citas.length === 0) {
       return res.status(404).json({ message: 'No se encontraron citas para este usuario' });
@@ -134,7 +134,7 @@ export const getCitasProfesional = async (req, res) => {
   try {
     const { ProfesionalId } = req.params.ProfesionalId;
 
-    const citas = await Cita.find({ ProfesionalId: ProfesionalId });
+    const citas = await Cita.find({ ProfesionalId: ProfesionalId, estado:'pendiente' });
 
     if (!citas || citas.length === 0) {
       return res.status(404).json({ message: 'No se encontraron citas para este profesional' });

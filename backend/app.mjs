@@ -27,7 +27,7 @@ import {router as portadaGet} from './routes/portadaGet.mjs'
 import { router as buscar } from "./routes/buscarUser.mjs";
 import {router as like} from "./routes/likes.mjs"
 import {router as dislike} from "./routes/Dislike.mjs"
-import User from "./models/user.mjs"
+
 
 dotenv.config();
 const expressPort = process.env.PORT || 5000;

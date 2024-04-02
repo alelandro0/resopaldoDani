@@ -197,9 +197,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
             {isLoading?  <div className="spinner-container relative w-full md:h-screen p-4 text-white h-unset flex justify-center items-center Z-10">
             <ParticlesBackground/>
                 <div style={{display:'flex', alignItems:'center'}} className="Z-10">
-               <img src="../../../../public/images/logoMulti.png" 
-                className="logo scale-x-[-1] filter invert "
-               alt="" /> <h1 style={{marginLeft:'-100px', fontSize:100,marginTop:30}}>ultiServicios</h1></div>
+               
+               
+               <h1 style={{marginLeft:'10px', fontSize:100,marginTop:30}}>MultiServicios</h1></div>
             <div className="spinner"></div>
             <h1 style={{padding:20, fontSize:30}}>Loading...</h1>
         </div>: children}

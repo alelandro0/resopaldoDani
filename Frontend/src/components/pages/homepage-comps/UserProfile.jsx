@@ -41,6 +41,7 @@ const UserProfile = () => {
   const [profesionalesId, setIdP] = useState('')
   const [nombreUsuario, setNombreUsuario] = useState('');
   const [like, setLike] = useState(false)
+  const [nuevoComentario, setNuevoComentario] = useState('');
 
 
   const auth = useAuth();
@@ -404,46 +405,57 @@ const UserProfile = () => {
     }
   };
 
-  const addComment= async (userId, publicationId, comentario) => {
+  const agregarComentario = async (userId, publicationId, comentario) => {
     try {
-      const response = await fetch(`${API_URL}/cometario`, {
+      const response = await fetch(`${API_URL}/comentario`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
         },
-        body: userId, publicationId, comentario
-
+        body: JSON.stringify({ userId, publicationId, comentario }),
       });
-      console.log('publicaciones de todos los usrios', response);
-
-      if (!response.ok) {
-        throw new Error('Error no se pudo comentar');
-      }
       const data = await response.json();
-
-      // Ordenar las publicaciones por fecha de forma descendente
-      console.log(data);
-      // const publicacionesOrdenadas = data.publications.slice().reverse();
-
-
-      console.log('estas son las puplicaiones en el orden que se debe revisar all', publicacionesOrdenadas);
-      setPublicacionesUsuarios(publicacionesOrdenadas);
-      console.log('este es data de la publicacion traida todos  aqui es: A', publicacionesOrdenadas);
+      // Manejar la respuesta del servidor (mostrar mensaje de éxito/error, actualizar la interfaz, etc.)
+      console.log(data.message);
     } catch (error) {
-      if (typeof error === 'string') {
-        setError(error);
-      } else {
-        console.log("error al treer la publicacion all");
-        await Swal.fire({
-          icon: 'error',
-          title: '¡Error!',
-          text: 'Ocurrió un error al traer las publicaciones.',
-
-        });
-      }
+      console.error('Error al agregar comentario:', error);
     }
   };
-
+  
+  const eliminarComentario = async (userId, publicationId, comentarioId) => {
+    try {
+      const response = await fetch(`${API_URL}/comentario`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId, publicationId, comentarioId }),
+      });
+      const data = await response.json();
+      // Manejar la respuesta del servidor (mostrar mensaje de éxito/error, actualizar la interfaz, etc.)
+      console.log(data.message);
+    } catch (error) {
+      console.error('Error al eliminar comentario:', error);
+    }
+  };
+  
+  const editarComentario = async (userId, publicationId, comentarioId, nuevoComentario) => {
+    try {
+      const response = await fetch(`${API_URL}/comentario`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId, publicationId, comentarioId, nuevoComentario }),
+      });
+      const data = await response.json();
+      // Manejar la respuesta del servidor (mostrar mensaje de éxito/error, actualizar la interfaz, etc.)
+      console.log(data.message);
+    } catch (error) {
+      console.error('Error al editar comentario:', error);
+    }
+  };
+  
   //ELIMINAR PUBLICACION 
   const deleteHandler = async (idPublicacion) => {
     try {
@@ -688,52 +700,54 @@ const UserProfile = () => {
 
         {/* {puplicaiones personales} */}
 
-        <div className='publicacion-cometario '>
-          {console.log(publicaciones)}
-          {publicaciones.map((publicacion, index) => (
+        return (
+    <div className='publicacion-cometario'>
+        {publicaciones.map((publicacion, index) => (
             <div className="publicacion-realizada" key={index}>
-              <div className="usuario-publico">
-                <div className="avatar">
-                  <img src={downloadURL || 'https://static.vecteezy.com/system/resources/previews/003/337/584/large_2x/default-avatar-photo-placeholder-profile-icon-vector.jpg'} alt="img" />
+                <div className="usuario-publico">
+                    <div className="avatar">
+                        <img src={downloadURL || 'https://static.vecteezy.com/system/resources/previews/003/337/584/large_2x/default-avatar-photo-placeholder-profile-icon-vector.jpg'} alt="img" />
+                    </div>
+                    <div className="contenido-publicacion">
+                        <div>
+                            <h4>{auth.getUser()?.name}</h4>
+                            <button onClick={() => { modalHandler(true, publicacion?.image, publicacion?.id, publicacion?.description, publicacion?.name) }} className='btn-modal'>Ver</button>
+                        </div>
+                        <ul style={{ paddingTop: 4 }}>
+                            <li>Hace {getTimeElapsed(publicacion.createdAt)}</li>
+                        </ul>
+                    </div>
+                    <div className="menu-comentario">
+                        <FontAwesomeIcon icon={faPen} />
+                        <ul className="menu">
+                            <button className=''>Editar</button>
+                            <button className='' onClick={() => eliminarComentario(publicacion.id)}>Eliminar</button>
+                        </ul>
+                    </div>
                 </div>
-                <div className="contenido-publicacion">
-                  <div>
-                    <h4>{auth.getUser()?.name}</h4>
-                    <button onClick={() => { modalHandler(true, publicacion?.image, publicacion?.id, publicacion?.description, publicacion?.name) }} className='btn-modal'>Ver</button>
-                  </div>
-                  <ul style={{ paddingTop: 4 }}>
-                    <li>Hace {getTimeElapsed(publicacion.createdAt)}</li>
-                  </ul>
+                <p className='descripcion'>{publicacion.description}</p>
+                <div className="archivo-publicado py-6">
+                    <img src={publicacion.image} />
                 </div>
-                <div className="menu-comentario">
-                  <FontAwesomeIcon icon={faPen} />
-                  <ul className="menu">
-                    <button className=''>Editar</button>
-                    <button className='' onClick={() => deleteHandler(publicacion.id)}>Eliminar</button>
-                  </ul>
-                </div>
-              </div>
-              <p className='descripcion'>{publicacion.description}</p>
-              <div className="archivo-publicado py-6">
-                <img src={publicacion.image} />
-              </div>
-              <div className="botones-comentario">
-                <button type="" className="boton-puntuar">
-                  <FontAwesomeIcon icon={faThumbsUp} />
-                  <p>{publicacion.likes}</p>
-                </button>
-                <div>
-                  <label htmlFor="comment">Comment: </label>
-                  <input type="text" name='comment' />
-                </div>
-                <button type="" className="boton-responder">
-                  Comentar
-                </button>
+                <div className="botones-comentario">
+                    <button type="" className="boton-puntuar">
+                        <FontAwesomeIcon icon={faThumbsUp} />
+                        <p>{publicacion.likes}</p>
+                    </button>
+                    <div>
+                        <label htmlFor="comment">Comment: </label>
+                        <input type="text" name='comment' value={nuevoComentario} onChange={(e) => setNuevoComentario(e.target.value)} />
+                    </div>
+                    <button type="" className="boton-responder" onClick={() => agregarComentario(publicacion.id, nuevoComentario)}>
+                        Comentar
+                    </button>
 
-              </div>
+                </div>
             </div>
-          ))}
-        </div>
+        ))}
+    </div>
+);
+
 
 
 

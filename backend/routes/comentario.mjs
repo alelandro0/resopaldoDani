@@ -1,8 +1,8 @@
-import exress from 'express'
-const router= exress.Router()
-import { agregarComentario } from '../controllers/comentario.mjs'
+import express from 'express';
+import { agregarComentario, eliminarComentario, editarComentario } from '../controllers/comentario.mjs';
 
+const router = express.Router();
 
-router.post('/',agregarComentario)
+router.post('/', agregarComentario);
 
-export {router}
+export { router };

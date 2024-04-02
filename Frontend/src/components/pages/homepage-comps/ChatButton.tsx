@@ -1,6 +1,6 @@
-import  { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from 'react';
+import { useState, useEffect, useRef, ChangeEvent, KeyboardEvent } from 'react';
 import axios from 'axios';
-import './ChatButton.css'; 
+import './ChatButton.css';
 import React from 'react';
 import { API_URL } from '../../../Autentication/constanst';
 
@@ -36,7 +36,7 @@ function Chat(): JSX.Element {
       setIsTyping(true);
       const response = await axios.post(`${API_URL}/chat`, requestBody);
       console.log('este es el chatBot', response);
-      
+
       const updatedHistory: Message[] = response.data.history;
       setHistory(updatedHistory);
     } catch (error) {
@@ -55,15 +55,13 @@ function Chat(): JSX.Element {
     setIsModalOpen(false);
   };
 
-  return (  
+  return (
     <>
       <div>
         <button onClick={openModal} id="img-chat" className='botImage' >
-          
+
         </button>
       </div>
-      {console.log("modal activado", isModalOpen)
-      }
       {isModalOpen && (
         <div className='modal-container'>
           <div className='modal1'>
@@ -75,6 +73,16 @@ function Chat(): JSX.Element {
                 </div>
               </div>
               <div className='chat-body-container' ref={chatBodyRef}>
+                <div
+                  style={{marginRight: "5rem"}}
+                  className='MensajePredetarminado'>
+                  <p>¡Hola!  Te doy la bienvenida al chat de Multiservicios.
+                    ¿En qué te puedo ayudar hoy? Puedes elegir una de las siguientes opciones:</p>
+                  <p> 1. Hablar sobre Multiservicios.</p>
+                  <p>2. Quienes crearon Multiservicios.</p>
+                  <p>3. ¿Qué es Multiservicios? </p>
+                  <p></p>
+                </div>
                 {history.map((item: Message, index: number) => (
                   <div key={index} className={`chat-message ${item.role === 'user' ? 'user-message' : 'bot-message'}`}>
                     {item.parts}
@@ -87,7 +95,7 @@ function Chat(): JSX.Element {
               <div className='input-container'>
                 <input
                   type='text'
-                  style={{color:"black"}}
+                  style={{ background: "black", color: "white", border: "2px solid #005aa9", borderRadius: "15px" }}
                   placeholder='Escribe tu mensaje...'
                   value={message}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => setMessage(e.target.value)}

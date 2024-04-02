@@ -37,7 +37,6 @@ body {
   right: 20px;
 }
 .chat-container{
-  background-color: white;
   border-radius: 10px  ;
 }
 .modal-container {
@@ -47,10 +46,11 @@ body {
 }
 
 .modal1 {
-  background-color: #fff;
+  background-color: #000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   width: 300px;
+  margin-right: 20px;
 }
 
 .modal-header {
@@ -58,7 +58,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 12px 16px;
-  background-color: black;
+  background-color: #005aa9;
   color: #fff;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
@@ -81,6 +81,8 @@ body {
   padding: 12px 16px;
   display: flex;
   flex-direction: column;
+
+
 }
 
 .chat-message {
@@ -88,18 +90,24 @@ body {
   padding: 8px 16px;
   border-radius: 20px;
   max-width: 70%;
-}
 
+}
+.MensajePredetarminado{
+  padding: 1rem ;
+  background-color: #313131;
+  border-radius: 20px;
+  border-bottom-left-radius: 0;
+  align-self: flex-start;
+}
 .user-message {
-  background-color: #515151;
+  background-color: #005aa9;
   color: #fff;
   border-bottom-right-radius: 0;
   align-self: flex-end;
 }
 
 .bot-message {
-  background-color: #e9eaed;
-  color: #333;
+  background-color: #313131;
   border-bottom-left-radius: 0;
   align-self: flex-start;
 }
@@ -108,12 +116,13 @@ body {
   border-radius: 5px;
 }
 .input-container {
+  color: #fff;
   padding: 12px 12px;
   display: flex;
   justify-content: space-between;
   flex: 1;
   padding: 8px;
-  border-radius: 20px;
+
   outline: none;
   transition: border-color 0.3s ease;
 }
@@ -134,12 +143,12 @@ body {
 }
 
 .input-container button:hover {
-  background-color: #5955FF;
+  background-color: #005aa9;
 }
 
 .close-chat-button {
   padding: 8px 16px;
-  background-color: #007bff;
+  background-color: #005aa9;
   color: #fff;
   border: none;
   border-radius: 20px;

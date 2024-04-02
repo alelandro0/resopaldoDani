@@ -81,6 +81,7 @@ function Chat(): JSX.Element {
                   <p> 1. Hablar sobre Multiservicios.</p>
                   <p>2. Quienes crearon Multiservicios.</p>
                   <p>3. ¿Qué es Multiservicios? </p>
+                  <p>4. ¿Qué servicios ofrecemos? </p>
                   <p></p>
                 </div>
                 {history.map((item: Message, index: number) => (
@@ -89,7 +90,7 @@ function Chat(): JSX.Element {
                   </div>
                 ))}
                 {isTyping && (
-                  <span className="typing-dots">...</span>
+                  <span className="typing-dots ">...</span>
                 )}
               </div>
               <div className='input-container'>

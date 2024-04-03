@@ -1,5 +1,30 @@
 import User from '../models/user.mjs'
 
+// Ver comentarios de una publicación
+export const verComentarios = async (req, res) => {
+  const { publicationId } = req.params; // Obtener el ID de la publicación de los parámetros de la solicitud
+
+  try {
+    // Buscar la publicación
+    const publicationOwner = await User.findOne({ "publication._id": publicationId });
+    if (!publicationOwner) {
+      return res.status(404).json({ message: "Publicación no encontrada" });
+    }
+
+    // Buscar la publicación específica dentro de las publicaciones del propietario
+    const publication = publicationOwner.publication.find(pub => pub._id.toString() === publicationId);
+    if (!publication) {
+      return res.status(404).json({ message: "Publicación no encontrada" });
+    }
+
+    // Devolver los comentarios de la publicación
+    res.status(200).json({ comentarios: publication.comentarios });
+  } catch (error) {
+    console.error("Error al ver comentarios de la publicación:", error);
+    res.status(500).json({ message: "Error interno del servidor" });
+  }
+};
+
 
 // Ver comentarios de una publicación
 export const verComentarios = async (req, res) => {

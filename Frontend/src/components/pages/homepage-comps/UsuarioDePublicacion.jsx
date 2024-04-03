@@ -13,6 +13,8 @@ const UsuarioDePublicacion = () => {
   const [datos, setDatos] = useState('')
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [like, setLike] =useState(false)
+  const [nuevoComentario, setNuevoComentario] = useState('');
+  const [verComentario, setVerComentario] = useState({})
   const auth = useAuth();
 
   const usuario = async () => {
@@ -122,6 +124,45 @@ const UsuarioDePublicacion = () => {
       }
     }
   };
+  const agregarComentario = async (userId, publicationId, comentario) => {
+    console.log("userId:", userId);
+    console.log("publicationId:", publicationId);
+    console.log("comentario:", comentario);
+    try {
+      const response = await fetch(`${API_URL}/comentario`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId, publicationId, comentario }),
+      });
+      const data = await response.json();
+      // Manejar la respuesta del servidor (mostrar mensaje de éxito/error, actualizar la interfaz, etc.)
+      console.log(data.message);
+    } catch (error) {
+      console.error('Error al agregar comentario:', error);
+    }
+  };
+  const verComentarios = async (publicationId) => {
+    try {
+      const response = await fetch(`${API_URL}/vercomentario/${publicationId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  console.log('respose de comentarios',response);
+      if (!response.ok) {
+        throw new Error('Error al obtener los comentarios');
+      }
+  
+      const data = await response.json();
+      setVerComentario(data);
+    } catch (error) {
+      console.error('Error al obtener los comentarios:', error.message);
+    }
+  }
+  
 
 
   return (
@@ -212,9 +253,18 @@ const UsuarioDePublicacion = () => {
                   <p>{publicacion.likes.length}</p>
                 </button>
 
-                  <button type="" className="boton-responder">
-                    Comentar
-                  </button>
+                <div>
+                  <label htmlFor="comment">Comment: </label>
+                  <input type="text" style={{color:'black'}} name='comment' value={nuevoComentario} onChange={(e) => setNuevoComentario(e.target.value)} />
+                </div>
+                {console.log("ide el profesiona de comen", publicacion.profesionalId)}
+                <button type="" className="boton-responder" onClick={() => agregarComentario(publicacion?.profesionalId, publicacion?._id, nuevoComentario)}>
+                  Comentar
+                </button>
+                <button className="boton-responder"
+                onClick={()=> verComentarios(publicacion?._id)}
+                 >ver</button>
+                <div><p>{verComentario.respuesta}</p></div>
                 </div>
               </div>
             ))}

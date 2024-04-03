@@ -406,6 +406,9 @@ const UserProfile = () => {
   };
 
   const agregarComentario = async (userId, publicationId, comentario) => {
+    console.log("userId:", userId);
+    console.log("publicationId:", publicationId);
+    console.log("comentario:", comentario);
     try {
       const response = await fetch(`${API_URL}/comentario`, {
         method: 'POST',
@@ -421,7 +424,7 @@ const UserProfile = () => {
       console.error('Error al agregar comentario:', error);
     }
   };
-  
+
   const eliminarComentario = async (userId, publicationId, comentarioId) => {
     try {
       const response = await fetch(`${API_URL}/comentario`, {
@@ -438,7 +441,7 @@ const UserProfile = () => {
       console.error('Error al eliminar comentario:', error);
     }
   };
-  
+
   const editarComentario = async (userId, publicationId, comentarioId, nuevoComentario) => {
     try {
       const response = await fetch(`${API_URL}/comentario`, {
@@ -456,6 +459,7 @@ const UserProfile = () => {
     }
   };
   
+
   //ELIMINAR PUBLICACION 
   const deleteHandler = async (idPublicacion) => {
     try {
@@ -696,60 +700,53 @@ const UserProfile = () => {
             </div>
           </form>
         </div>) : null}
-
-
         {/* {puplicaiones personales} */}
-
-        return (
-    <div className='publicacion-cometario'>
-        {publicaciones.map((publicacion, index) => (
+        <div className='publicacion-cometario'>
+          {publicaciones.map((publicacion, index) => (
             <div className="publicacion-realizada" key={index}>
-                <div className="usuario-publico">
-                    <div className="avatar">
-                        <img src={downloadURL || 'https://static.vecteezy.com/system/resources/previews/003/337/584/large_2x/default-avatar-photo-placeholder-profile-icon-vector.jpg'} alt="img" />
-                    </div>
-                    <div className="contenido-publicacion">
-                        <div>
-                            <h4>{auth.getUser()?.name}</h4>
-                            <button onClick={() => { modalHandler(true, publicacion?.image, publicacion?.id, publicacion?.description, publicacion?.name) }} className='btn-modal'>Ver</button>
-                        </div>
-                        <ul style={{ paddingTop: 4 }}>
-                            <li>Hace {getTimeElapsed(publicacion.createdAt)}</li>
-                        </ul>
-                    </div>
-                    <div className="menu-comentario">
-                        <FontAwesomeIcon icon={faPen} />
-                        <ul className="menu">
-                            <button className=''>Editar</button>
-                            <button className='' onClick={() => eliminarComentario(publicacion.id)}>Eliminar</button>
-                        </ul>
-                    </div>
+              <div className="usuario-publico">
+                <div className="avatar">
+                  <img src={downloadURL || 'https://static.vecteezy.com/system/resources/previews/003/337/584/large_2x/default-avatar-photo-placeholder-profile-icon-vector.jpg'} alt="img" />
                 </div>
-                <p className='descripcion'>{publicacion.description}</p>
-                <div className="archivo-publicado py-6">
-                    <img src={publicacion.image} />
+                <div className="contenido-publicacion">
+                  <div>
+                    <h4>{auth.getUser()?.name}</h4>
+                    <button onClick={() => { modalHandler(true, publicacion?.image, publicacion?.id, publicacion?.description, publicacion?.name) }} className='btn-modal'>Ver</button>
+                  </div>
+                  <ul style={{ paddingTop: 4 }}>
+                    <li>Hace {getTimeElapsed(publicacion.createdAt)}</li>
+                  </ul>
                 </div>
-                <div className="botones-comentario">
-                    <button type="" className="boton-puntuar">
-                        <FontAwesomeIcon icon={faThumbsUp} />
-                        <p>{publicacion.likes}</p>
-                    </button>
-                    <div>
-                        <label htmlFor="comment">Comment: </label>
-                        <input type="text" name='comment' value={nuevoComentario} onChange={(e) => setNuevoComentario(e.target.value)} />
-                    </div>
-                    <button type="" className="boton-responder" onClick={() => agregarComentario(publicacion.id, nuevoComentario)}>
-                        Comentar
-                    </button>
+                <div className="menu-comentario">
+                  <FontAwesomeIcon icon={faPen} />
+                  <ul className="menu">
+                    <button className=''>Editar</button>
+                    <button className='' onClick={() => eliminarComentario(publicacion.id)}>Eliminar</button>
+                  </ul>
+                </div>
+              </div>
+              <p className='descripcion'>{publicacion.description}</p>
+              <div className="archivo-publicado py-6">
+                <img src={publicacion.image} />
+              </div>
+              <div className="botones-comentario">
+                <button type="" className="boton-puntuar">
+                  <FontAwesomeIcon icon={faThumbsUp} />
+                  <p>{publicacion.likes}</p>
+                </button>
+                <div>
+                  <label htmlFor="comment">Comment: </label>
+                  <input type="text" style={{color:'black'}} name='comment' value={nuevoComentario} onChange={(e) => setNuevoComentario(e.target.value)} />
+                </div>
+                {console.log("ide el profesiona de comen", publicacion.profesionalId)}
+                <button type="" className="boton-responder" onClick={() => agregarComentario(publicacion?.profesionalId, publicacion?.id, nuevoComentario)}>
+                  Comentar
+                </button>
 
-                </div>
+              </div>
             </div>
-        ))}
-    </div>
-);
-
-
-
+          ))}
+        </div>
 
         <div style={{ height: 50 }}></div>
         {/* todas las publicaciones */}
@@ -807,19 +804,20 @@ const UserProfile = () => {
                     <FontAwesomeIcon icon={faThumbsUp} />
                     <p>{publicacion.likes}</p>
                   </button>
-                  
-                  <div> 
+
+                  <div>
                     <div></div>
-                    <h1 style={{color:'white'}}>HOKLA</h1>
-                    <label htmlFor="comment"></label>
-                    <input type="text" name='comment' />
+                    <h1 style={{ color: 'white' }}>HOKLA</h1>
+                    <label htmlFor="comment">Comment: </label>
+                  <input type="text" style={{color:'black'}} name='comment' value={nuevoComentario} onChange={(e) => setNuevoComentario(e.target.value)} />
                     <button
-                    type=""
-                    className="text-white font-semibold w-fit px-6 py-3 my-2 flex items-center rounded-md bg-gradient-to-t from-blue-600 cursor-pointer mx-auto md:mx-0 p-3 rounded-md"
-                  >
-                    Comentar
-                  </button>
-                  <h1 style={{color:'white'}}>hola</h1>
+                      type=""
+                      className="text-white font-semibold w-fit px-6 py-3 my-2 flex items-center rounded-md bg-gradient-to-t from-blue-600 cursor-pointer mx-auto md:mx-0 p-3 rounded-md"
+                      onClick={() => agregarComentario(publicacion?.profesionalId, publicacion?.id, nuevoComentario)}
+                    >
+                      Comentar
+                    </button>
+                    <h1 style={{ color: 'white' }}>hola</h1>
                   </div>
                 </div>
 

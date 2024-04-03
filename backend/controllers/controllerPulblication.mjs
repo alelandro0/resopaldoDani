@@ -57,7 +57,8 @@ export const getPublication = async (req, res) => {
             image: pub.image,
             description: pub.description,
             createdAt: pub.createdAt,
-            likes:pub.likes.length
+            likes:pub.likes.length,
+            profesionalId:pub.profesionalId,
         }));
 
         

@@ -30,6 +30,7 @@ import { router as buscar } from './routes/buscarUser.mjs';
 import { router as like } from './routes/likes.mjs';
 import { router as dislike } from './routes/Dislike.mjs';
 import { router as comentarioRouter } from './routes/comentario.mjs';
+import { router as verCometario } from './routes/mostrarComentario.mjs'
 
 dotenv.config();
 const expressPort = process.env.PORT || 5000;
@@ -82,6 +83,7 @@ app.use('/api/profileSearch', buscar);
 app.use('/api/likes', like);
 app.use('/api/dislikes', dislike);
 app.use('/api/comentario', comentarioRouter);
+app.use('/api/vercomentario',verCometario)
 
 server.listen(expressPort, () => {
     console.log(`El servidor de Express se está ejecutando en el puerto: ${expressPort}`);
